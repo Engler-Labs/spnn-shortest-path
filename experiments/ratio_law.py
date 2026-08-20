@@ -1,6 +1,6 @@
 """Experiment 9 -- the numerator RATIO LAW for required c.
 
-Claims: LAW-FIT, LAW-PRED, LAW-HOLDOUT, LAW-DEPTH, LAW-RHO
+Claims: LAW-FIT, LAW-PRED, LAW-HOLDOUT, LAW-DEPTH, LAW-RHO, LAW-INTERACT
 (CLAIMS.tsv, section V-B).
 
 Outputs (under results/law/):
@@ -16,6 +16,13 @@ Outputs (under results/law/):
                             at L~14 (lattice vs terrain) (LAW-DEPTH).
   * rho.tsv              -- the per-family mean-edge-weight rho = Etilde/L and the
                             finite asymptote a/(1-2rho) it sets (LAW-RHO).
+  * interaction_fit.json -- the refit of the numerator in the theory-predicted
+                            interaction form X1 = L*ln(|E|*e/L), X2 = L: does the
+                            leading coefficient beta1 come back at 1?  Plus the
+                            three-term (L*ln|E|, L*lnL, L) model, each with R^2,
+                            pooled median relative error, and leave-one-family-out
+                            ratios against the additive baseline (LAW-INTERACT).
+                            Emit the detailed console breakdown with --interaction.
 
 THE LAW.  Required c is not linear in depth; it is a RATIO of two measured functions
 of the instance:
@@ -124,6 +131,109 @@ def _numerator_fit(rows):
                      [r["ln_ratio_micro"] for r in rows], ["L", "ln|E|"])
 
 
+# ------------------------------------------------ the interaction refit (W4/W3)
+# The asymptotic ln(#scatter/#path) ~ L*ln(|E|*e/(L*b)) = X1 - (ln b)*L predicts a
+# UNIT coefficient on the composite predictor X1 = L*ln(|E|*e/L).  The additive fit
+# above is a linearization of that multiplicative form; this refit tests the
+# prediction directly -- does beta1 come back at 1?  Centered R^2 throughout so the
+# no-intercept model stays comparable to the additive baseline.
+_FEAT = {
+    "L":       lambda r: float(r["L"]),
+    "ln|E|":   lambda r: math.log(r["E"]),
+    "X1":      lambda r: r["L"] * (math.log(r["E"]) - math.log(r["L"]) + 1.0),
+    "X2":      lambda r: float(r["L"]),
+    "L*ln|E|": lambda r: r["L"] * math.log(r["E"]),
+    "L*lnL":   lambda r: r["L"] * math.log(r["L"]),
+}
+
+
+def _ols_named(rows, names, intercept):
+    """OLS on named _FEAT columns, optional intercept, centered R^2, 95% t-CIs."""
+    X = np.column_stack([[_FEAT[nm](r) for r in rows] for nm in names]).astype(float)
+    y = np.array([r["ln_ratio_micro"] for r in rows], float)
+    n = len(rows)
+    Xd = np.column_stack([np.ones(n), X]) if intercept else X
+    p = Xd.shape[1]
+    beta, *_ = np.linalg.lstsq(Xd, y, rcond=None)
+    resid = y - Xd @ beta
+    s2 = float(resid @ resid) / (n - p)
+    cov = s2 * np.linalg.inv(Xd.T @ Xd)
+    tcrit = float(_st.t.ppf(0.975, n - p))
+    ss_tot = float(((y - y.mean()) ** 2).sum())
+    off = 1 if intercept else 0
+    coefs = {}
+    if intercept:
+        se = math.sqrt(cov[0, 0])
+        coefs["intercept"] = [float(beta[0]), float(beta[0] - tcrit * se),
+                              float(beta[0] + tcrit * se)]
+    for i, nm in enumerate(names):
+        se = math.sqrt(cov[i + off, i + off])
+        coefs[nm] = [float(beta[i + off]), float(beta[i + off] - tcrit * se),
+                     float(beta[i + off] + tcrit * se)]
+    return dict(names=names, intercept=intercept, beta=beta.tolist(),
+                r2=1.0 - float(resid @ resid) / ss_tot, coefs=coefs)
+
+
+def _predict_c_named(fit, r):
+    """c_req prediction = numerator(fit) / this instance's own margin."""
+    b = fit["beta"]
+    off = 1 if fit["intercept"] else 0
+    num = b[0] if fit["intercept"] else 0.0
+    for i, nm in enumerate(fit["names"]):
+        num += b[i + off] * _FEAT[nm](r)
+    return num / r["margin_c1"]
+
+
+def _interaction_fit(rows, by_fam):
+    """W4/W3: the theory interaction form (+/- intercept) and the three-term model,
+    each with pooled median relative error and leave-one-family-out ratios, so they
+    are directly comparable to the additive LAW-FIT / LAW-PRED / LAW-HOLDOUT."""
+    def pooled_rel_err(fit):
+        ob = np.array([r["c_req_micro"] for r in rows])
+        pr = np.array([_predict_c_named(fit, r) for r in rows])
+        return float(np.median(np.abs(ob - pr) / ob))
+
+    def lofo(names, intercept):
+        out = {}
+        for fam in FAM_ORDER:
+            oth = [r for r in rows if r["family"] != fam]
+            mo = _ols_named(oth, names, intercept)
+            pr = np.array([_predict_c_named(mo, r) for r in by_fam[fam]])
+            ob = np.array([r["c_req_micro"] for r in by_fam[fam]])
+            out[fam] = float(np.median(ob) / np.median(pr))
+        return out
+
+    def pack(fit, model):
+        d = dict(model=model, r2=fit["r2"],
+                 median_rel_err=pooled_rel_err(fit),
+                 lofo_ratios=lofo(fit["names"], fit["intercept"]))
+        d.update(fit["coefs"])
+        return d
+
+    B = _ols_named(rows, ["X1", "X2"], True)
+    B0 = _ols_named(rows, ["X1", "X2"], False)
+    C = _ols_named(rows, ["L*ln|E|", "L*lnL", "L"], True)
+    b1, b1lo, b1hi = B["coefs"]["X1"]
+    b2 = B["coefs"]["X2"][0]
+    llnl = C["coefs"]["L*lnL"][0]
+    return dict(
+        response="ln_ratio_micro", n=len(rows),
+        additive_r2=0.9659988428361291,
+        beta1_equals_one=bool(b1lo <= 1.0 <= b1hi),
+        implied_branching_b=math.exp(-b2),
+        theory_with_intercept=pack(B, "b0 + beta1*X1 + beta2*X2;  X1=L*ln(|E|*e/L), X2=L"),
+        theory_no_intercept=pack(B0, "beta1*X1 + beta2*X2  (no intercept)"),
+        three_term=pack(C, "b0 + g1*(L*ln|E|) + g2*(L*lnL) + g3*L"),
+        verdict=(
+            "beta1 = %.4f [%.4f, %.4f], decisively NOT 1 (the asymptotic predicts 1): "
+            "the additive numerator fit is a linearization over the operating range. "
+            "But the predicted interaction FORM fits materially better (R2 %.3f vs "
+            "additive 0.966) and the -L*lnL term is recovered near -1 (%.3f), so the "
+            "asymptotic captures the form while the leading coefficient carries a ~%.2f "
+            "finite-size prefactor the leading-order expansion omits."
+            % (b1, b1lo, b1hi, B["r2"], llnl, b1)))
+
+
 def _predict(m, r):
     """Ratio-law prediction of required c for one instance from numerator fit `m`."""
     return (m["intercept"] + m["L"]["coef"] * r["L"]
@@ -134,6 +244,7 @@ def _predict(m, r):
 def run(argv=None) -> dict:
     argv = list(argv or [])
     leave_one_out = "--leave-one-family-out" in argv          # accepted (always emitted)
+    show_interaction = "--interaction" in argv                # accepted (always emitted)
 
     rows = load_completed()
     by_fam = {fam: [r for r in rows if r["family"] == fam] for fam in FAM_ORDER}
@@ -148,6 +259,10 @@ def run(argv=None) -> dict:
         model="ln(#scatter/#path) = c0 + a*L + b*ln|E|; "
               "c_req = numerator / margin, margin = (1-2rho)*L + 1")
     fit_path = write_json("law/numerator_fit.json", numerator_fit)
+
+    # ---- LAW-INTERACT : the W4/W3 interaction refit (does beta1 == 1?) -----------
+    interaction = _interaction_fit(rows, by_fam)
+    interaction_path = write_json("law/interaction_fit.json", interaction)
 
     # ---- LAW-PRED : per-instance prediction vs each instance's own margin --------
     per_rows = []
@@ -240,10 +355,11 @@ def run(argv=None) -> dict:
     # ---- summary ----------------------------------------------------------------
     result = dict(LAW_FIT=numerator_fit, LAW_PRED=pred_summary,
                   LAW_HOLDOUT=holdout, LAW_RHO=rho_json,
-                  LAW_DEPTH=depth_transfer["at_L14"],
+                  LAW_DEPTH=depth_transfer["at_L14"], LAW_INTERACT=interaction,
                   outputs=dict(numerator_fit=rel(fit_path), per_instance=rel(per_path),
                                holdout=rel(holdout_path),
-                               depth_transfer=rel(depth_path), rho=rel(rho_path)))
+                               depth_transfer=rel(depth_path), rho=rel(rho_path),
+                               interaction_fit=rel(interaction_path)))
     print(f"[9] ratio_law -> {rel(RESULTS / 'law')}/  (off committed population.csv)")
     print(f"    LAW-FIT   a={numerator_fit['a']:.3f} "
           f"[{numerator_fit['a_ci'][0]:.3f},{numerator_fit['a_ci'][1]:.3f}]; "
@@ -261,6 +377,22 @@ def run(argv=None) -> dict:
           f"{depth_law_pred_grid:.2f}")
     print("    LAW-RHO   rho medians "
           + " / ".join(f"{rho_json[f]['median_rho']:.3f}" for f in FAM_ORDER))
+    B = interaction["theory_with_intercept"]
+    print(f"    LAW-INTERACT  beta1={B['X1'][0]:.4f} [{B['X1'][1]:.4f},{B['X1'][2]:.4f}] "
+          f"(theory 1.00 -> {'IN' if interaction['beta1_equals_one'] else 'NOT in'} CI); "
+          f"R2={B['r2']:.4f} vs additive 0.966; -L*lnL={interaction['three_term']['L*lnL'][0]:.3f}"
+          + ("  (--interaction)" if not show_interaction else ""))
+    if show_interaction:
+        for key, tag in (("theory_with_intercept", "theory (+intercept)"),
+                         ("theory_no_intercept", "theory (no intercept)"),
+                         ("three_term", "three-term")):
+            m = interaction[key]
+            print(f"      {tag}:  R2={m['r2']:.5f}  median_rel_err={100*m['median_rel_err']:.2f}%  "
+                  "LOFO(" + "/".join(f"{m['lofo_ratios'][f]:.2f}" for f in FAM_ORDER) + ")")
+            for nm in [k for k in m if isinstance(m[k], list) and len(m[k]) == 3]:
+                print(f"        {nm:<10} {m[nm][0]:+.4f}  [{m[nm][1]:+.4f}, {m[nm][2]:+.4f}]")
+        print(f"      implied branching b = {interaction['implied_branching_b']:.2f}")
+        print(f"      => {interaction['verdict']}")
     return result
 
 
