@@ -1,0 +1,37 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it using the metadata below."
+title: "spnn-shortest-path: stochastic spiking networks for shortest-path computation"
+abstract: >-
+  Reference implementation, data, and figures for the paper on stochastic spiking
+  neural networks for shortest-path computation. A weighted graph is compiled into
+  winner-take-all neuron clusters whose Boltzmann energy minima coincide with
+  shortest paths and run as a discrete-time Boltzmann sampler at O(|E|) cost per step.
+type: software
+authors:
+  - family-names: Engler
+    given-names: Gary R.
+# Dual-licensed (see LICENSE): MIT for the code, CC BY 4.0 for the data
+# (contents of instances/ and results/). The single Zenodo DOI below archives
+# and is cited for both the code and the data.
+license:
+  - MIT
+  - CC-BY-4.0
+keywords:
+  - shortest-path
+  - spiking-neural-network
+  - boltzmann-machine
+  - stochastic-neural-algorithms
+# --- filled in at release: cite the tagged/archived version, never `main` ---
+# version: v1.0.0
+# date-released: YYYY-MM-DD
+# doi: 10.5281/zenodo.XXXXXXX          # Zenodo archive of the tagged release
+# repository-code: "https://github.com/…/spnn-shortest-path/tree/v1.0.0"
+# The accompanying paper's DOI goes in `preferred-citation` below.
+# preferred-citation:
+#   type: article
+#   title: "…"
+#   authors:
+#     - family-names: Engler
+#       given-names: Gary R.
+#   doi: 10.XXXX/XXXXXX
+#   year: 2026

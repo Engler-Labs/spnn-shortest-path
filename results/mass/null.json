@@ -1,0 +1,33 @@
+{
+  "MR_ACT": {
+    "N": 12,
+    "mean_activity_max": 43.514,
+    "mean_activity_min": 24.993,
+    "two_N": 24
+  },
+  "MR_NULL": {
+    "band_frac": 1.4768285873813511e-05,
+    "band_steps_total": 2116,
+    "mass_closed_total": 0,
+    "mass_identically_zero": true,
+    "mass_mixed_total": 1,
+    "mass_path_total": 0,
+    "mass_scatter_total": 0,
+    "matched_shell_steps_total": 95,
+    "n_units": 72,
+    "network": "variant (unaugmented)",
+    "steps_scored_total": 143280000
+  },
+  "design": {
+    "D": 4.0,
+    "N": 12,
+    "band_halfwidth": 2,
+    "c": 2.0,
+    "inhib": "off",
+    "irm": "off",
+    "lam": 0.0,
+    "source_csv": "results/mass/mass_ratio_pilot_by_unit.csv",
+    "st_mode": "always_on",
+    "tau": 10
+  }
+}

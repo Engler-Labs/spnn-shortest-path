@@ -1,0 +1,22 @@
+{
+  "censored": 53,
+  "claim": "CNT-49",
+  "claim_text": "49 of 1,080 would have been silently wrong",
+  "completed": 1027,
+  "definition": "silently-wrong = legacy_dig96_exact False (largest matching coefficient >= 2^96, so the old fixed 96-bit field would carry and mask it DOWNWARD) AND status ok (the instance completed, so the masked -- too-small -- #scatter WOULD have been returned).",
+  "expected_silently_wrong": 49,
+  "legacy_exact_completed": 978,
+  "matches": true,
+  "population_total": 1080,
+  "provenance": "stage-28 required-c population sweep, chunks A/B/C; per-row max_coeff_bits + legacy verdict persisted per instance (CNT-HEAD). Read from the canonical results/creq/population.csv when present, else the self-contained results/counts/legacy_width_population.tsv",
+  "silently_wrong": 49,
+  "silently_wrong_by_cell": {
+    "grid_12": 40,
+    "mtn_knn_140": 9
+  },
+  "source": "creq/population.csv",
+  "state": "built",
+  "tier": 2,
+  "would_overflow_but_censored": 18,
+  "would_overflow_total": 67
+}

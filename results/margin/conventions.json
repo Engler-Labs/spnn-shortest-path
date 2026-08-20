@@ -1,0 +1,41 @@
+{
+  "instance": {
+    "B": 1.9863717555999756,
+    "Etilde": 0.2762668238051115,
+    "L": 8,
+    "generator": "random_graph(60, 0.05, seed=19)",
+    "margin_at_c1": 8.447466352389776,
+    "matched_size_k": 10,
+    "source": 0,
+    "target": 59
+  },
+  "matching": {
+    "per_edge_multiplicity": 4,
+    "per_matching_multiplicity_4^k": 1048576
+  },
+  "microstate_ratio": {
+    "ratio_4^k_over_2^(L+1)": 2048,
+    "ratio_nats": 7.6246189861593985
+  },
+  "path": {
+    "n_path_edge": 1754,
+    "path_micro": 898048,
+    "path_multiplicity_2^(L+1)": 512
+  },
+  "required_c": {
+    "delta_micro_minus_edge": 0.8917443398489548,
+    "edge_convention": 2.8076843374499383,
+    "ln_ratio_edge_nats": 23.717818968740136,
+    "ln_ratio_micro_nats": 31.250799274548214,
+    "microstate_convention": 3.699428677298893
+  },
+  "scatter_counts": {
+    "N0": 29029487361552,
+    "N1": 5754844936987,
+    "N2": 254327786111,
+    "edge_aux": 35038660084650,
+    "micro_aux": 33523490385112072192,
+    "old_edge": 505539821427,
+    "old_micro": 33131057737039872
+  }
+}

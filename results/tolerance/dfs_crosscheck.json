@@ -1,0 +1,650 @@
+{
+  "K": 4000,
+  "K_reached_on_all": true,
+  "claim": "TOL-K",
+  "disagreeing": [
+    {
+      "L": 4,
+      "agree": 2,
+      "label": "dense_N80_seed6",
+      "total": 3
+    },
+    {
+      "L": 8,
+      "agree": 1,
+      "label": "mtnknn_N40_seed2",
+      "total": 2
+    },
+    {
+      "L": 7,
+      "agree": 1,
+      "label": "mtnknn_N40_seed5",
+      "total": 2
+    },
+    {
+      "L": 8,
+      "agree": 1,
+      "label": "mtnknn_N40_seed7",
+      "total": 2
+    },
+    {
+      "L": 13,
+      "agree": 2,
+      "label": "mtnknn_N80_seed1",
+      "total": 3
+    },
+    {
+      "L": 13,
+      "agree": 1,
+      "label": "mtnknn_N80_seed2",
+      "total": 2
+    },
+    {
+      "L": 13,
+      "agree": 1,
+      "label": "mtnknn_N80_seed4",
+      "total": 2
+    },
+    {
+      "L": 15,
+      "agree": 1,
+      "label": "mtnknn_N80_seed6",
+      "total": 6
+    },
+    {
+      "L": 14,
+      "agree": 1,
+      "label": "mtnknn_N80_seed8",
+      "total": 4
+    }
+  ],
+  "expected_agree": 147,
+  "expected_total": 162,
+  "matches": true,
+  "n_disagreeing_instances": 9,
+  "n_instances": 72,
+  "note": "every D is an UPPER bound (Yen truncated at K); a stratum disagrees when a lighter path at that hop count lies outside the first K returned.",
+  "per_instance": [
+    {
+      "K_returned": 4000,
+      "L": 3,
+      "family": "sparse",
+      "label": "sparse_N30_seed1",
+      "strata_agree": 1,
+      "strata_total": 1
+    },
+    {
+      "K_returned": 4000,
+      "L": 4,
+      "family": "sparse",
+      "label": "sparse_N30_seed2",
+      "strata_agree": 2,
+      "strata_total": 2
+    },
+    {
+      "K_returned": 4000,
+      "L": 7,
+      "family": "sparse",
+      "label": "sparse_N30_seed3",
+      "strata_agree": 7,
+      "strata_total": 7
+    },
+    {
+      "K_returned": 4000,
+      "L": 8,
+      "family": "sparse",
+      "label": "sparse_N30_seed4",
+      "strata_agree": 5,
+      "strata_total": 5
+    },
+    {
+      "K_returned": 4000,
+      "L": 6,
+      "family": "sparse",
+      "label": "sparse_N30_seed5",
+      "strata_agree": 4,
+      "strata_total": 4
+    },
+    {
+      "K_returned": 4000,
+      "L": 4,
+      "family": "sparse",
+      "label": "sparse_N30_seed6",
+      "strata_agree": 2,
+      "strata_total": 2
+    },
+    {
+      "K_returned": 4000,
+      "L": 3,
+      "family": "sparse",
+      "label": "sparse_N30_seed7",
+      "strata_agree": 2,
+      "strata_total": 2
+    },
+    {
+      "K_returned": 4000,
+      "L": 3,
+      "family": "sparse",
+      "label": "sparse_N30_seed8",
+      "strata_agree": 1,
+      "strata_total": 1
+    },
+    {
+      "K_returned": 4000,
+      "L": 5,
+      "family": "sparse",
+      "label": "sparse_N60_seed1",
+      "strata_agree": 3,
+      "strata_total": 3
+    },
+    {
+      "K_returned": 4000,
+      "L": 7,
+      "family": "sparse",
+      "label": "sparse_N60_seed2",
+      "strata_agree": 4,
+      "strata_total": 4
+    },
+    {
+      "K_returned": 4000,
+      "L": 6,
+      "family": "sparse",
+      "label": "sparse_N60_seed3",
+      "strata_agree": 4,
+      "strata_total": 4
+    },
+    {
+      "K_returned": 4000,
+      "L": 3,
+      "family": "sparse",
+      "label": "sparse_N60_seed4",
+      "strata_agree": 1,
+      "strata_total": 1
+    },
+    {
+      "K_returned": 4000,
+      "L": 5,
+      "family": "sparse",
+      "label": "sparse_N60_seed5",
+      "strata_agree": 2,
+      "strata_total": 2
+    },
+    {
+      "K_returned": 4000,
+      "L": 4,
+      "family": "sparse",
+      "label": "sparse_N60_seed6",
+      "strata_agree": 2,
+      "strata_total": 2
+    },
+    {
+      "K_returned": 4000,
+      "L": 3,
+      "family": "sparse",
+      "label": "sparse_N60_seed7",
+      "strata_agree": 2,
+      "strata_total": 2
+    },
+    {
+      "K_returned": 4000,
+      "L": 3,
+      "family": "sparse",
+      "label": "sparse_N60_seed8",
+      "strata_agree": 1,
+      "strata_total": 1
+    },
+    {
+      "K_returned": 4000,
+      "L": 3,
+      "family": "sparse",
+      "label": "sparse_N100_seed1",
+      "strata_agree": 1,
+      "strata_total": 1
+    },
+    {
+      "K_returned": 4000,
+      "L": 4,
+      "family": "sparse",
+      "label": "sparse_N100_seed2",
+      "strata_agree": 2,
+      "strata_total": 2
+    },
+    {
+      "K_returned": 4000,
+      "L": 6,
+      "family": "sparse",
+      "label": "sparse_N100_seed3",
+      "strata_agree": 4,
+      "strata_total": 4
+    },
+    {
+      "K_returned": 4000,
+      "L": 5,
+      "family": "sparse",
+      "label": "sparse_N100_seed4",
+      "strata_agree": 3,
+      "strata_total": 3
+    },
+    {
+      "K_returned": 4000,
+      "L": 3,
+      "family": "sparse",
+      "label": "sparse_N100_seed5",
+      "strata_agree": 1,
+      "strata_total": 1
+    },
+    {
+      "K_returned": 4000,
+      "L": 6,
+      "family": "sparse",
+      "label": "sparse_N100_seed6",
+      "strata_agree": 3,
+      "strata_total": 3
+    },
+    {
+      "K_returned": 4000,
+      "L": 8,
+      "family": "sparse",
+      "label": "sparse_N100_seed7",
+      "strata_agree": 6,
+      "strata_total": 6
+    },
+    {
+      "K_returned": 4000,
+      "L": 4,
+      "family": "sparse",
+      "label": "sparse_N100_seed8",
+      "strata_agree": 1,
+      "strata_total": 1
+    },
+    {
+      "K_returned": 4000,
+      "L": 4,
+      "family": "dense",
+      "label": "dense_N40_seed1",
+      "strata_agree": 3,
+      "strata_total": 3
+    },
+    {
+      "K_returned": 4000,
+      "L": 3,
+      "family": "dense",
+      "label": "dense_N40_seed2",
+      "strata_agree": 2,
+      "strata_total": 2
+    },
+    {
+      "K_returned": 4000,
+      "L": 3,
+      "family": "dense",
+      "label": "dense_N40_seed3",
+      "strata_agree": 1,
+      "strata_total": 1
+    },
+    {
+      "K_returned": 4000,
+      "L": 3,
+      "family": "dense",
+      "label": "dense_N40_seed4",
+      "strata_agree": 2,
+      "strata_total": 2
+    },
+    {
+      "K_returned": 4000,
+      "L": 3,
+      "family": "dense",
+      "label": "dense_N40_seed5",
+      "strata_agree": 2,
+      "strata_total": 2
+    },
+    {
+      "K_returned": 4000,
+      "L": 4,
+      "family": "dense",
+      "label": "dense_N40_seed6",
+      "strata_agree": 3,
+      "strata_total": 3
+    },
+    {
+      "K_returned": 4000,
+      "L": 5,
+      "family": "dense",
+      "label": "dense_N40_seed7",
+      "strata_agree": 4,
+      "strata_total": 4
+    },
+    {
+      "K_returned": 4000,
+      "L": 4,
+      "family": "dense",
+      "label": "dense_N40_seed8",
+      "strata_agree": 3,
+      "strata_total": 3
+    },
+    {
+      "K_returned": 4000,
+      "L": 4,
+      "family": "dense",
+      "label": "dense_N80_seed1",
+      "strata_agree": 3,
+      "strata_total": 3
+    },
+    {
+      "K_returned": 4000,
+      "L": 5,
+      "family": "dense",
+      "label": "dense_N80_seed2",
+      "strata_agree": 3,
+      "strata_total": 3
+    },
+    {
+      "K_returned": 4000,
+      "L": 6,
+      "family": "dense",
+      "label": "dense_N80_seed3",
+      "strata_agree": 4,
+      "strata_total": 4
+    },
+    {
+      "K_returned": 4000,
+      "L": 8,
+      "family": "dense",
+      "label": "dense_N80_seed4",
+      "strata_agree": 6,
+      "strata_total": 6
+    },
+    {
+      "K_returned": 4000,
+      "L": 5,
+      "family": "dense",
+      "label": "dense_N80_seed5",
+      "strata_agree": 4,
+      "strata_total": 4
+    },
+    {
+      "K_returned": 4000,
+      "L": 4,
+      "family": "dense",
+      "label": "dense_N80_seed6",
+      "strata_agree": 2,
+      "strata_total": 3
+    },
+    {
+      "K_returned": 4000,
+      "L": 4,
+      "family": "dense",
+      "label": "dense_N80_seed7",
+      "strata_agree": 3,
+      "strata_total": 3
+    },
+    {
+      "K_returned": 4000,
+      "L": 3,
+      "family": "dense",
+      "label": "dense_N80_seed8",
+      "strata_agree": 2,
+      "strata_total": 2
+    },
+    {
+      "K_returned": 4000,
+      "L": 8,
+      "family": "grid",
+      "label": "grid_k5_N25_seed1",
+      "strata_agree": 1,
+      "strata_total": 1
+    },
+    {
+      "K_returned": 4000,
+      "L": 8,
+      "family": "grid",
+      "label": "grid_k5_N25_seed2",
+      "strata_agree": 1,
+      "strata_total": 1
+    },
+    {
+      "K_returned": 4000,
+      "L": 8,
+      "family": "grid",
+      "label": "grid_k5_N25_seed3",
+      "strata_agree": 1,
+      "strata_total": 1
+    },
+    {
+      "K_returned": 4000,
+      "L": 8,
+      "family": "grid",
+      "label": "grid_k5_N25_seed4",
+      "strata_agree": 1,
+      "strata_total": 1
+    },
+    {
+      "K_returned": 4000,
+      "L": 8,
+      "family": "grid",
+      "label": "grid_k5_N25_seed5",
+      "strata_agree": 1,
+      "strata_total": 1
+    },
+    {
+      "K_returned": 4000,
+      "L": 8,
+      "family": "grid",
+      "label": "grid_k5_N25_seed6",
+      "strata_agree": 1,
+      "strata_total": 1
+    },
+    {
+      "K_returned": 4000,
+      "L": 8,
+      "family": "grid",
+      "label": "grid_k5_N25_seed7",
+      "strata_agree": 1,
+      "strata_total": 1
+    },
+    {
+      "K_returned": 4000,
+      "L": 8,
+      "family": "grid",
+      "label": "grid_k5_N25_seed8",
+      "strata_agree": 1,
+      "strata_total": 1
+    },
+    {
+      "K_returned": 4000,
+      "L": 14,
+      "family": "grid",
+      "label": "grid_k8_N64_seed1",
+      "strata_agree": 1,
+      "strata_total": 1
+    },
+    {
+      "K_returned": 4000,
+      "L": 14,
+      "family": "grid",
+      "label": "grid_k8_N64_seed2",
+      "strata_agree": 1,
+      "strata_total": 1
+    },
+    {
+      "K_returned": 4000,
+      "L": 14,
+      "family": "grid",
+      "label": "grid_k8_N64_seed3",
+      "strata_agree": 1,
+      "strata_total": 1
+    },
+    {
+      "K_returned": 4000,
+      "L": 14,
+      "family": "grid",
+      "label": "grid_k8_N64_seed4",
+      "strata_agree": 1,
+      "strata_total": 1
+    },
+    {
+      "K_returned": 4000,
+      "L": 14,
+      "family": "grid",
+      "label": "grid_k8_N64_seed5",
+      "strata_agree": 1,
+      "strata_total": 1
+    },
+    {
+      "K_returned": 4000,
+      "L": 14,
+      "family": "grid",
+      "label": "grid_k8_N64_seed6",
+      "strata_agree": 1,
+      "strata_total": 1
+    },
+    {
+      "K_returned": 4000,
+      "L": 14,
+      "family": "grid",
+      "label": "grid_k8_N64_seed7",
+      "strata_agree": 1,
+      "strata_total": 1
+    },
+    {
+      "K_returned": 4000,
+      "L": 14,
+      "family": "grid",
+      "label": "grid_k8_N64_seed8",
+      "strata_agree": 1,
+      "strata_total": 1
+    },
+    {
+      "K_returned": 4000,
+      "L": 7,
+      "family": "mtn_knn",
+      "label": "mtnknn_N40_seed1",
+      "strata_agree": 1,
+      "strata_total": 1
+    },
+    {
+      "K_returned": 4000,
+      "L": 8,
+      "family": "mtn_knn",
+      "label": "mtnknn_N40_seed2",
+      "strata_agree": 1,
+      "strata_total": 2
+    },
+    {
+      "K_returned": 4000,
+      "L": 7,
+      "family": "mtn_knn",
+      "label": "mtnknn_N40_seed3",
+      "strata_agree": 1,
+      "strata_total": 1
+    },
+    {
+      "K_returned": 4000,
+      "L": 9,
+      "family": "mtn_knn",
+      "label": "mtnknn_N40_seed4",
+      "strata_agree": 3,
+      "strata_total": 3
+    },
+    {
+      "K_returned": 4000,
+      "L": 7,
+      "family": "mtn_knn",
+      "label": "mtnknn_N40_seed5",
+      "strata_agree": 1,
+      "strata_total": 2
+    },
+    {
+      "K_returned": 4000,
+      "L": 8,
+      "family": "mtn_knn",
+      "label": "mtnknn_N40_seed6",
+      "strata_agree": 1,
+      "strata_total": 1
+    },
+    {
+      "K_returned": 4000,
+      "L": 8,
+      "family": "mtn_knn",
+      "label": "mtnknn_N40_seed7",
+      "strata_agree": 1,
+      "strata_total": 2
+    },
+    {
+      "K_returned": 4000,
+      "L": 7,
+      "family": "mtn_knn",
+      "label": "mtnknn_N40_seed8",
+      "strata_agree": 2,
+      "strata_total": 2
+    },
+    {
+      "K_returned": 4000,
+      "L": 13,
+      "family": "mtn_knn",
+      "label": "mtnknn_N80_seed1",
+      "strata_agree": 2,
+      "strata_total": 3
+    },
+    {
+      "K_returned": 4000,
+      "L": 13,
+      "family": "mtn_knn",
+      "label": "mtnknn_N80_seed2",
+      "strata_agree": 1,
+      "strata_total": 2
+    },
+    {
+      "K_returned": 4000,
+      "L": 12,
+      "family": "mtn_knn",
+      "label": "mtnknn_N80_seed3",
+      "strata_agree": 1,
+      "strata_total": 1
+    },
+    {
+      "K_returned": 4000,
+      "L": 13,
+      "family": "mtn_knn",
+      "label": "mtnknn_N80_seed4",
+      "strata_agree": 1,
+      "strata_total": 2
+    },
+    {
+      "K_returned": 4000,
+      "L": 13,
+      "family": "mtn_knn",
+      "label": "mtnknn_N80_seed5",
+      "strata_agree": 1,
+      "strata_total": 1
+    },
+    {
+      "K_returned": 4000,
+      "L": 15,
+      "family": "mtn_knn",
+      "label": "mtnknn_N80_seed6",
+      "strata_agree": 1,
+      "strata_total": 6
+    },
+    {
+      "K_returned": 4000,
+      "L": 10,
+      "family": "mtn_knn",
+      "label": "mtnknn_N80_seed7",
+      "strata_agree": 1,
+      "strata_total": 1
+    },
+    {
+      "K_returned": 4000,
+      "L": 14,
+      "family": "mtn_knn",
+      "label": "mtnknn_N80_seed8",
+      "strata_agree": 1,
+      "strata_total": 4
+    }
+  ],
+  "source": "committed results/tolerance/population.csv",
+  "state": "built",
+  "strata_agree": 147,
+  "strata_total": 162,
+  "tier": 2
+}

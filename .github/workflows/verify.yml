@@ -1,0 +1,30 @@
+name: verify
+
+# Tier-1 acceptance: re-derive the deterministic/exact claims from scratch and
+# audit the whole claim table. Tier-2 (seeded/expensive population runs) is NOT
+# run in CI -- it is gated behind --full locally.
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install the spnn library
+        run: pip install -e .
+
+      - name: Run Tier-1 experiments (built + needs-diff)
+        run: python -m experiments all
+
+      - name: Verify Tier-1 claims + audit CLAIMS.tsv
+        # check A/B/C re-derived from scratch, then the CLAIMS.tsv walk:
+        # every row labelled, every `reproduces` row has its committed output.
+        run: python -m verify

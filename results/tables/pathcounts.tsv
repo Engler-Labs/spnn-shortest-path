@@ -1,0 +1,11 @@
+cell	config	derivation	value	expected	match
+active_neurons	path(unaug)	2L	10	10	MATCH
+beta_pairs	path(unaug)	L	5	5	MATCH
+alpha_pairs	path(unaug)	L-1	4	4	MATCH
+gamma_pairs	path(unaug)	0	0	0	MATCH
+E_NC	unaugmented	-lambda*L+c=-5+1	-4.000000	-4.000000	MATCH
+E_SPC	unaugmented	(c/B)*(2*15-1-5)=24/12	2.000000	2.000000	MATCH
+E_NC	augmented[b_st=b_k]	-lambda*(L+2)+c=-7+1	-6.000000	-6.000000	MATCH
+E_SPC	augmented	2c*Etilde=2*(15/12)	2.500000	2.500000	MATCH
+sumsum_alpha_wj+wk	augmented	2*sum(phi)=2*15	30	30	MATCH
+E_NC	augmented[b_st=0]	-lambda*(L+2)+c+2*(b_k-0)=-6-4	-10.000000	-10.000000	MATCH

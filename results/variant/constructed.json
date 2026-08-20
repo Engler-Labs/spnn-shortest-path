@@ -1,0 +1,108 @@
+{
+  "equal_weight": {
+    "B": 8.0,
+    "P1": {
+      "E_N": -0.75,
+      "E_NC": -3.0,
+      "E_SPC": 2.25,
+      "sum_w": 10.0,
+      "weights": [
+        1.0,
+        4.0,
+        4.0,
+        1.0
+      ]
+    },
+    "P2": {
+      "E_N": -1.5,
+      "E_NC": -3.0,
+      "E_SPC": 1.5,
+      "sum_w": 10.0,
+      "weights": [
+        4.0,
+        1.0,
+        1.0,
+        4.0
+      ]
+    },
+    "gap_E_N_P1_minus_P2": 0.75,
+    "name": "equal_weight",
+    "params": {
+      "D": 4.0,
+      "b_k": -2.0,
+      "c": 1.0,
+      "lambda": 1.0
+    }
+  },
+  "inversion": {
+    "B": 10.0,
+    "P1": {
+      "E_N": -1.3799999997019767,
+      "E_NC": -3.0,
+      "E_SPC": 1.6200000002980233,
+      "sum_w": 8.2,
+      "weights": [
+        0.1,
+        4.0,
+        4.0,
+        0.1
+      ]
+    },
+    "P2": {
+      "E_N": -1.9599999994039536,
+      "E_NC": -3.0,
+      "E_SPC": 1.0400000005960464,
+      "sum_w": 10.2,
+      "weights": [
+        5.0,
+        0.1,
+        0.1,
+        5.0
+      ]
+    },
+    "gap_E_N_P1_minus_P2": 0.5799999997019769,
+    "name": "inversion",
+    "params": {
+      "D": 4.0,
+      "b_k": -2.0,
+      "c": 1.0,
+      "lambda": 1.0
+    }
+  },
+  "inversion_c4": {
+    "B": 10.0,
+    "P1": {
+      "E_N": 6.480000001192093,
+      "E_NC": 0.0,
+      "E_SPC": 6.480000001192093,
+      "sum_w": 8.2,
+      "weights": [
+        0.1,
+        4.0,
+        4.0,
+        0.1
+      ]
+    },
+    "P2": {
+      "E_N": 4.160000002384185,
+      "E_NC": 0.0,
+      "E_SPC": 4.160000002384185,
+      "sum_w": 10.2,
+      "weights": [
+        5.0,
+        0.1,
+        0.1,
+        5.0
+      ]
+    },
+    "gap_E_N_P1_minus_P2": 2.3199999988079076,
+    "name": "inversion_c4",
+    "params": {
+      "D": 4.0,
+      "b_k": -3.5,
+      "c": 4.0,
+      "lambda": 1.0
+    }
+  },
+  "note": "P1 charges its weight on interior edges (charged twice under the boundary form); equal-weight pairs split by 0.75 and the lighter path loses the inversion by 0.58 (2.32 at c=4)."
+}

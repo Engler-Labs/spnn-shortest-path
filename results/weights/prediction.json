@@ -1,0 +1,58 @@
+{
+  "WT_ERR": {
+    "median_observed": 11.866308970722754,
+    "median_predicted": 11.572846049277905,
+    "median_relative_error": 0.0754171058966736,
+    "n_instances": 119,
+    "numerator_fit": {
+      "a": 2.288863661768877,
+      "b": 11.566492187192502,
+      "c0": -42.451262975160056,
+      "r2": 0.9659988428361291
+    },
+    "ratio_pred_over_obs": 0.9752692330724829
+  },
+  "WT_MEAS": {
+    "cells": [
+      {
+        "baseline_med_c": 5.01,
+        "med_c_req_micro": 9.763385037877876,
+        "med_rho": 0.35541582140508343,
+        "n": 40,
+        "one_minus_2rho": 0.28916835718983314,
+        "ratio": 1.9487794486782188,
+        "size": 30
+      },
+      {
+        "baseline_med_c": 6.15,
+        "med_c_req_micro": 11.970714967347234,
+        "med_rho": 0.34931331230913965,
+        "n": 40,
+        "one_minus_2rho": 0.3013733753817207,
+        "ratio": 1.9464577182678429,
+        "size": 60
+      },
+      {
+        "baseline_med_c": 7.77,
+        "med_c_req_micro": 14.701838211420931,
+        "med_rho": 0.37466246798588365,
+        "n": 39,
+        "one_minus_2rho": 0.2506750640282327,
+        "ratio": 1.8921284699383438,
+        "size": 100
+      }
+    ],
+    "clears_at_c4": 0,
+    "measured_csv": "results/weights/measured.csv",
+    "n_attempted": 120,
+    "n_instances": 119
+  },
+  "WT_PRED": {
+    "baseline_one_minus_2rho": 0.7624685591780846,
+    "baseline_rho": 0.11876572041095769,
+    "measured_one_minus_2rho_u12": 0.28566928170817507,
+    "measured_rho_u12": 0.35716535914591246,
+    "predicted_one_minus_2rho_u12": 0.29,
+    "predicted_rho_u12": 0.36
+  }
+}

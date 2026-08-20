@@ -1,0 +1,279 @@
+"""Experiment 9 -- the numerator RATIO LAW for required c.
+
+Claims: LAW-FIT, LAW-PRED, LAW-HOLDOUT, LAW-DEPTH, LAW-RHO
+(CLAIMS.tsv, section V-B).
+
+Outputs (under results/law/):
+  * numerator_fit.json   -- the one three-parameter numerator fit over all 1,027
+                            completed instances (LAW-FIT).
+  * per_instance.csv     -- each instance's ratio-law-predicted c vs its own measured
+                            required c, and the pooled/per-family residual summary
+                            (LAW-PRED).
+  * holdout.json         -- leave-one-family-out: numerator fitted on the other three
+                            families, the held-out family predicted out of sample
+                            (LAW-HOLDOUT).
+  * depth_transfer.json  -- the cross-family c-vs-L table and the depth-law transfer
+                            at L~14 (lattice vs terrain) (LAW-DEPTH).
+  * rho.tsv              -- the per-family mean-edge-weight rho = Etilde/L and the
+                            finite asymptote a/(1-2rho) it sets (LAW-RHO).
+
+THE LAW.  Required c is not linear in depth; it is a RATIO of two measured functions
+of the instance:
+
+    c_req(L, |E|) = [ a*L + b*ln|E| + c0 ] / [ (1 - 2*rho)*L + 1 ],
+    rho = Etilde / L  (the path's mean edge weight in units of B = 2*w_max),
+
+because the discrimination margin is  (L+1) - 2*Etilde = (1 - 2*rho)*L + 1  identically.
+The NUMERATOR  ln(#scatter/#path) = c0 + a*L + b*ln|E|  is fitted once (LAW-FIT); every
+prediction below then uses each instance's OWN margin as the denominator -- no per-family
+term anywhere.  This is a Tier-1 experiment: it runs entirely off the committed
+``results/creq/population.csv`` (produced by ``creq_sweep``), so it re-derives from
+scratch in CI.
+
+Origin / provenance.  Extracted from the ratio-law and depth-transfer sections of an
+internal stage-28 analysis harness (deleted from that source tree; read at a specific
+source revision).  Imports repointed at ``spnn``; a thread-pinning entry-point import
+(an OpenBLAS oversubscription guard, a harness concern) is dropped.  ``numpy`` /
+``scipy`` OLS is preserved verbatim so the fitted coefficients and their Student-t
+intervals reproduce exactly.
+"""
+
+from __future__ import annotations
+
+import csv
+import math
+
+import numpy as np
+from scipy import stats as _st
+
+from experiments._base import RESULTS, rel, results_path, write_json, write_tsv
+
+FAM_ORDER = ["sparse", "dense", "grid", "mtn_knn"]
+FAM_LABEL = {"grid": "lattice", "mtn_knn": "terrain",
+             "sparse": "sparse", "dense": "dense"}
+
+
+# --------------------------------------------------------------------------- load
+def load_completed():
+    path = RESULTS / "creq" / "population.csv"
+    if not path.exists():
+        raise FileNotFoundError(
+            f"{path} not found -- run `python -m experiments 8` first (ratio_law runs "
+            f"off the committed population.csv that creq_sweep ships).")
+    rows = []
+    with open(path) as f:
+        for r in csv.DictReader(f):
+            if r["status"] != "ok":
+                continue
+            rows.append(dict(
+                family=r["family"], size=int(r["size"]), seed=int(r["seed"]),
+                L=int(r["L"]), E=int(r["E"]), Etilde=float(r["Etilde"]),
+                margin_c1=float(r["margin_c1"]),
+                ln_ratio_micro=float(r["ln_ratio_micro"]),
+                c_req_micro=float(r["c_req_micro"])))
+    return rows
+
+
+# ---------------------------------------------------- OLS (verbatim from the harness)
+def ols_ci(x, y):
+    """Slope, intercept, 95% CI on the slope, R^2 -- plain OLS, n >= 3."""
+    x = np.asarray(x, float)
+    y = np.asarray(y, float)
+    n = len(x)
+    if n < 3 or np.ptp(x) == 0:
+        return None
+    X = np.column_stack([np.ones(n), x])
+    beta, *_ = np.linalg.lstsq(X, y, rcond=None)
+    resid = y - X @ beta
+    dof = n - 2
+    s2 = float(resid @ resid) / dof
+    cov = s2 * np.linalg.inv(X.T @ X)
+    se = math.sqrt(cov[1, 1])
+    tcrit = float(_st.t.ppf(0.975, dof))
+    ss_tot = float(((y - y.mean()) ** 2).sum())
+    r2 = 1.0 - float(resid @ resid) / ss_tot if ss_tot > 0 else float("nan")
+    return dict(n=n, slope=float(beta[1]), intercept=float(beta[0]),
+                lo=float(beta[1] - tcrit * se), hi=float(beta[1] + tcrit * se),
+                se=se, r2=r2)
+
+
+def multi_ols(X, y, names):
+    X = np.asarray(X, float)
+    y = np.asarray(y, float)
+    n, p = X.shape
+    Xd = np.column_stack([np.ones(n), X])
+    beta, *_ = np.linalg.lstsq(Xd, y, rcond=None)
+    resid = y - Xd @ beta
+    dof = n - p - 1
+    s2 = float(resid @ resid) / dof
+    cov = s2 * np.linalg.inv(Xd.T @ Xd)
+    tcrit = float(_st.t.ppf(0.975, dof))
+    ss_tot = float(((y - y.mean()) ** 2).sum())
+    out = dict(n=n, r2=1.0 - float(resid @ resid) / ss_tot, intercept=float(beta[0]))
+    for i, nm in enumerate(names):
+        se = math.sqrt(cov[i + 1, i + 1])
+        out[nm] = dict(coef=float(beta[i + 1]), lo=float(beta[i + 1] - tcrit * se),
+                       hi=float(beta[i + 1] + tcrit * se), se=se)
+    return out
+
+
+def _numerator_fit(rows):
+    """Fit ln(#scatter/#path) = c0 + a*L + b*ln|E| over `rows`."""
+    return multi_ols(np.column_stack([[r["L"] for r in rows],
+                                      [math.log(r["E"]) for r in rows]]),
+                     [r["ln_ratio_micro"] for r in rows], ["L", "ln|E|"])
+
+
+def _predict(m, r):
+    """Ratio-law prediction of required c for one instance from numerator fit `m`."""
+    return (m["intercept"] + m["L"]["coef"] * r["L"]
+            + m["ln|E|"]["coef"] * math.log(r["E"])) / r["margin_c1"]
+
+
+# ---------------------------------------------------------------------------- run
+def run(argv=None) -> dict:
+    argv = list(argv or [])
+    leave_one_out = "--leave-one-family-out" in argv          # accepted (always emitted)
+
+    rows = load_completed()
+    by_fam = {fam: [r for r in rows if r["family"] == fam] for fam in FAM_ORDER}
+
+    # ---- LAW-FIT : one numerator fit over all 1,027 ------------------------------
+    m = _numerator_fit(rows)
+    numerator_fit = dict(
+        n=m["n"], r2=m["r2"],
+        a=m["L"]["coef"], a_ci=[m["L"]["lo"], m["L"]["hi"]],
+        b=m["ln|E|"]["coef"], b_ci=[m["ln|E|"]["lo"], m["ln|E|"]["hi"]],
+        c0=m["intercept"],
+        model="ln(#scatter/#path) = c0 + a*L + b*ln|E|; "
+              "c_req = numerator / margin, margin = (1-2rho)*L + 1")
+    fit_path = write_json("law/numerator_fit.json", numerator_fit)
+
+    # ---- LAW-PRED : per-instance prediction vs each instance's own margin --------
+    per_rows = []
+    for r in sorted(rows, key=lambda z: (z["family"], z["size"], z["seed"])):
+        pr = _predict(m, r)
+        ob = r["c_req_micro"]
+        per_rows.append([r["family"], r["size"], r["seed"], r["L"], r["E"],
+                         round(r["margin_c1"], 6), round(ob, 6), round(pr, 6),
+                         round(abs(ob - pr), 6), round(abs(ob - pr) / ob, 6)])
+    per_path = write_tsv_csv("law/per_instance.csv",
+                             ["family", "size", "seed", "L", "E", "margin_c1",
+                              "observed_c", "predicted_c", "abs_err", "rel_err"],
+                             per_rows)
+
+    def resid_summary(v):
+        pr = np.array([_predict(m, r) for r in v])
+        ob = np.array([r["c_req_micro"] for r in v])
+        r2 = 1.0 - float(((ob - pr) ** 2).sum()) / float(((ob - ob.mean()) ** 2).sum())
+        return dict(n=len(v), median_abs_err=float(np.median(np.abs(ob - pr))),
+                    median_rel_err=float(np.median(np.abs(ob - pr) / ob)), r2=r2)
+
+    pred_summary = {fam: resid_summary(by_fam[fam]) for fam in FAM_ORDER}
+    pred_summary["POOLED"] = resid_summary(rows)
+
+    # ---- LAW-RHO : per-family mean-edge-weight and finite asymptote ---------------
+    a_ = m["L"]["coef"]
+    rho_header = ["family", "median_rho", "one_minus_2rho", "asymptote_a_over_1m2rho",
+                  "deepest_L", "observed_deep_median_c"]
+    rho_rows, rho_json = [], {}
+    for fam in FAM_ORDER:
+        v = by_fam[fam]
+        rho = float(np.median([r["Etilde"] / r["L"] for r in v]))
+        Lmax = max(r["L"] for r in v)
+        deep = [r["c_req_micro"] for r in v if r["L"] >= Lmax - 1]
+        asym = a_ / (1 - 2 * rho) if (1 - 2 * rho) > 0 else float("inf")
+        rho_json[fam] = dict(median_rho=rho, one_minus_2rho=1 - 2 * rho,
+                             asymptote=asym, deepest_L=int(Lmax),
+                             observed_deep_median=float(np.median(deep)))
+        rho_rows.append([fam, round(rho, 4), round(1 - 2 * rho, 4), round(asym, 4),
+                         int(Lmax), round(float(np.median(deep)), 4)])
+    rho_path = write_tsv("law/rho.tsv", rho_header, rho_rows)
+
+    # ---- LAW-HOLDOUT : leave-one-family-out, out-of-sample ------------------------
+    holdout = {}
+    for fam in FAM_ORDER:
+        me = by_fam[fam]
+        oth = [r for r in rows if r["family"] != fam]
+        mo = _numerator_fit(oth)
+        pr = np.array([_predict(mo, r) for r in me])
+        ob = np.array([r["c_req_micro"] for r in me])
+        holdout[fam] = dict(n=len(me), median_predicted=float(np.median(pr)),
+                            median_observed=float(np.median(ob)),
+                            ratio=float(np.median(ob) / np.median(pr)),
+                            median_rel_err=float(np.median(np.abs(ob - pr) / ob)))
+    holdout_path = write_json("law/holdout.json", holdout)
+
+    # ---- LAW-DEPTH : cross-family c-vs-L table + the depth-law transfer at L~14 ---
+    Ls = sorted({r["L"] for r in rows})
+    per_L = {}
+    for L in Ls:
+        cell = {}
+        for fam in FAM_ORDER:
+            v = [r["c_req_micro"] for r in rows if r["family"] == fam and r["L"] == L]
+            if v:
+                cell[fam] = dict(median=float(np.median(v)), n=len(v))
+        per_L[L] = cell
+    # the linear depth-law leave-one-family-out prediction for grid at its median L
+    grid = by_fam["grid"]
+    others = [r for r in rows if r["family"] != "grid"]
+    lin = ols_ci([r["L"] for r in others], [r["c_req_micro"] for r in others])
+    grid_med_L = float(np.median([r["L"] for r in grid]))
+    depth_law_pred_grid = lin["intercept"] + lin["slope"] * grid_med_L
+    L14 = per_L.get(14, {})
+    lattice14 = L14.get("grid", {}).get("median")
+    terrain14 = L14.get("mtn_knn", {}).get("median")
+    depth_transfer = dict(
+        per_L={str(L): per_L[L] for L in Ls},
+        at_L14=dict(lattice_grid_median=lattice14, terrain_mtn_knn_median=terrain14,
+                    factor=(lattice14 / terrain14) if (lattice14 and terrain14) else None,
+                    depth_law_prediction_grid=depth_law_pred_grid,
+                    note="lattice (grid) 13.57 vs terrain (mtn_knn) 4.30 at L~14, "
+                         "factor ~3.2; the linear depth law fitted on the other three "
+                         "families predicts ~4.01 for grid -- it transfers to terrain, "
+                         "not to the lattice's weight convention."),
+        linear_leave_one_out_grid=dict(median_L=grid_med_L, slope=lin["slope"],
+                                       intercept=lin["intercept"],
+                                       predicted=depth_law_pred_grid))
+    depth_path = write_json("law/depth_transfer.json", depth_transfer)
+
+    # ---- summary ----------------------------------------------------------------
+    result = dict(LAW_FIT=numerator_fit, LAW_PRED=pred_summary,
+                  LAW_HOLDOUT=holdout, LAW_RHO=rho_json,
+                  LAW_DEPTH=depth_transfer["at_L14"],
+                  outputs=dict(numerator_fit=rel(fit_path), per_instance=rel(per_path),
+                               holdout=rel(holdout_path),
+                               depth_transfer=rel(depth_path), rho=rel(rho_path)))
+    print(f"[9] ratio_law -> {rel(RESULTS / 'law')}/  (off committed population.csv)")
+    print(f"    LAW-FIT   a={numerator_fit['a']:.3f} "
+          f"[{numerator_fit['a_ci'][0]:.3f},{numerator_fit['a_ci'][1]:.3f}]; "
+          f"b={numerator_fit['b']:.3f} "
+          f"[{numerator_fit['b_ci'][0]:.3f},{numerator_fit['b_ci'][1]:.3f}]; "
+          f"c0={numerator_fit['c0']:.3f}; R2={numerator_fit['r2']:.3f}")
+    pp = pred_summary["POOLED"]
+    print(f"    LAW-PRED  median relative error {100 * pp['median_rel_err']:.1f}%; "
+          f"R2={pp['r2']:.3f}")
+    print("    LAW-HOLDOUT held-out family ratios "
+          + " / ".join(f"{holdout[f]['ratio']:.2f}" for f in FAM_ORDER)
+          + ("" if leave_one_out else "  (--leave-one-family-out)"))
+    print(f"    LAW-DEPTH L~14: lattice {lattice14:.2f} vs terrain {terrain14:.2f}, "
+          f"factor {lattice14 / terrain14:.1f}; depth law predicts "
+          f"{depth_law_pred_grid:.2f}")
+    print("    LAW-RHO   rho medians "
+          + " / ".join(f"{rho_json[f]['median_rho']:.3f}" for f in FAM_ORDER))
+    return result
+
+
+def write_tsv_csv(relpath, header, rows):
+    """Comma-separated variant of _base.write_tsv (per_instance ships as a .csv)."""
+    p = results_path(relpath)
+    with open(p, "w", newline="") as fh:
+        wr = csv.writer(fh)
+        wr.writerow(header)
+        wr.writerows(rows)
+    return p
+
+
+if __name__ == "__main__":
+    import sys
+    run(sys.argv[1:])

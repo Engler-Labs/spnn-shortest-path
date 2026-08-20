@@ -1,0 +1,31 @@
+{
+  "conventions_disagree_at_c4": 273,
+  "edge_clear": 411,
+  "edge_frac": 0.40019474196689386,
+  "micro_clear": 138,
+  "micro_frac": 0.13437195715676728,
+  "n": 1027,
+  "note": "edge clears 40.0%; microstate 13.4%; the c=4 verdict flips on 273 of 1,027 instances -- every c=4 sentence must name its convention.",
+  "per_family_gap": {
+    "dense": {
+      "max": 1.6542750146904845,
+      "median": 1.1279837900692344,
+      "min": 0.878866270034104
+    },
+    "grid": {
+      "max": 4.514353316637852,
+      "median": 3.8799622134596294,
+      "min": 2.7280244435603356
+    },
+    "mtn_knn": {
+      "max": 2.0115602764721388,
+      "median": 0.9925359976446426,
+      "min": 0.785219191317557
+    },
+    "sparse": {
+      "max": 2.205589228532565,
+      "median": 1.1926635895874798,
+      "min": 0.8794386599209569
+    }
+  }
+}

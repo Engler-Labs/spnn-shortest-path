@@ -1,0 +1,30 @@
+{
+  "dense": {
+    "median_observed": 5.347046133712391,
+    "median_predicted": 6.1389467387875705,
+    "median_rel_err": 0.1977310844503779,
+    "n": 182,
+    "ratio": 0.8710038319648986
+  },
+  "grid": {
+    "median_observed": 13.571683001915453,
+    "median_predicted": 16.18291331646715,
+    "median_rel_err": 0.18791241550358692,
+    "n": 360,
+    "ratio": 0.8386427546457532
+  },
+  "mtn_knn": {
+    "median_observed": 4.280346979596596,
+    "median_predicted": 3.9643495192421128,
+    "median_rel_err": 0.0926030676280071,
+    "n": 262,
+    "ratio": 1.0797097881558368
+  },
+  "sparse": {
+    "median_observed": 5.715459723400095,
+    "median_predicted": 4.918964894518938,
+    "median_rel_err": 0.0963306222584937,
+    "n": 223,
+    "ratio": 1.1619232594582385
+  }
+}

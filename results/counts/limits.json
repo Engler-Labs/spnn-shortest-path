@@ -1,0 +1,27 @@
+{
+  "boundaries": {
+    "dense": {
+      "dies_past_N": 100,
+      "last_completed_N": 80,
+      "memcap_at_N": 100
+    },
+    "grid": {
+      "completed_through_k": 12,
+      "note": "treewidth ~ sqrt(N); the affordable family -- no memcap over the swept ladder"
+    },
+    "mtn_knn": {
+      "note": "scatter completes over the swept ladder; #path (DFS) hits the wall first at N=180"
+    },
+    "sparse": {
+      "dies_past_N": 140,
+      "last_completed_N": 100,
+      "memcap_at_N": 140
+    }
+  },
+  "claim": "CNT-BIND",
+  "claim_text": "sparse dies past N~140, dense past N~100, at a 6 GB cap",
+  "memory_cap_gb": 6.0,
+  "note": "hardware-dependent: the scatter frontier DP's peak RSS grows with the elimination frontier (Theta(N) on G(n,p)); the boundary is where that exceeds the memory cap, so it is pinned to the cap and the machine, not reproduced.  Source: stage-26 scatter-count ceiling pilot (s26_curve.csv), 6 GB RLIMIT_AS per count.",
+  "state": "pinned",
+  "tier": 2
+}
