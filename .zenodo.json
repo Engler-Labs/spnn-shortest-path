@@ -1,0 +1,16 @@
+{
+  "title": "spnn-shortest-path: stochastic spiking networks for shortest-path computation",
+  "upload_type": "software",
+  "access_right": "open",
+  "license": "MIT",
+  "creators": [
+    { "name": "Engler, Gary R." }
+  ],
+  "description": "Reference implementation, data, and figures for the paper on stochastic spiking neural networks for shortest-path computation. A weighted graph is compiled into winner-take-all neuron clusters whose Boltzmann energy minima coincide with shortest paths, and run as a discrete-time Boltzmann sampler at O(|E|) cost per step. Dual-licensed: the code is under the MIT License; the data (the contents of instances/ and results/) is under the Creative Commons Attribution 4.0 International License (CC BY 4.0). See the LICENSE file in the archive for the full terms.",
+  "keywords": [
+    "shortest-path",
+    "spiking-neural-network",
+    "boltzmann-machine",
+    "stochastic-neural-algorithms"
+  ]
+}
