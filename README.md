@@ -63,4 +63,9 @@ Pinned in [`instances/README.md`](instances/README.md): `random_graph(60, 0.05, 
 
 ## License
 
-[MIT](LICENSE).
+Dual-licensed (see [LICENSE](LICENSE)):
+
+- **Code** (`spnn/`, `experiments/`, `verify/`, `figures/`) — [MIT](LICENSE).
+- **Data** (`instances/`, `results/`) — [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
+
+The Zenodo archive of the tagged release carries both under a single DOI, cited for the code and the data alike.

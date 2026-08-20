@@ -10,7 +10,12 @@ type: software
 authors:
   - family-names: Engler
     given-names: Gary R.
-license: MIT
+# Dual-licensed (see LICENSE): MIT for the code, CC BY 4.0 for the data
+# (contents of instances/ and results/). The single Zenodo DOI below archives
+# and is cited for both the code and the data.
+license:
+  - MIT
+  - CC-BY-4.0
 keywords:
   - shortest-path
   - spiking-neural-network
