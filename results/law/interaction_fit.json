@@ -1,7 +1,28 @@
 {
   "additive_r2": 0.9659988428361291,
   "beta1_equals_one": false,
+  "edge_robustness": {
+    "beta1_no_intercept": [
+      1.758882901143129,
+      1.7292736623196718,
+      1.7884921399665863
+    ],
+    "beta1_with_intercept": [
+      1.720044417348202,
+      1.689587318593996,
+      1.7505015161024078
+    ],
+    "r2": 0.9792684902616556,
+    "response": "ln_ratio_edge"
+  },
   "implied_branching_b": 16.76461268492998,
+  "kappa_E_over_beta1": {
+    "beta1": 1.7537985467361425,
+    "kappa_E": 11.566492187192503,
+    "kappa_E_over_beta1": 6.5951087761578995,
+    "pooled_median_L": 7.0,
+    "rel_gap_to_median_L": 0.05784160340601436
+  },
   "n": 1027,
   "response": "ln_ratio_micro",
   "theory_no_intercept": {
@@ -82,5 +103,10 @@
     "model": "b0 + g1*(L*ln|E|) + g2*(L*lnL) + g3*L",
     "r2": 0.987288401553734
   },
-  "verdict": "beta1 = 1.7538 [1.7226, 1.7850], decisively NOT 1 (the asymptotic predicts 1): the additive numerator fit is a linearization over the operating range. But the predicted interaction FORM fits materially better (R2 0.986 vs additive 0.966) and the -L*lnL term is recovered near -1 (-1.219), so the asymptotic captures the form while the leading coefficient carries a ~1.75 finite-size prefactor the leading-order expansion omits."
+  "u12_holdout": {
+    "additive_median_rel_err": 0.07541710589666852,
+    "model_b_median_rel_err": 0.11807496737315906,
+    "n": 119
+  },
+  "verdict": "beta1 = 1.7538 [1.7226, 1.7850], decisively NOT 1 (the asymptotic predicts 1): the additive numerator fit is a linearization over the operating range. The interaction FORM is right -- it fits materially better at INTERPOLATION (R2 0.986 vs 0.966; pooled median rel err 4.0% vs 8.6%) and the -L*lnL term is recovered near -1 (-1.219) -- but NOT at EXTRAPOLATION: the worst held-out family (grid) goes 0.84->1.17 and the U[1,2] weight-convention holdout worsens 7.5%->11.8%.  So the leading coefficient carries a ~1.75 finite-size prefactor the leading-order expansion omits."
 }

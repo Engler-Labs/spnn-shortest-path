@@ -77,8 +77,27 @@ def load_completed():
                 L=int(r["L"]), E=int(r["E"]), Etilde=float(r["Etilde"]),
                 margin_c1=float(r["margin_c1"]),
                 ln_ratio_micro=float(r["ln_ratio_micro"]),
+                ln_ratio_edge=float(r["ln_ratio_edge"]),
                 c_req_micro=float(r["c_req_micro"])))
     return rows
+
+
+def load_u12():
+    """The completed U[1,2] weight-convention instances (experiment 10's committed
+    data), for the held-out weight-convention test under the interaction numerator.
+    Empty list if the file is absent (interaction JSON then omits the U[1,2] arm)."""
+    path = RESULTS / "weights" / "measured.csv"
+    if not path.exists():
+        return []
+    out = []
+    with open(path) as f:
+        for r in csv.DictReader(f):
+            if r["status"] != "ok":
+                continue
+            out.append(dict(L=int(r["L"]), E=int(r["E"]),
+                            margin_c1=float(r["margin_c1"]),
+                            c_req_micro=float(r["c_req_micro"])))
+    return out
 
 
 # ---------------------------------------------------- OLS (verbatim from the harness)
@@ -147,10 +166,12 @@ _FEAT = {
 }
 
 
-def _ols_named(rows, names, intercept):
-    """OLS on named _FEAT columns, optional intercept, centered R^2, 95% t-CIs."""
+def _ols_named(rows, names, intercept, resp="ln_ratio_micro"):
+    """OLS on named _FEAT columns, optional intercept, centered R^2, 95% t-CIs.
+    ``resp`` selects the response column (ln_ratio_micro by default; ln_ratio_edge
+    for the edge-count robustness check)."""
     X = np.column_stack([[_FEAT[nm](r) for r in rows] for nm in names]).astype(float)
-    y = np.array([r["ln_ratio_micro"] for r in rows], float)
+    y = np.array([r[resp] for r in rows], float)
     n = len(rows)
     Xd = np.column_stack([np.ones(n), X]) if intercept else X
     p = Xd.shape[1]
@@ -184,10 +205,13 @@ def _predict_c_named(fit, r):
     return num / r["margin_c1"]
 
 
-def _interaction_fit(rows, by_fam):
+def _interaction_fit(rows, by_fam, u12_rows, m_additive):
     """W4/W3: the theory interaction form (+/- intercept) and the three-term model,
     each with pooled median relative error and leave-one-family-out ratios, so they
-    are directly comparable to the additive LAW-FIT / LAW-PRED / LAW-HOLDOUT."""
+    are directly comparable to the additive LAW-FIT / LAW-PRED / LAW-HOLDOUT.  Plus
+    the edge-count robustness check (same fit on ln_ratio_edge), the held-out U[1,2]
+    weight-convention error under the interaction numerator, and kappa_E/beta1 vs the
+    pooled median depth -- everything the interaction rule prints must regenerate."""
     def pooled_rel_err(fit):
         ob = np.array([r["c_req_micro"] for r in rows])
         pr = np.array([_predict_c_named(fit, r) for r in rows])
@@ -216,22 +240,63 @@ def _interaction_fit(rows, by_fam):
     b1, b1lo, b1hi = B["coefs"]["X1"]
     b2 = B["coefs"]["X2"][0]
     llnl = C["coefs"]["L*lnL"][0]
+
+    # edge-count robustness: the same theory form on ln_ratio_edge -- beta1 stays
+    # ~1.7-1.8, so the >1 leading coefficient is a measurement, not a micro-count
+    # artifact.
+    Be = _ols_named(rows, ["X1", "X2"], True, resp="ln_ratio_edge")
+    Be0 = _ols_named(rows, ["X1", "X2"], False, resp="ln_ratio_edge")
+    edge_robustness = dict(response="ln_ratio_edge",
+                           beta1_with_intercept=Be["coefs"]["X1"],
+                           beta1_no_intercept=Be0["coefs"]["X1"], r2=Be["r2"])
+
+    # kappa_E / beta1 vs the pooled median depth: the additive size coefficient IS
+    # the interaction coefficient times a population-typical depth.
+    a_, b_, c0_ = m_additive["L"]["coef"], m_additive["ln|E|"]["coef"], m_additive["intercept"]
+    med_L = float(np.median([r["L"] for r in rows]))
+    kappa = dict(kappa_E=b_, beta1=b1, kappa_E_over_beta1=b_ / b1,
+                 pooled_median_L=med_L,
+                 rel_gap_to_median_L=abs(b_ / b1 - med_L) / med_L)
+
+    # held-out U[1,2] weight convention: the interaction numerator (which never saw
+    # this convention) vs the additive one, each over the instance's OWN margin.
+    def _u12_err(numer):
+        re = [abs(r["c_req_micro"] - numer(r) / r["margin_c1"]) / r["c_req_micro"]
+              for r in u12_rows]
+        return float(np.median(re)) if re else None
+    u12_holdout = dict(
+        n=len(u12_rows),
+        additive_median_rel_err=_u12_err(
+            lambda r: a_ * r["L"] + b_ * math.log(r["E"]) + c0_),
+        model_b_median_rel_err=_u12_err(
+            lambda r: B["beta"][0] + B["beta"][1] * _FEAT["X1"](r)
+            + B["beta"][2] * _FEAT["X2"](r)))
+
+    pB = pack(B, "b0 + beta1*X1 + beta2*X2;  X1=L*ln(|E|*e/L), X2=L")
     return dict(
         response="ln_ratio_micro", n=len(rows),
         additive_r2=0.9659988428361291,
         beta1_equals_one=bool(b1lo <= 1.0 <= b1hi),
         implied_branching_b=math.exp(-b2),
-        theory_with_intercept=pack(B, "b0 + beta1*X1 + beta2*X2;  X1=L*ln(|E|*e/L), X2=L"),
+        theory_with_intercept=pB,
         theory_no_intercept=pack(B0, "beta1*X1 + beta2*X2  (no intercept)"),
         three_term=pack(C, "b0 + g1*(L*ln|E|) + g2*(L*lnL) + g3*L"),
+        edge_robustness=edge_robustness,
+        kappa_E_over_beta1=kappa,
+        u12_holdout=u12_holdout,
         verdict=(
             "beta1 = %.4f [%.4f, %.4f], decisively NOT 1 (the asymptotic predicts 1): "
             "the additive numerator fit is a linearization over the operating range. "
-            "But the predicted interaction FORM fits materially better (R2 %.3f vs "
-            "additive 0.966) and the -L*lnL term is recovered near -1 (%.3f), so the "
-            "asymptotic captures the form while the leading coefficient carries a ~%.2f "
-            "finite-size prefactor the leading-order expansion omits."
-            % (b1, b1lo, b1hi, B["r2"], llnl, b1)))
+            "The interaction FORM is right -- it fits materially better at "
+            "INTERPOLATION (R2 %.3f vs 0.966; pooled median rel err %.1f%% vs 8.6%%) and "
+            "the -L*lnL term is recovered near -1 (%.3f) -- but NOT at EXTRAPOLATION: "
+            "the worst held-out family (grid) goes 0.84->%.2f and the U[1,2] "
+            "weight-convention holdout worsens %.1f%%->%.1f%%.  So the leading coefficient "
+            "carries a ~%.2f finite-size prefactor the leading-order expansion omits."
+            % (b1, b1lo, b1hi, B["r2"], 100 * pB["median_rel_err"], llnl,
+               pB["lofo_ratios"]["grid"],
+               100 * u12_holdout["additive_median_rel_err"],
+               100 * u12_holdout["model_b_median_rel_err"], b1)))
 
 
 def _predict(m, r):
@@ -261,7 +326,7 @@ def run(argv=None) -> dict:
     fit_path = write_json("law/numerator_fit.json", numerator_fit)
 
     # ---- LAW-INTERACT : the W4/W3 interaction refit (does beta1 == 1?) -----------
-    interaction = _interaction_fit(rows, by_fam)
+    interaction = _interaction_fit(rows, by_fam, load_u12(), m)
     interaction_path = write_json("law/interaction_fit.json", interaction)
 
     # ---- LAW-PRED : per-instance prediction vs each instance's own margin --------
@@ -391,6 +456,17 @@ def run(argv=None) -> dict:
                   "LOFO(" + "/".join(f"{m['lofo_ratios'][f]:.2f}" for f in FAM_ORDER) + ")")
             for nm in [k for k in m if isinstance(m[k], list) and len(m[k]) == 3]:
                 print(f"        {nm:<10} {m[nm][0]:+.4f}  [{m[nm][1]:+.4f}, {m[nm][2]:+.4f}]")
+        er = interaction["edge_robustness"]
+        print(f"      edge-count robustness (ln_ratio_edge): beta1="
+              f"{er['beta1_with_intercept'][0]:.4f} "
+              f"[{er['beta1_with_intercept'][1]:.4f},{er['beta1_with_intercept'][2]:.4f}] "
+              f"(+int) / {er['beta1_no_intercept'][0]:.4f} (no int)  -> not a micro-count artifact")
+        k = interaction["kappa_E_over_beta1"]
+        print(f"      kappa_E/beta1 = {k['kappa_E_over_beta1']:.3f} vs pooled median L = "
+              f"{k['pooled_median_L']:.0f}  ({100*k['rel_gap_to_median_L']:.1f}% off)")
+        u = interaction["u12_holdout"]
+        print(f"      U[1,2] holdout (n={u['n']}): additive {100*u['additive_median_rel_err']:.1f}% "
+              f"-> Model B {100*u['model_b_median_rel_err']:.1f}%  (extrapolation worsens)")
         print(f"      implied branching b = {interaction['implied_branching_b']:.2f}")
         print(f"      => {interaction['verdict']}")
     return result
