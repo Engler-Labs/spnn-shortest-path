@@ -1,0 +1,5 @@
+family	median_rho	one_minus_2rho	asymptote_a_over_1m2rho	deepest_L	observed_deep_median_c
+sparse	0.1188	0.7625	3.0019	9	4.1037
+dense	0.0763	0.8475	2.7009	8	2.4248
+grid	0.43	0.1401	16.342	22	18.1587
+mtn_knn	0.105	0.7901	2.8971	19	4.4753

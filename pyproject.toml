@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "spnn"
+version = "0.1.0"
+description = "Stochastic spiking networks for shortest-path computation (Engler 2018, Ch. 4)."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Gary R. Engler" }]
+keywords = ["shortest-path", "spiking-neural-network", "boltzmann-machine", "stochastic"]
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering",
+]
+dependencies = [
+    "numpy>=1.24",
+    "scipy>=1.10",
+]
+
+[tool.setuptools.packages.find]
+# Install only the library package; experiments/verify/figures are scripts, not modules.
+include = ["spnn*"]

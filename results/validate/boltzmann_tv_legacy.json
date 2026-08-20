@@ -1,0 +1,14 @@
+{
+  "V-TVBAD": {
+    "KL": 0.17024086934387303,
+    "TV": 0.23539116253401177,
+    "expected": 0.235,
+    "note": "DELIBERATELY INCORRECT legacy sampler, retained so the pre-fix contrast is reproducible. The fixed sampler gives TV~0.056 (check B without this flag); this buggy form gives TV~0.235, reproducing the 0.235 -> 0.056 correction in \u00a7III-D.",
+    "ok": true,
+    "reproduced": true,
+    "sampler": "spnn.legacy_sampler.check_boltzmann_legacy (pre-fix: pfire = 1 - exp(-exp(u)/tau), decrement-after-fire)",
+    "seed": 1,
+    "steps": 1000000,
+    "tau": 3
+  }
+}

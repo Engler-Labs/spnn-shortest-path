@@ -1,0 +1,339 @@
+{
+  "DEG_TARGET": {
+    "augmented": {
+      "E_N": -8.447466352389776,
+      "E_NC": -9.0,
+      "E_SPC": 0.552533647610223,
+      "active": 20,
+      "active_ok": true,
+      "expected_active_2Lp2": 20,
+      "expected_induced_Lp2": 10,
+      "expected_induced_orig_L": 8,
+      "induced": 10,
+      "induced_orig": 8,
+      "note": "settled AUGMENTED target at c=1, b_k=-2, b_st=b_k: 2(L+2)=20 active; induced = L+2 = 10 in the augmented frame (the two zero-weight S/T edges) or L = 8 original-graph edges; E_NC=-9.0, E_SPC=0.552534, E_N=-8.447."
+    },
+    "shift_var_to_aug": {
+      "E_N": [
+        -6.489384465661397,
+        -8.447466352389776
+      ],
+      "active": [
+        16,
+        20
+      ],
+      "induced": [
+        8,
+        10
+      ],
+      "induced_orig_unchanged": true,
+      "note": "active 16->20; induced 8->10 (augmented frame) / 8 unchanged in the original graph; E_N -6.489->-8.447 (E_NC -7.0->-9.0)."
+    },
+    "variant": {
+      "E_N": -6.489384465661397,
+      "E_NC": -7.0,
+      "E_N_ok": true,
+      "E_SPC": 0.5106155343386029,
+      "active": 16,
+      "active_ok": true,
+      "expected_E_N": -6.49,
+      "expected_active_2L": 16,
+      "expected_induced_L": 8,
+      "induced": 8,
+      "induced_ok": true,
+      "note": "printed target row on the VARIANT; reproduces 16/8/-6.489 at c=1, b_k=-2 (E_NC=-7.0, E_SPC=0.510616)."
+    }
+  },
+  "analysis_must_confirm_against_manuscript": [
+    "the DRIVE DISCIPLINE the printed table used -- see drive_discipline: the cold-end 0.00 is reachable only with periodic/off drive; always_on keeps S,T active so E_N min stays above the empty floor. Section IV-D should state which it cites.",
+    "whether tab:degeneracy is now the [AUG] table -- the target row becomes 2(L+2)=20 active (was 16=2L on the variant), induced L+2=10 in the augmented frame (8 original-graph edges), E_N=-8.447 (was -6.489)"
+  ],
+  "construction": {
+    "D": 4.0,
+    "alpha_scale_c": 1.0,
+    "augment_st": true,
+    "operating_c_confirmed_via": "VARIANT ideal E_N = -6.489384 (~ -6.49) at c=1, b_k=-2",
+    "terminal_convention": "b_S = b_T = b_k (b_st=None)"
+  },
+  "drive_discipline": {
+    "cold_b_k": -7.0,
+    "empty_E_N": 0.0,
+    "operating_b_k": -2.0,
+    "reaches_empty_at_cold": {
+      "always_on": true,
+      "periodic": true
+    },
+    "terminal_active_rate": {
+      "always_on": {
+        "at_cold_bk": 0.0508,
+        "at_operating_bk": 0.9768
+      },
+      "periodic": {
+        "at_cold_bk": 0.005,
+        "at_operating_bk": 0.8538
+      }
+    },
+    "verdict": "The cold-end silence (E_N min -> 0.00) IS reached under BOTH periodic and always-on drive (periodic min_E_N=0.000, always_on min_E_N=0.000 at b_k=-7.0). The reason is the settled convention b_S=b_k: the terminals cool with the interior, so the +D drive (competing with terminal bias b_k) holds S,T active at the operating point (term active rate always_on 0.98 at b_k=-2.0) but is OVERWHELMED at deep cooling (term active rate always_on 0.05 at b_k=-7.0). So under b_S=b_k the drive does NOT keep silence out of the accessible ensemble at the cold end, even always-on. The printed table's 0.00 is therefore consistent with this construction and does NOT by itself require a drive-off sweep -- but section IV-D's 'the drive removes silence' holds only near the operating point under this convention, and Proposition 2(i) now carries the claim analytically, so the table is corroboration, not load-bearing."
+  },
+  "identification": "ident_rate is ~0 at every rung: with no activity-dependent inhibition the free-running sampler never holds the exact augmented path state over 20k steps -- consistent with the IV-D reading that the terminal drive is structural, not a basin the free dynamics fall into.",
+  "instance": {
+    "L": 8,
+    "n": 60,
+    "opt_cost": 0.5487686158157885,
+    "p": 0.05,
+    "seed": 19,
+    "source": 0,
+    "target": 59
+  },
+  "recommended_label": {
+    "DEG-TARGET": "reproduces -- variant target 16/8/-6.489 reproduced; the augmented target (20 active, E_N=-8.447) is reported alongside as the [AUG] shift.",
+    "T-DEGENERACY": "reproduces -- the augmented named-seed sweep on the printed ladder is deterministic (seed=19); it REPLACES the printed VARIANT cells (adopt [AUG]) or, if the team keeps the [VAR] table, falls back to pinned with the seed + drive discipline recorded."
+  },
+  "resolution": "Section IV-D decision: RE-RUN the sweep on the AUGMENTED construction at b_st=b_k with a single NAMED seed, replacing the unreproducible printed VARIANT cells (no harness / seed was recorded for those).",
+  "state": "re-run (augmented construction, named seed)",
+  "sweep": {
+    "b_k_ladder": [
+      -2.0,
+      -3.0,
+      -4.0,
+      -5.0,
+      -6.0,
+      -7.0
+    ],
+    "ladder_note": "the printed ladder -2.0 -> -7.0; reaches the cold-end near-silence the printed table hinges on. Primary CSV is the periodic-drive (Ch. 4) run; always_on is the comparison for the drive-discipline question.",
+    "named_seed": 19,
+    "rows_always_on": [
+      {
+        "b_k": -2.0,
+        "contained": 0,
+        "empty_E_N": 0.0,
+        "ideal_E_N": -8.447466352389776,
+        "ideal_active": 20,
+        "ideal_induced": 10,
+        "ideal_induced_orig": 8,
+        "ident_rate": 0.0,
+        "lam": 1.0,
+        "mean_E_N": 924.3100286437957,
+        "mean_active": 114.9609,
+        "mean_induced": 44.67955,
+        "mean_induced_orig": 43.01965,
+        "min_E_N": 8.0,
+        "reaches_empty": false,
+        "st_mode": "always_on",
+        "term_active_rate": 0.976775
+      },
+      {
+        "b_k": -3.0,
+        "contained": 0,
+        "empty_E_N": 0.0,
+        "ideal_E_N": 11.552533647610224,
+        "ideal_active": 20,
+        "ideal_induced": 10,
+        "ideal_induced_orig": 8,
+        "ident_rate": 0.0,
+        "lam": -1.0,
+        "mean_E_N": 362.47752539279514,
+        "mean_active": 74.7685,
+        "mean_induced": 27.3842,
+        "mean_induced_orig": 25.9113,
+        "min_E_N": 0.0,
+        "reaches_empty": true,
+        "st_mode": "always_on",
+        "term_active_rate": 0.9351
+      },
+      {
+        "b_k": -4.0,
+        "contained": 0,
+        "empty_E_N": 0.0,
+        "ideal_E_N": 31.552533647610222,
+        "ideal_active": 20,
+        "ideal_induced": 10,
+        "ideal_induced_orig": 8,
+        "ident_rate": 0.0,
+        "lam": -3.0,
+        "mean_E_N": 121.77978809133796,
+        "mean_active": 29.0951,
+        "mean_induced": 9.0024,
+        "mean_induced_orig": 8.0194,
+        "min_E_N": 0.0,
+        "reaches_empty": true,
+        "st_mode": "always_on",
+        "term_active_rate": 0.7455
+      },
+      {
+        "b_k": -5.0,
+        "contained": 0,
+        "empty_E_N": 0.0,
+        "ideal_E_N": 51.552533647610225,
+        "ideal_active": 20,
+        "ideal_induced": 10,
+        "ideal_induced_orig": 8,
+        "ident_rate": 0.0,
+        "lam": -5.0,
+        "mean_E_N": 35.280719389441614,
+        "mean_active": 7.7529,
+        "mean_induced": 1.6269,
+        "mean_induced_orig": 1.2969,
+        "min_E_N": 0.0,
+        "reaches_empty": true,
+        "st_mode": "always_on",
+        "term_active_rate": 0.39325
+      },
+      {
+        "b_k": -6.0,
+        "contained": 0,
+        "empty_E_N": 0.0,
+        "ideal_E_N": 71.55253364761022,
+        "ideal_active": 20,
+        "ideal_induced": 10,
+        "ideal_induced_orig": 8,
+        "ident_rate": 0.0,
+        "lam": -7.0,
+        "mean_E_N": 12.26350324257585,
+        "mean_active": 2.17965,
+        "mean_induced": 0.24665,
+        "mean_induced_orig": 0.1822,
+        "min_E_N": 0.0,
+        "reaches_empty": true,
+        "st_mode": "always_on",
+        "term_active_rate": 0.15475
+      },
+      {
+        "b_k": -7.0,
+        "contained": 0,
+        "empty_E_N": 0.0,
+        "ideal_E_N": 91.55253364761022,
+        "ideal_active": 20,
+        "ideal_induced": 10,
+        "ideal_induced_orig": 8,
+        "ident_rate": 0.0,
+        "lam": -9.0,
+        "mean_E_N": 4.7181795157775035,
+        "mean_active": 0.694,
+        "mean_induced": 0.03485,
+        "mean_induced_orig": 0.02365,
+        "min_E_N": 0.0,
+        "reaches_empty": true,
+        "st_mode": "always_on",
+        "term_active_rate": 0.05075
+      }
+    ],
+    "rows_periodic": [
+      {
+        "b_k": -2.0,
+        "contained": 5,
+        "empty_E_N": 0.0,
+        "ideal_E_N": -8.447466352389776,
+        "ideal_active": 20,
+        "ideal_induced": 10,
+        "ideal_induced_orig": 8,
+        "ident_rate": 0.0,
+        "lam": 1.0,
+        "mean_E_N": 1103.535603536709,
+        "mean_active": 116.7112,
+        "mean_induced": 44.50905,
+        "mean_induced_orig": 43.0893,
+        "min_E_N": 8.0,
+        "reaches_empty": false,
+        "st_mode": "periodic",
+        "term_active_rate": 0.85375
+      },
+      {
+        "b_k": -3.0,
+        "contained": 2,
+        "empty_E_N": 0.0,
+        "ideal_E_N": 11.552533647610224,
+        "ideal_active": 20,
+        "ideal_induced": 10,
+        "ideal_induced_orig": 8,
+        "ident_rate": 0.0,
+        "lam": -1.0,
+        "mean_E_N": 355.25497198265094,
+        "mean_active": 73.7389,
+        "mean_induced": 26.9123,
+        "mean_induced_orig": 25.9726,
+        "min_E_N": 0.0,
+        "reaches_empty": true,
+        "st_mode": "periodic",
+        "term_active_rate": 0.6035
+      },
+      {
+        "b_k": -4.0,
+        "contained": 0,
+        "empty_E_N": 0.0,
+        "ideal_E_N": 31.552533647610222,
+        "ideal_active": 20,
+        "ideal_induced": 10,
+        "ideal_induced_orig": 8,
+        "ident_rate": 0.0,
+        "lam": -3.0,
+        "mean_E_N": 117.3478746434485,
+        "mean_active": 27.5796,
+        "mean_induced": 8.375,
+        "mean_induced_orig": 8.04515,
+        "min_E_N": 0.0,
+        "reaches_empty": true,
+        "st_mode": "periodic",
+        "term_active_rate": 0.2595
+      },
+      {
+        "b_k": -5.0,
+        "contained": 0,
+        "empty_E_N": 0.0,
+        "ideal_E_N": 51.552533647610225,
+        "ideal_active": 20,
+        "ideal_induced": 10,
+        "ideal_induced_orig": 8,
+        "ident_rate": 0.0,
+        "lam": -5.0,
+        "mean_E_N": 31.61679571306106,
+        "mean_active": 6.8394,
+        "mean_induced": 1.3531,
+        "mean_induced_orig": 1.29585,
+        "min_E_N": 0.0,
+        "reaches_empty": true,
+        "st_mode": "periodic",
+        "term_active_rate": 0.07175
+      },
+      {
+        "b_k": -6.0,
+        "contained": 0,
+        "empty_E_N": 0.0,
+        "ideal_E_N": 71.55253364761022,
+        "ideal_active": 20,
+        "ideal_induced": 10,
+        "ideal_induced_orig": 8,
+        "ident_rate": 0.0,
+        "lam": -7.0,
+        "mean_E_N": 10.46608283468885,
+        "mean_active": 1.83965,
+        "mean_induced": 0.1863,
+        "mean_induced_orig": 0.18175,
+        "min_E_N": 0.0,
+        "reaches_empty": true,
+        "st_mode": "periodic",
+        "term_active_rate": 0.01725
+      },
+      {
+        "b_k": -7.0,
+        "contained": 0,
+        "empty_E_N": 0.0,
+        "ideal_E_N": 91.55253364761022,
+        "ideal_active": 20,
+        "ideal_induced": 10,
+        "ideal_induced_orig": 8,
+        "ident_rate": 0.0,
+        "lam": -9.0,
+        "mean_E_N": 4.049279515777504,
+        "mean_active": 0.5925,
+        "mean_induced": 0.02445,
+        "mean_induced_orig": 0.02365,
+        "min_E_N": 0.0,
+        "reaches_empty": true,
+        "st_mode": "periodic",
+        "term_active_rate": 0.005
+      }
+    ],
+    "steps_per_row": 20000
+  }
+}

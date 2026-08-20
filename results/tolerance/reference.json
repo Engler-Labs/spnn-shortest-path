@@ -1,0 +1,25 @@
+{
+  "K": 64,
+  "TOL_DENOM": {
+    "B": 1.9863717555999756,
+    "attaining_L_Q": 4,
+    "c": 4.0,
+    "denominator": 0.0004648215835914016,
+    "note": "tolerance rounds to 1.9e-3 at c=4; raw weight gap is 1.859e-3",
+    "tolerance_at_c4": 0.0018720426618269311,
+    "tolerance_formula": "(2*c/B) * denominator  [E_SPC = 2c*Etilde = (2c/B)*W]",
+    "weight_gap": 0.0018592863343656063
+  },
+  "TOL_REF": {
+    "L_rival": 4,
+    "L_star": 8,
+    "W_rival": 0.5506279021501541,
+    "W_star": 0.5487686158157885,
+    "note": "rival W_Q is a 4-hop path (L=4), not at the optimum's depth L=8",
+    "rival_is_length_changing": true
+  },
+  "instance": "random_graph(60, 0.05, seed=19)",
+  "n_edges": 142,
+  "source": 0,
+  "target": 59
+}

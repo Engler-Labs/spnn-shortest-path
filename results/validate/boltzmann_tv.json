@@ -1,0 +1,24 @@
+{
+  "by_tau": {
+    "tau10": {
+      "KL": 0.001954771339749559,
+      "TV": 0.020441169485444458
+    },
+    "tau3": {
+      "KL": 0.012800990562681167,
+      "TV": 0.05560578556221038
+    },
+    "tau5": {
+      "KL": 0.005673857078696342,
+      "TV": 0.03713504139810323
+    }
+  },
+  "expected_TV": {
+    "tau10": 0.0225,
+    "tau3": 0.0558,
+    "tau5": 0.037
+  },
+  "note": "fixed sampler; TV is a deterministic Monte-Carlo estimate (~0.056 at tau=3 reproduces the 0.235 -> 0.056 fix).",
+  "seed": 1,
+  "steps": 1000000
+}

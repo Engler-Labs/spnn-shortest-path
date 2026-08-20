@@ -1,0 +1,4 @@
+c,lam,bk,enrichment,enrichment_origL,contain_count,chance,chance_origL,density,mean_active,mean_L,mean_L_contain,n_graphs,n_seeds,steps_per_run,n_runs,steps_total,N,p,D,augmented,st_mode,inhib_kind,b_st
+1,0,-2.5,0,0,0,0.220968670468,3.24051439051,0.254614014669,95.2009875,8.375,10.375,8,3,10000,24,240000,60,0.05,4,1,periodic,off,b_k (inherited, named)
+2,0,-3,198.378737294,12.4241281931,31,0.156266747248,2.49514489211,0.247982996674,90.2666958333,8.375,10.375,8,3,10000,24,240000,60,0.05,4,1,periodic,off,b_k (inherited, named)
+3,0,-3.5,1007.66962989,79.6829480807,426,0.422757605631,5.34618773855,0.264583328098,94.7568916667,8.375,10.375,8,3,10000,24,240000,60,0.05,4,1,periodic,off,b_k (inherited, named)

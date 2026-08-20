@@ -1,0 +1,8 @@
+{
+  "OE-VALID": {
+    "expected": 1.99e-07,
+    "max_energy_discrepancy": 1.6444926131953252e-07,
+    "max_neuron_discrepancy": 1.9938468653890595e-07,
+    "ok": true
+  }
+}

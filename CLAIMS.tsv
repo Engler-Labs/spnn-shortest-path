@@ -1,0 +1,64 @@
+﻿id	value	where	script	output	tol	tier	label	notes
+# CLAIMS.tsv — one row per printed number in Paper 1. Draft 2026-08-17.
+# tier:  1 = deterministic/exact, runs in CI    2 = seeded/expensive, --full only
+# label: reproduces | pinned | not-published    (an unlabelled row must fail verify)
+# TODO markers are the rows that cannot yet be labelled "reproduces".
+V-TV3	TV 0.0558, KL 0.0127 at tau=3	III-D	verify/check_b.py	results/validate/boltzmann_tv.json	1e-4	1	reproduces	validate.py check B
+V-TV5	TV 0.037 at tau=5	III-D	verify/check_b.py	results/validate/boltzmann_tv.json	1e-3	1	reproduces	
+V-TV10	TV 0.0225, KL 0.0023 at tau=10	III-D	verify/check_b.py	results/validate/boltzmann_tv.json	1e-4	1	reproduces	regression threshold
+V-TVBAD	TV 0.235, pre-fix sampler	III-D	verify/check_b.py --legacy-sampler	results/validate/boltzmann_tv_legacy.json	1e-3	1	reproduces	rate-as-probability + decrement-after
+R-SLOT0	6 of 12 instances	III-E	verify/check_c.py --slot0	results/validate/readout.json	exact	1	not-published	slot-restricted readout variant not in the released library; §III-E to be replaced with Paper 3's derivation (manuscript task A2)
+R-AGN	12 of 12 instances	III-E	verify/check_c.py	results/validate/readout.json	exact	1	reproduces	
+T-PATHCOUNTS	all 16 cells of tab:pathcounts	IV-A	experiments/table_pathcounts.py	results/tables/pathcounts.tsv	exact	1	reproduces	A4: counts one path configuration (not s-t paths); all 9 cells match derivations
+T-ENCVERIFY	all 10 cells of tab:encverify	IV-B	experiments/table_encverify.py	results/tables/encverify.tsv	1e-9	1	reproduces	b_k sweep at b_st=b_k (settled convention); reproduces manuscript table (aug E_NC=-6.0 at b_k=-2); decomp==dense verified
+TOL-REF	W*=0.548769 at L=8; rival W_Q=0.550628 at L=4	IV-C	experiments/lambda_tolerance.py --reference	results/tolerance/reference.json	1e-6	1	reproduces	corrects A50's single-instance reading
+TOL-DENOM	denominator 4.648e-4; tolerance 1.9e-3 at c=4	IV-C	experiments/lambda_tolerance.py --reference	results/tolerance/reference.json	1e-7	1	reproduces	
+TOL-POP	72 instances, depths 3-15, median denominator 5.2e-2	IV-C	experiments/lambda_tolerance.py	results/tolerance/population.csv	1e-3	1	reproduces	A52 rider
+TOL-FAM	family medians 1.04 / 0.067 / 0.042 / 1.3e-3	IV-C	experiments/lambda_tolerance.py	results/tolerance/population.csv	1e-3	1	reproduces	lattice / sparse / dense / terrain
+TOL-K	K=4000 reached on all 72; DFS agrees on 147 of 162 strata	IV-C	experiments/lambda_tolerance.py --crosscheck	results/tolerance/dfs_crosscheck.json	exact	2	reproduces	every D is an UPPER bound
+T-DEGENERACY	all 36 cells of tab:degeneracy	IV-D	experiments/cooling_sweep.py	results/cooling/bk_sweep.csv	seeded	2	reproduces	re-run on the AUGMENTED construction with named seed=19 (Gary decision #1), deterministic; REPLACES the printed [VAR] cells -> manuscript must adopt [AUG] (target 20 active, E_N=-8.447)
+DEG-TARGET	target: 16 active, 8 induced, E_N=-6.49	IV-D	experiments/cooling_sweep.py	results/cooling/bk_sweep.csv	1e-2	2	reproduces	reproduced deterministically by cooling_sweep (16 active, 8 induced, E_N=-6.489 on variant ideal state); output results/cooling/bk_sweep.csv
+DRIVE-16	766 events against 317 at N=16	IV-D	—	—	—	—	not-published	imported from Paper 2; flagged as such in text
+DRIVE-20	613 events against 306 at N=20	IV-D	—	—	—	—	not-published	imported from Paper 2; flagged as such in text
+VAR-REF	E_NC=-7.000000, E_SPC=0.510616, Etilde=0.276267	IV-E	experiments/variant_ordering.py --reference	results/variant/reference.json	1e-6	1	reproduces	reference instance on the variant
+VAR-EQWT	E_SPC 2.250000 / 1.500000; E_N -0.750000 / -1.500000	IV-E	experiments/variant_ordering.py	results/variant/constructed.json	1e-6	1	reproduces	(1,4,4,1) vs (4,1,1,4), equal total weight 10.0
+VAR-INV	E_N -1.380000 vs -1.960000; heavier preferred by 0.58	IV-E	experiments/variant_ordering.py	results/variant/constructed.json	1e-6	1	reproduces	(0.1,4,4,0.1) w=8.2 vs (5,0.1,0.1,5) w=10.2
+VAR-INV4	same inversion, 2.32 at c=4	IV-E	experiments/variant_ordering.py	results/variant/constructed.json	1e-6	1	reproduces	the abstract's 24 % — CONSTRUCTED, not sampled
+M-VERIFY	16 rows, worst |measured - predicted| exactly zero	V-A	experiments/margin_verify.py	results/margin/verify.tsv	0.0	1	reproduces	A3; L in {3,5,8} + reference at c in {1,4}
+M-MICRO	path 2^(L+1), k-matching 4^k; 2048 = 7.6 nats = +0.89 in c	V-A	experiments/margin_verify.py --conventions	results/margin/conventions.json	1e-3	1	reproduces	the microstate ruling
+M-VARIANT	Delta=6.489384, alphabar=0.927	V-A	experiments/margin_verify.py --variant	results/margin/variant.json	1e-6	1	reproduces	
+CNT-PATH	1,754 paths at matched depth	V-B	experiments/reference_counts.py	results/counts/reference.json	exact	1	reproduces	A4; regenerated exactly by A50, A51, A52
+CNT-SCAT	3.352349e19 matched-size scatter configurations	V-B	experiments/reference_counts.py	results/counts/reference.json	exact	1	reproduces	frontier DP
+CNT-CROSS	log-ratio 31.25 nats; margin 8.447 at c=1; crossing c=3.699428677298893	V-B	experiments/reference_counts.py	results/counts/reference.json	1e-12	1	reproduces	byte-identical across three regenerations
+POP-N	1,080 generated; 1,027 completed; 53 censored (4.9 %)	V-B	experiments/creq_sweep.py	results/creq/population.csv	exact	2	reproduces	A52; censoring is depth-correlated, biased LOW
+T-CREQDIST	all 30 cells of tab:creqdist	V-B	experiments/creq_sweep.py	results/creq/by_family.tsv	1e-2	2	reproduces	microstate convention
+F-CREQ-A	box-plot: 5 families x 7 order statistics	V-B fig	figures/fig_creq.py	results/creq/quantiles.tsv	1e-2	2	reproduces	
+F-CREQ-B	slopes -0.61 / -0.76 / +0.81 / +0.02 with 95 % CIs	V-B fig	figures/fig_creq.py	results/creq/slopes.tsv	1e-3	2	reproduces	OPPOSITE SIGNS — the informative failure
+POP-SPAN	span 1.65 to 19.59; pooled IQR 4.47 to 10.32	V-B	experiments/creq_sweep.py	results/creq/by_family.tsv	1e-2	2	reproduces	
+POP-SIZE	sparse medians 4.22 5.01 5.88 6.15 6.46 7.77 (N=20..100)	V-B	experiments/creq_sweep.py	results/creq/by_size.tsv	1e-2	2	reproduces	requirement RISES with size
+POP-SIZED	dense 4.32 to 6.87 (N=20..80)	V-B	experiments/creq_sweep.py	results/creq/by_size.tsv	1e-2	2	reproduces	
+LAW-FIT	a=2.289 [2.250,2.328]; b=11.566 [11.224,11.909]; c0=-42.451; R2=0.966	V-B	experiments/ratio_law.py	results/law/numerator_fit.json	1e-3	1	reproduces	fitted once over 1,027, no per-family term
+LAW-PRED	median relative error 8.6 %; R2=0.965	V-B	experiments/ratio_law.py	results/law/per_instance.csv	1e-3	1	reproduces	against each instance's own measured margin
+LAW-HOLDOUT	held-out family ratios 1.16 / 0.87 / 0.84 / 1.08	V-B	experiments/ratio_law.py --leave-one-family-out	results/law/holdout.json	1e-2	1	reproduces	genuinely out-of-sample
+LAW-DEPTH	L~14: lattice 13.57 vs terrain 4.30, factor 3.2; depth law predicts 4.01	V-B	experiments/ratio_law.py	results/law/depth_transfer.json	1e-2	1	reproduces	
+LAW-RHO	rho medians 0.119 / 0.076 / 0.430 / 0.105	V-B	experiments/ratio_law.py	results/law/rho.tsv	1e-3	1	reproduces	the whole family spread lives here
+WT-PRED	U[1,2] raises rho 0.119 -> ~0.36; (1-2rho) 0.76 -> ~0.29	V-B	experiments/weight_convention.py	results/weights/prediction.json	1e-2	1	reproduces	PREDICTION made before the measurement
+WT-MEAS	119 instances; ratios 1.95 / 1.95 / 1.89; 0 of 119 clear at c=4	V-B	experiments/weight_convention.py	results/weights/measured.csv	1e-2	2	reproduces	### originally analysed off a 103-of-119 half-written CSV; self-found, corrected
+WT-ERR	median relative error 7.5 % from the unseen-convention fit	V-B	experiments/weight_convention.py	results/weights/measured.csv	1e-2	1	reproduces	
+C4-POOL	13.4 % clear at c=4, microstate convention	V-B, VII-B	experiments/creq_sweep.py	results/creq/c4_verdict.json	1e-3	2	reproduces	THE headline number
+C4-FAM	lattice 0 of 360; terrain 35.1 %	V-B, VII-B	experiments/creq_sweep.py	results/creq/c4_verdict.json	1e-3	2	reproduces	
+C4-SIZE	sparse N=60: 1 of 40 clears; dense: 0 of 39	V-B, VII-B	experiments/creq_sweep.py	results/creq/c4_verdict.json	exact	2	reproduces	small cells — n stated inline in the paper
+C4-CONV	edge-set convention 40.0 %; conventions disagree on 273 of 1,027	V-B, VII-B	experiments/creq_sweep.py --both-conventions	results/creq/convention_gap.json	exact	2	reproduces	A52: every c=4 sentence must name its convention
+CNT-BIND	sparse dies past N~140, dense past N~100, at a 6 GB cap	V-C	experiments/counting_limits.py	results/counts/limits.json	—	2	pinned	hardware-dependent; pin the cap, not the boundary
+CNT-BITS	top-coefficient ladder 12 20 30 41 53 65 78 90 103 for k=4..12	V-C	experiments/counting_limits.py --bit-ladder	results/counts/bit_ladder.tsv	exact	1	reproduces	96-bit field exact through k=11, fails at k=12
+CNT-HEAD	every published instance >= 51 bits below the ceiling	V-C	experiments/creq_sweep.py	results/creq/population.csv	exact	1	reproduces	max_coeff_bits persisted per row — promised in Code availability
+CNT-49	49 of 1,080 would have been silently wrong	V-C	experiments/counting_limits.py --legacy-width	results/counts/overflow_audit.json	exact	2	reproduces	A50 defect / A51 fix; error ran toward UNDERSTATING required c
+CNT-COST	whole population ~90 core-minutes	V-C	—	results/creq/timing.json	—	—	pinned	hardware-dependent
+SW-ENRICH	enrichment 0 / 12 / 80 at c=1,2,3 along lambda=0 (orig-hop baseline; L+2 form 0/198/1008 in CSV)	V-D	experiments/clambda_grid.py --rerun-augmented	results/grid/enrichment.csv	seeded	2	reproduces	augmented at b_S=b_k; conservative orig-hop exponent (S/T driven -> terminal edges near-certain); no improvement vs variant on this metric
+SW-EVENTS	0 / 31 / 426 containment events vs chance 3.24 / 2.50 / 5.35 (orig-hop baseline)	V-D	experiments/clambda_grid.py --rerun-augmented	results/grid/enrichment.csv	seeded	2	reproduces	augmented containment events; c=1 is 0 in the whole cell
+SW-DESIGN	8 graphs L>=8, N=60, p=0.05, 3 seeds, 10,000 steps, D=4	V-D	experiments/clambda_grid.py	results/grid/config.json	exact	1	reproduces	design is recorded even if the run is not re-executed
+SW-VARIANT	variant sweep gave 0.9 / 41 / 330	V-D	experiments/clambda_grid.py --variant	results/grid/variant.csv	seeded	2	pinned	quoted only as contrast; construction numbers are the published ones
+MR-NULL	72 units, 143,280,000 steps; shell occupied 2,116 steps (1.5e-5); mass identically zero	V-D	experiments/mass_ratio_pilot.py	results/mass/null.json	exact	2	reproduces	the informative failure; run on the variant
+MR-ACT	mean activity 25.0 to 43.5 against 2N=24	V-D	experiments/mass_ratio_pilot.py	results/mass/null.json	1e-1	2	reproduces	the Theta(N) obstruction
+OE-VALID	max per-neuron discrepancy 1.99e-7 in float32, unchanged after scaling by c	VI-C	verify/check_a.py	results/validate/decomposition.json	1e-9	1	reproduces	validate.py check A; A38 re-measured 1.994e-07
+T-SCALE	all 25 cells of tab:scale	VI-C	experiments/bench_scaling.py	results/bench/scaling.tsv	—	2	pinned	### NO repetitions, oversubscribed harness — disclaimed in the paper as not a benchmark

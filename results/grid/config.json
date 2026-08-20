@@ -1,0 +1,21 @@
+{
+  "SW_DESIGN": {
+    "D": 4.0,
+    "N": 60,
+    "depth_constraint": "L>=8",
+    "n_graphs": 8,
+    "n_seeds": 3,
+    "note": "b_k = (lambda - D - c)/2; sweeps alpha-scale c against length-bias lambda; UNAUGMENTED (b_st never read)",
+    "p": 0.05,
+    "steps_per_run": 10000
+  },
+  "claims": {
+    "SW-DESIGN": "reproduces -- the grid design",
+    "SW-ENRICH": "pinned -- published digits from a superseded population (current harness: same turn-on, different digits)",
+    "SW-EVENTS": "pinned -- same",
+    "SW-VARIANT": "pinned -- quoted only as a contrast"
+  },
+  "manuscript_item": "\u00a7V-D's enrichment digits (<=1.1/33.6/229) predate the current 8-graph L>=8 population; re-quote or note the population change.",
+  "provenance": "harness UNAUGMENTED -> b_st never read; the build spec [AUG]/'unaudited b_st' blocker is moot. See results/grid/bst_provenance.json.",
+  "state": "resolved"
+}

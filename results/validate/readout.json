@@ -1,0 +1,69 @@
+{
+  "R-AGN": {
+    "exact_hits": "12/12",
+    "expected": "12/12",
+    "ok": true
+  },
+  "rows": [
+    {
+      "exact": true,
+      "n": 10,
+      "trial": 0
+    },
+    {
+      "exact": true,
+      "n": 10,
+      "trial": 1
+    },
+    {
+      "exact": true,
+      "n": 10,
+      "trial": 2
+    },
+    {
+      "exact": true,
+      "n": 15,
+      "trial": 0
+    },
+    {
+      "exact": true,
+      "n": 15,
+      "trial": 1
+    },
+    {
+      "exact": true,
+      "n": 15,
+      "trial": 2
+    },
+    {
+      "exact": true,
+      "n": 20,
+      "trial": 0
+    },
+    {
+      "exact": true,
+      "n": 20,
+      "trial": 1
+    },
+    {
+      "exact": true,
+      "n": 20,
+      "trial": 2
+    },
+    {
+      "exact": true,
+      "n": 25,
+      "trial": 0
+    },
+    {
+      "exact": true,
+      "n": 25,
+      "trial": 1
+    },
+    {
+      "exact": true,
+      "n": 25,
+      "trial": 2
+    }
+  ]
+}

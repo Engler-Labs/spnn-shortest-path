@@ -1,0 +1,30 @@
+{
+  "CNT_CROSS": {
+    "crossing_c": 3.699428677298893,
+    "log_ratio_nats": 31.250799274548214,
+    "margin_at_c1": 8.447466352389776,
+    "path_micro": 898048
+  },
+  "CNT_PATH": {
+    "path_min_weight": 0.5487686158157885,
+    "paths_at_matched_depth": 1754
+  },
+  "CNT_SCAT": {
+    "N0": 29029487361552,
+    "N1": 5754844936987,
+    "N2": 254327786111,
+    "matched_size": 10,
+    "n_scatter_micro_aux": 33523490385112072192
+  },
+  "instance": {
+    "B": 1.9863717555999756,
+    "Etilde": 0.2762668238051115,
+    "L": 8,
+    "generator": "random_graph(60, 0.05, seed=19)",
+    "n": 60,
+    "n_edges": 142,
+    "path_weight": 0.5487686158157885,
+    "source": 0,
+    "target": 59
+  }
+}
