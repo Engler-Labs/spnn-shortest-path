@@ -1,0 +1,86 @@
+{
+  "additive_r2": 0.9659988428361291,
+  "beta1_equals_one": false,
+  "implied_branching_b": 16.76461268492998,
+  "n": 1027,
+  "response": "ln_ratio_micro",
+  "theory_no_intercept": {
+    "X1": [
+      1.864467765394429,
+      1.8290213913174702,
+      1.8999141394713879
+    ],
+    "X2": [
+      -2.9793985631502102,
+      -3.101988888470462,
+      -2.8568082378299584
+    ],
+    "lofo_ratios": {
+      "dense": 1.0551943231198946,
+      "grid": 1.207185268411185,
+      "mtn_knn": 0.9974191250347287,
+      "sparse": 1.18356561047802
+    },
+    "median_rel_err": 0.06461816892111251,
+    "model": "beta1*X1 + beta2*X2  (no intercept)",
+    "r2": 0.9798367262107108
+  },
+  "theory_with_intercept": {
+    "X1": [
+      1.7537985467361425,
+      1.722643357385495,
+      1.7849537360867902
+    ],
+    "X2": [
+      -2.8192702770524547,
+      -2.9222143856508893,
+      -2.71632616845402
+    ],
+    "intercept": [
+      2.798844141305125,
+      2.5426713433156225,
+      3.055016939294627
+    ],
+    "lofo_ratios": {
+      "dense": 0.9493123738503737,
+      "grid": 1.1651869814527103,
+      "mtn_knn": 0.9776644968598329,
+      "sparse": 1.1042345640353721
+    },
+    "median_rel_err": 0.039553232001877534,
+    "model": "b0 + beta1*X1 + beta2*X2;  X1=L*ln(|E|*e/L), X2=L",
+    "r2": 0.9860833921016481
+  },
+  "three_term": {
+    "L": [
+      -2.4804218817344235,
+      -2.770853847259889,
+      -2.1899899162089578
+    ],
+    "L*lnL": [
+      -1.2193833225030506,
+      -1.3299615734049886,
+      -1.1088050716011126
+    ],
+    "L*ln|E|": [
+      1.6900713270901404,
+      1.657687355248212,
+      1.7224552989320687
+    ],
+    "intercept": [
+      6.823904032901085,
+      5.985282760797028,
+      7.6625253050051425
+    ],
+    "lofo_ratios": {
+      "dense": 0.9291495795006007,
+      "grid": 1.1409980756359108,
+      "mtn_knn": 1.0087441619651905,
+      "sparse": 1.0944073405599226
+    },
+    "median_rel_err": 0.04405264419990803,
+    "model": "b0 + g1*(L*ln|E|) + g2*(L*lnL) + g3*L",
+    "r2": 0.987288401553734
+  },
+  "verdict": "beta1 = 1.7538 [1.7226, 1.7850], decisively NOT 1 (the asymptotic predicts 1): the additive numerator fit is a linearization over the operating range. But the predicted interaction FORM fits materially better (R2 0.986 vs additive 0.966) and the -L*lnL term is recovered near -1 (-1.219), so the asymptotic captures the form while the leading coefficient carries a ~1.75 finite-size prefactor the leading-order expansion omits."
+}
