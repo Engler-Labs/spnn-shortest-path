@@ -1,0 +1,105 @@
+{
+  "all_first_rival_is_tau_argmin": true,
+  "all_hold_within_0p9tau": true,
+  "c": 4.0,
+  "instances": [
+    {
+      "B": 1.6004986763000488,
+      "L": 3,
+      "first_inverting_rival": {
+        "L": 1,
+        "weight": 0.6726752519607544
+      },
+      "first_rival_is_tau_argmin": true,
+      "holds_at": {
+        "+0.5tau": true,
+        "+0.9tau": true,
+        "+1.1tau": true,
+        "+2tau": true,
+        "+5tau": false,
+        "-0.5tau": true,
+        "-0.9tau": true,
+        "-1.1tau": false,
+        "-2tau": false,
+        "-5tau": false
+      },
+      "instance": "random_graph(10, 0.12, seed=9)",
+      "measured_over_tau": 1.0000000000000002,
+      "measured_signed": -0.5225897321576207,
+      "measured_threshold": 0.5225897321576207,
+      "n_paths": 13,
+      "opt_weight": 0.46357420831918716,
+      "tau": 0.5225897321576206,
+      "tau_binding_rival": {
+        "L": 1,
+        "weight": 0.6726752519607544
+      }
+    },
+    {
+      "B": 1.9574958086013794,
+      "L": 5,
+      "first_inverting_rival": {
+        "L": 7,
+        "weight": 2.829642564058304
+      },
+      "first_rival_is_tau_argmin": true,
+      "holds_at": {
+        "+0.5tau": true,
+        "+0.9tau": true,
+        "+1.1tau": false,
+        "+2tau": false,
+        "+5tau": false,
+        "-0.5tau": true,
+        "-0.9tau": true,
+        "-1.1tau": true,
+        "-2tau": false,
+        "-5tau": false
+      },
+      "instance": "random_graph(10, 0.12, seed=7)",
+      "measured_over_tau": 1.0000000000000007,
+      "measured_signed": 1.2046557645503402,
+      "measured_threshold": 1.2046557645503402,
+      "n_paths": 12,
+      "opt_weight": 2.240115411579609,
+      "tau": 1.2046557645503393,
+      "tau_binding_rival": {
+        "L": 7,
+        "weight": 2.829642564058304
+      }
+    },
+    {
+      "B": 1.967146635055542,
+      "L": 8,
+      "first_inverting_rival": {
+        "L": 7,
+        "weight": 2.0878446996212006
+      },
+      "first_rival_is_tau_argmin": true,
+      "holds_at": {
+        "+0.5tau": true,
+        "+0.9tau": true,
+        "+1.1tau": true,
+        "+2tau": true,
+        "+5tau": true,
+        "-0.5tau": true,
+        "-0.9tau": true,
+        "-1.1tau": false,
+        "-2tau": false,
+        "-5tau": false
+      },
+      "instance": "random_graph(14, 0.12, seed=32)",
+      "measured_over_tau": 0.9999999999999998,
+      "measured_signed": -0.28091468826518984,
+      "measured_threshold": 0.28091468826518984,
+      "n_paths": 24,
+      "opt_weight": 2.0187696516513824,
+      "tau": 0.2809146882651899,
+      "tau_binding_rival": {
+        "L": 7,
+        "weight": 2.0878446996212006
+      }
+    }
+  ],
+  "min_measured_over_tau": 0.9999999999999998,
+  "note": "ordering tolerance (20) checked against the compiled augmented network at b_st=b_k; E_N affine in lambda so two anchor compiles give the exact compiled ordering at every lambda."
+}

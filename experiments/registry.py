@@ -112,6 +112,11 @@ EXPERIMENTS = [
                "built", "NEW -- arithmetic off population.csv (floor = num/(L+1))",
                "per-instance B->inf floor + % unreachable at c=4; per-family medians "
                "cross-check the W2 B-sweep (sparse 4.70 / dense 4.74 / grid 2.68 / mtn 3.46)"),
+    Experiment("16", "ordering_tolerance", "ordering tolerance (20) vs compiled net",
+               "IV-C", ("ORD-TOL",), ("results/tolerance/ordering.json",), 1,
+               "built", "NEW -- removes the last [DERIVED] tag (Prop 2)",
+               "L in {3,5,8}; compiled-network E_N argmin vs Dijkstra across lambda; "
+               "measured inversion threshold / tau >= 1 confirms the bound"),
 ]
 
 BY_ID = {e.id: e for e in EXPERIMENTS}
