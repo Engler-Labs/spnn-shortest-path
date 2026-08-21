@@ -382,3 +382,160 @@ def brute_matchings(n, edges, kmax):
             if ok:
                 m[k] += 1
     return m
+
+
+# ----------------------------------------------------------------------
+def count_degree2_by_deficit(n, edges, s, t, L, order=None):
+    """EXACT N_d for the section V-D deficit grading, on the AUGMENTED graph.
+
+    Counts the admissible matched-activity configurations: degree-<=2 subgraphs of
+    the augmented graph (original graph + terminals S,T + the forced zero-weight
+    auxiliary edges (S,s),(t,T)) with exactly m = L+2 edges -- vertex-disjoint unions
+    of paths and cycles.  Matched activity forces both auxiliary edges in and
+    deg(S)=deg(T)=1 (see section V-D), so this reduces to choosing L real edges with
+    deg(s)<=1, deg(t)<=1, deg(other)<=2.
+
+    Partitions by the DEFICIT ``d = k_p - 1``, where ``k_p`` = number of PATH
+    components (cycles excluded).  Because a max-degree-<=2 graph has exactly
+    ``(#degree-1 vertices)/2`` path components, d is fixed by the degree sequence:
+
+        k_p = (#real degree-1 vertices)/2 + [deg(s)==0] + [deg(t)==0]
+
+    (the two terminal bracket terms account for an isolated s or t, which the aux
+    edge turns into its own S-s / T-t path).  So NO connectivity tracking is needed --
+    a frontier DP over vertex degrees (0/1/2), pruned by the L-edge budget, suffices.
+
+    Counts accumulate in Python arbitrary-precision integers, so there is no packed
+    field to overflow -- the fixed-width masking failure mode of ``count_matchings``
+    (A7/CNT-BITS) cannot occur here.  The d=m-1 (all-disjoint) term equals
+    ``scatter_counts``' N2, a cross-check against the independent matching counter.
+
+    Returns ``(Nd, stats)`` with ``Nd[d]`` an exact Python int for d = 0..m-1.
+    """
+    from itertools import combinations
+    adj = [[] for _ in range(n)]
+    seen = set()
+    for a, b in edges:
+        a, b = int(a), int(b)
+        if (a, b) in seen or (b, a) in seen:
+            continue
+        seen.add((a, b))
+        adj[a].append(b)
+        adj[b].append(a)
+    cap = [2] * n
+    cap[s] = 1
+    cap[t] = 1
+    if order is None:
+        order, _ = _boundary_order(n, [[(u, 1.0) for u in adj[v]] for v in range(n)])
+    pos = [0] * n
+    for i, v in enumerate(order):
+        pos[v] = i
+    for v in range(n):
+        adj[v].sort(key=lambda u: pos[u])
+
+    # state: frontier-degree profile (tuple of (vertex,deg)) -> polynomial
+    #        {(edges, deg1_nonst, deg_s, deg_t): count}
+    states = {(): {(0, 0, 0, 0): 1}}
+    max_states = 1
+    for v in order:
+        nv = pos[v]
+        later = [u for u in adj[v] if pos[u] > nv]
+        new = defaultdict(dict)
+        for st, poly in states.items():
+            std = dict(st)
+            dv0 = std.pop(v, 0)
+            room = cap[v] - dv0
+            min_e = min(e for (e, _, _, _) in poly)
+            for k in range(0, room + 1):
+                if min_e + k > L:              # cheapest surviving edge count exceeds L
+                    break
+                for chosen in combinations(later, k):
+                    add = {}
+                    ok = True
+                    for u in chosen:
+                        if std.get(u, 0) + add.get(u, 0) + 1 > cap[u]:
+                            ok = False
+                            break
+                        add[u] = add.get(u, 0) + 1
+                    if not ok:
+                        continue
+                    dvf = dv0 + k                # v's FINAL degree
+                    nd = dict(std)
+                    for u, c in add.items():
+                        nd[u] = nd.get(u, 0) + c
+                    tgt = new[tuple(sorted(nd.items()))]
+                    for (e, d1, ds, dt), cnt in poly.items():
+                        e2 = e + k
+                        if e2 > L:
+                            continue
+                        if v == s:
+                            key = (e2, d1, dvf, dt)
+                        elif v == t:
+                            key = (e2, d1, ds, dvf)
+                        else:
+                            key = (e2, d1 + (1 if dvf == 1 else 0), ds, dt)
+                        tgt[key] = tgt.get(key, 0) + cnt
+        states = new
+        max_states = max(max_states, len(states))
+
+    Nd = defaultdict(int)
+    for st, poly in states.items():
+        for (e, d1, ds, dt), cnt in poly.items():
+            if e != L:
+                continue
+            deg1 = d1 + (1 if ds == 1 else 0) + (1 if dt == 1 else 0)
+            if deg1 % 2:                        # #degree-1 vertices must be even
+                continue
+            k_p = deg1 // 2 + (1 if ds == 0 else 0) + (1 if dt == 0 else 0)
+            Nd[k_p - 1] += cnt
+    m = L + 2
+    stats = dict(m=m, L=L, max_states=max_states,
+                 order_max_frontier=_max_frontier(
+                     n, [[(u, 1.0) for u in adj[v]] for v in range(n)], order),
+                 micro_multiplicity="config at deficit d covers L+d+1 real vertices, "
+                                    "so its microstate weight is 2^(L+d+1)")
+    return dict(Nd), stats
+
+
+def brute_degree2_by_deficit(n, edges, s, t, L):
+    """O(C(|E|,L)) reference for tiny graphs -- validates count_degree2_by_deficit."""
+    from itertools import combinations as _comb
+    E = [(int(a), int(b)) for a, b in edges]
+    S, T = n, n + 1
+    aux = [(S, s), (t, T)]
+    Nd = defaultdict(int)
+    for cb in _comb(range(len(E)), L):
+        allE = [E[i] for i in cb] + aux
+        deg = defaultdict(int)
+        ok = True
+        for u, v in allE:
+            deg[u] += 1
+            deg[v] += 1
+            if deg[u] > 2 or deg[v] > 2:
+                ok = False
+                break
+        if not ok:
+            continue
+        adj = defaultdict(list)
+        for u, v in allE:
+            adj[u].append(v)
+            adj[v].append(u)
+        seen = set()
+        n_path = 0
+        for start in list(adj):
+            if start in seen:
+                continue
+            comp = [start]
+            seen.add(start)
+            i = 0
+            while i < len(comp):
+                x = comp[i]
+                i += 1
+                for y in adj[x]:
+                    if y not in seen:
+                        seen.add(y)
+                        comp.append(y)
+            if not all(deg[x] == 2 for x in comp):
+                n_path += 1
+        Nd[n_path - 1] += 1
+    return dict(Nd)

@@ -123,6 +123,12 @@ EXPERIMENTS = [
                "built", "NEW -- population enumeration at lambda=0, c=4",
                "variant E_N-min vs Dijkstra 16.9% disagree (excess median 22.3%); the "
                "augmented control is 0/427 (Cor 1(iii)) -- a population-scale ordering check"),
+    Experiment("18", "deficit_counts", "N_d / N'0 via degree-<=2 deficit DP",
+               "V-D", ("DEF-COUNTS", "DEF-33", "DEF-36"),
+               ("results/counts/deficit.json",), 2,
+               "built", "NEW -- degree-<=2 frontier DP; reference instance (~46s)",
+               "exact N_d (validated vs brute + scatter_counts N2); (33) argmax at d=1 "
+               "NOT d=m-1; (36) d=0 sector vacuous (N'0<#path) -- closes the unsigned direction"),
 ]
 
 BY_ID = {e.id: e for e in EXPERIMENTS}
