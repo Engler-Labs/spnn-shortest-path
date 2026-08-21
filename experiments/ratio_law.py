@@ -195,14 +195,66 @@ def _ols_named(rows, names, intercept, resp="ln_ratio_micro"):
                 r2=1.0 - float(resid @ resid) / ss_tot, coefs=coefs)
 
 
-def _predict_c_named(fit, r):
-    """c_req prediction = numerator(fit) / this instance's own margin."""
+def _numer_named(fit, r):
+    """The fitted numerator ln(#scatter/#path) for one instance (no margin divide)."""
     b = fit["beta"]
     off = 1 if fit["intercept"] else 0
     num = b[0] if fit["intercept"] else 0.0
     for i, nm in enumerate(fit["names"]):
         num += b[i + off] * _FEAT[nm](r)
-    return num / r["margin_c1"]
+    return num
+
+
+def _predict_c_named(fit, r):
+    """c_req prediction = numerator(fit) / this instance's own margin."""
+    return _numer_named(fit, r) / r["margin_c1"]
+
+
+def _beta1_per_family(rows, by_fam, pooled_r2):
+    """Refit the interaction form separately on each family (review v6): does the
+    leading coefficient beta1 vary by topology, or is the numerator family-independent
+    (the paper's structural claim)?  Reports the four beta1 + CIs, whether the CIs
+    share a common value, each family's median depth L (the family/depth confound --
+    grid sits at L~14, sparse/dense at L~3), and pooled vs piecewise R^2 so we can say
+    whether four beta1s buy anything over one."""
+    per = {}
+    for fam in FAM_ORDER:
+        v = by_fam[fam]
+        fit = _ols_named(v, ["X1", "X2"], True)
+        x1 = np.array([_FEAT["X1"](r) for r in v])
+        x2 = np.array([_FEAT["X2"](r) for r in v])
+        per[fam] = dict(beta1=fit["coefs"]["X1"], beta2=fit["coefs"]["X2"][0],
+                        intercept=fit["coefs"]["intercept"][0], r2=fit["r2"],
+                        n=len(v), median_L=float(np.median([r["L"] for r in v])),
+                        n_distinct_E=len({r["E"] for r in v}),
+                        x1_x2_corr=float(np.corrcoef(x1, x2)[0, 1]),
+                        _fit=fit)
+    los = [per[f]["beta1"][1] for f in FAM_ORDER]
+    his = [per[f]["beta1"][2] for f in FAM_ORDER]
+    overlap = max(los) <= min(his)                       # a value inside all four CIs?
+    # piecewise R^2: predict each instance's ln-ratio from its OWN family's fit
+    y = np.array([r["ln_ratio_micro"] for r in rows])
+    yhat = np.array([_numer_named(per[r["family"]]["_fit"], r) for r in rows])
+    ss_tot = float(((y - y.mean()) ** 2).sum())
+    piecewise_r2 = 1.0 - float(((y - yhat) ** 2).sum()) / ss_tot
+    for f in FAM_ORDER:
+        per[f].pop("_fit")
+    return dict(
+        per_family=per,
+        beta1_ci_overlap=bool(overlap),
+        common_beta1_range=[max(los), min(his)] if overlap else None,
+        pooled_beta1=None,   # filled by caller (the pooled Model B beta1)
+        pooled_r2=pooled_r2, piecewise_r2=piecewise_r2,
+        note="beta1 by family, each with its own beta2/intercept. TWO confounds make "
+             "the per-family split unreliable: (1) family and depth are correlated "
+             "(grid L~14, sparse/dense L~3), and (2) within each family X1 and X2 are "
+             "highly collinear (x1_x2_corr up to 0.999 for grid, which has only "
+             "n_distinct_E edge counts because a lattice's |E| is deterministic in "
+             "size), so beta1/beta2 are poorly separated per family -- the pooled fit, "
+             "which spans all depths/families, is the identifiable one. The nominal "
+             "beta1 do vary and their CIs are disjoint, but the variation reflects each "
+             "family's (L,|E|) regime, not a clean topology effect; grid's 0.55 is the "
+             "extreme (near-perfect collinearity). piecewise R2 barely beats pooled.")
 
 
 def _interaction_fit(rows, by_fam, u12_rows, m_additive):
@@ -273,6 +325,8 @@ def _interaction_fit(rows, by_fam, u12_rows, m_additive):
             + B["beta"][2] * _FEAT["X2"](r)))
 
     pB = pack(B, "b0 + beta1*X1 + beta2*X2;  X1=L*ln(|E|*e/L), X2=L")
+    fam_beta1 = _beta1_per_family(rows, by_fam, B["r2"])
+    fam_beta1["pooled_beta1"] = B["coefs"]["X1"]
     return dict(
         response="ln_ratio_micro", n=len(rows),
         additive_r2=0.9659988428361291,
@@ -284,6 +338,7 @@ def _interaction_fit(rows, by_fam, u12_rows, m_additive):
         edge_robustness=edge_robustness,
         kappa_E_over_beta1=kappa,
         u12_holdout=u12_holdout,
+        beta1_per_family=fam_beta1,
         verdict=(
             "beta1 = %.4f [%.4f, %.4f], decisively NOT 1 (the asymptotic predicts 1): "
             "the additive numerator fit is a linearization over the operating range. "
@@ -467,6 +522,16 @@ def run(argv=None) -> dict:
         u = interaction["u12_holdout"]
         print(f"      U[1,2] holdout (n={u['n']}): additive {100*u['additive_median_rel_err']:.1f}% "
               f"-> Model B {100*u['model_b_median_rel_err']:.1f}%  (extrapolation worsens)")
+        fam = interaction["beta1_per_family"]
+        print(f"      beta1 per family (4 CIs overlap = {fam['beta1_ci_overlap']}):")
+        for f in FAM_ORDER:
+            pf = fam["per_family"][f]
+            print(f"        {f:<8} beta1={pf['beta1'][0]:+.3f} "
+                  f"[{pf['beta1'][1]:+.3f},{pf['beta1'][2]:+.3f}]  L~{pf['median_L']:.0f}  "
+                  f"n={pf['n']}  R2={pf['r2']:.3f}  corr(X1,X2)={pf['x1_x2_corr']:.3f}"
+                  f"  (#|E|={pf['n_distinct_E']})")
+        print(f"      pooled beta1={fam['pooled_beta1'][0]:.3f}; pooled R2={fam['pooled_r2']:.4f} "
+              f"vs piecewise R2={fam['piecewise_r2']:.4f}")
         print(f"      implied branching b = {interaction['implied_branching_b']:.2f}")
         print(f"      => {interaction['verdict']}")
     return result
