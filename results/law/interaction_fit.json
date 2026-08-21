@@ -1,6 +1,76 @@
 {
   "additive_r2": 0.9659988428361291,
   "beta1_equals_one": false,
+  "beta1_per_family": {
+    "beta1_ci_overlap": false,
+    "common_beta1_range": null,
+    "note": "beta1 by family, each with its own beta2/intercept. TWO confounds make the per-family split unreliable: (1) family and depth are correlated (grid L~14, sparse/dense L~3), and (2) within each family X1 and X2 are highly collinear (x1_x2_corr up to 0.999 for grid, which has only n_distinct_E edge counts because a lattice's |E| is deterministic in size), so beta1/beta2 are poorly separated per family -- the pooled fit, which spans all depths/families, is the identifiable one. The nominal beta1 do vary and their CIs are disjoint, but the variation reflects each family's (L,|E|) regime, not a clean topology effect; grid's 0.55 is the extreme (near-perfect collinearity). piecewise R2 barely beats pooled.",
+    "per_family": {
+      "dense": {
+        "beta1": [
+          2.2072439039298986,
+          2.147092680091385,
+          2.267395127768412
+        ],
+        "beta2": -6.8141611621211675,
+        "intercept": 8.821880636063511,
+        "median_L": 3.0,
+        "n": 182,
+        "n_distinct_E": 114,
+        "r2": 0.9689439994517015,
+        "x1_x2_corr": 0.8901201012658813
+      },
+      "grid": {
+        "beta1": [
+          0.5451626209382533,
+          0.532531773937944,
+          0.5577934679385625
+        ],
+        "beta2": 2.0425947294093456,
+        "intercept": -11.565910030772837,
+        "median_L": 14.0,
+        "n": 360,
+        "n_distinct_E": 9,
+        "r2": 0.9999756710091064,
+        "x1_x2_corr": 0.9990600044290857
+      },
+      "mtn_knn": {
+        "beta1": [
+          2.409190618699447,
+          2.2951680306652116,
+          2.5232132067336823
+        ],
+        "beta2": -5.627547307024285,
+        "intercept": 5.931992497336672,
+        "median_L": 10.0,
+        "n": 262,
+        "n_distinct_E": 91,
+        "r2": 0.9882914173214579,
+        "x1_x2_corr": 0.9924726910839798
+      },
+      "sparse": {
+        "beta1": [
+          2.0654996849550757,
+          2.0159114245772356,
+          2.115087945332916
+        ],
+        "beta2": -5.042886926924899,
+        "intercept": 7.319675376653715,
+        "median_L": 3.0,
+        "n": 223,
+        "n_distinct_E": 130,
+        "r2": 0.9760336812693787,
+        "x1_x2_corr": 0.8955718999249804
+      }
+    },
+    "piecewise_r2": 0.9965113500043533,
+    "pooled_beta1": [
+      1.7537985467361425,
+      1.722643357385495,
+      1.7849537360867902
+    ],
+    "pooled_r2": 0.9860833921016481
+  },
   "edge_robustness": {
     "beta1_no_intercept": [
       1.758882901143129,
