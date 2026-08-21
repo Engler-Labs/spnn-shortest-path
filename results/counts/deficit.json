@@ -1,0 +1,95 @@
+{
+  "B": 1.9863717555999756,
+  "L": 8,
+  "N_0": 2383,
+  "N_d": {
+    "0": 2383,
+    "1": 1283813,
+    "2": 100159424,
+    "3": 2659195951,
+    "4": 31573380130,
+    "5": 189188369608,
+    "6": 600975283521,
+    "7": 1006743561045,
+    "8": 823736296039,
+    "9": 254327786111
+  },
+  "N_prime_0": 629,
+  "W_cyc_min": 0.7553227418102324,
+  "abar": 0.938607372487753,
+  "argmax_d": 1,
+  "argmax_is_m_minus_1": false,
+  "binding_term_micro": 7.439081582058141,
+  "crosscheck_Nm1_eq_scatter_N2": true,
+  "d0_sector_36": {
+    "N_prime_0": 629,
+    "bound_c": -1.3484763815273413,
+    "ln_ratio": -1.025522916231688,
+    "n_path": 1754,
+    "reading": "N'0 < #path so the bound is negative: the d=0 non-path sector imposes NO constraint on c -- the direction the paper left unsigned is favorable",
+    "vacuous": true
+  },
+  "grade_33": {
+    "1": {
+      "N_d": 1283813,
+      "edge": 6.700596885605377,
+      "ln_ratio_edge": 6.289229636897683,
+      "micro": 7.439081582058141
+    },
+    "2": {
+      "N_d": 100159424,
+      "edge": 5.671252192055936,
+      "ln_ratio_edge": 10.646158237402062,
+      "micro": 6.409736888508701
+    },
+    "3": {
+      "N_d": 2659195951,
+      "edge": 4.945331623231989,
+      "ln_ratio_edge": 13.925174162887114,
+      "micro": 5.683816319684753
+    },
+    "4": {
+      "N_d": 31573380130,
+      "edge": 4.368031086578237,
+      "ln_ratio_edge": 16.399464724472097,
+      "micro": 5.106515783031003
+    },
+    "5": {
+      "N_d": 189188369608,
+      "edge": 3.8759323815980045,
+      "ln_ratio_edge": 18.18989354315951,
+      "micro": 4.614417078050769
+    },
+    "6": {
+      "N_d": 600975283521,
+      "edge": 3.4351786726813014,
+      "ln_ratio_edge": 19.345704167948178,
+      "micro": 4.173663369134066
+    },
+    "7": {
+      "N_d": 1006743561045,
+      "edge": 3.0229628559981254,
+      "ln_ratio_edge": 19.861626563775317,
+      "micro": 3.76144755245089
+    },
+    "8": {
+      "N_d": 823736296039,
+      "edge": 2.618373958291405,
+      "ln_ratio_edge": 19.661000809458024,
+      "micro": 3.35685865474417
+    },
+    "9": {
+      "N_d": 254327786111,
+      "edge": 2.1883217429048054,
+      "ln_ratio_edge": 18.485774291391294,
+      "micro": 2.92680643935757
+    }
+  },
+  "instance": "random_graph(60,0.05,seed=19)",
+  "m": 10,
+  "max_states": 396173,
+  "micro_multiplicity": "config at deficit d covers L+d+1 real vertices; microstate weight 2^(L+d+1) (d=0 -> 2^(L+1), the path)",
+  "n_stpaths_full": 1754,
+  "order_max_frontier": 17,
+  "published_term_d_m1_micro": 2.92680643935757
+}
