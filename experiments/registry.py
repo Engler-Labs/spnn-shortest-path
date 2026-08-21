@@ -106,6 +106,12 @@ EXPERIMENTS = [
                "VI-C", ("T-SCALE",), ("results/bench/scaling.tsv",), 2,
                "built", "PORT; thin driver over spnn.bench",
                "PINNED: structural columns exact, timing columns hardware-local"),
+    Experiment("15", "b_floors", "B floors per instance",
+               "VII-B", ("B-FLOOR-FAM", "B-FLOOR-UNREACH"),
+               ("results/creq/b_floors.json",), 1,
+               "built", "NEW -- arithmetic off population.csv (floor = num/(L+1))",
+               "per-instance B->inf floor + % unreachable at c=4; per-family medians "
+               "cross-check the W2 B-sweep (sparse 4.70 / dense 4.74 / grid 2.68 / mtn 3.46)"),
 ]
 
 BY_ID = {e.id: e for e in EXPERIMENTS}

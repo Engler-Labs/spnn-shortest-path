@@ -1,0 +1,51 @@
+{
+  "B_over_wmax_to_c4_reachable": {
+    "max": 346.9601083864317,
+    "mean": 6.780445389634014,
+    "median": 4.145366763352421,
+    "min": 0.1538481936592691,
+    "n": 706,
+    "q25": 2.13808406367211,
+    "q75": 6.670591756652574
+  },
+  "by_family": {
+    "dense": {
+      "frac_floor_ge_4": 0.7197802197802198,
+      "median_B_over_wmax_to_c4": 6.56811232252416,
+      "median_floor": 4.684073129825421,
+      "n": 182
+    },
+    "grid": {
+      "frac_floor_ge_4": 0.0,
+      "median_B_over_wmax_to_c4": 4.923857001476192,
+      "median_floor": 2.6983291425033165,
+      "n": 360
+    },
+    "mtn_knn": {
+      "frac_floor_ge_4": 0.16793893129770993,
+      "median_B_over_wmax_to_c4": 2.2927449899042482,
+      "median_floor": 3.4608757771849055,
+      "n": 262
+    },
+    "sparse": {
+      "frac_floor_ge_4": 0.6547085201793722,
+      "median_B_over_wmax_to_c4": 3.651203285976787,
+      "median_floor": 4.58112298395529,
+      "n": 223
+    }
+  },
+  "definition": "floor_i = ln(#scatter/#path)/(L+1) = c_req as B->inf; unreachable at c=4 iff floor>=4; B/w_max to reach c=4 = 4*Etilde/((L+1)-num/4).",
+  "floor_overall": {
+    "max": 6.879796477843859,
+    "mean": 3.599296708525352,
+    "median": 3.385999638862274,
+    "min": 1.190467193322187,
+    "n": 1027,
+    "q25": 2.843983810220511,
+    "q75": 4.307074819639026
+  },
+  "frac_floor_ge_4": 0.31256085686465435,
+  "n_floor_ge_4": 321,
+  "n_instances": 1027,
+  "n_reachable": 706
+}
