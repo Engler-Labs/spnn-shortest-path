@@ -1,0 +1,56 @@
+{
+  "by_family": {
+    "dense": {
+      "absent": 0,
+      "n": 36,
+      "present": 36,
+      "present_frac": 1.0,
+      "present_gap_c4_max": -6.299985957143375,
+      "present_gap_c4_median": -3.9633192234135644,
+      "undetermined": 0
+    },
+    "grid": {
+      "absent": 25,
+      "n": 36,
+      "present": 0,
+      "present_frac": 0.0,
+      "present_gap_c4_max": null,
+      "present_gap_c4_median": null,
+      "undetermined": 11
+    },
+    "mtn_knn": {
+      "absent": 0,
+      "n": 36,
+      "present": 24,
+      "present_frac": 0.6666666666666666,
+      "present_gap_c4_max": -15.440528567135832,
+      "present_gap_c4_median": -8.087214844463565,
+      "undetermined": 12
+    },
+    "sparse": {
+      "absent": 0,
+      "n": 36,
+      "present": 36,
+      "present_frac": 1.0,
+      "present_gap_c4_max": -9.334905846099163,
+      "present_gap_c4_median": -3.1427439982506913,
+      "undetermined": 0
+    }
+  },
+  "note": "ABSENT/PRESENT are rigorous certificates; UNDETERMINED is neither (a heuristic miss is not a proof of absence) and is NOT imputed.",
+  "pooled": {
+    "absent": 25,
+    "n": 144,
+    "present": 96,
+    "undetermined": 23
+  },
+  "reference_sanity": {
+    "L": 8,
+    "W_cyc": 1.2239303020760417,
+    "cls": "present",
+    "gap_below_path_c4": -1.2808244605498902,
+    "m": 10,
+    "threshold": 1.5419544936157763
+  },
+  "threshold_rule": "a disjoint-cycle set on exactly m=L+2 edges with total weight < w_max + W* is cheaper than the path (gap = -c[1+2(W*-W_cyc)/B] grows linearly in c)"
+}
