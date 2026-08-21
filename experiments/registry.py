@@ -127,8 +127,13 @@ EXPERIMENTS = [
                "V-D", ("DEF-COUNTS", "DEF-33", "DEF-36"),
                ("results/counts/deficit.json",), 2,
                "built", "NEW -- degree-<=2 frontier DP; reference instance (~46s)",
-               "exact N_d (validated vs brute + scatter_counts N2); (33) argmax at d=1 "
-               "NOT d=m-1; (36) d=0 sector vacuous (N'0<#path) -- closes the unsigned direction"),
+               "PROVISIONAL (#227): both-aux subset undercounts; see cycle_prevalence + "
+               "the corrected full-space result pending the section V-D framing"),
+    Experiment("19", "cycle_prevalence", "d=-1 disjoint-cycle sector prevalence",
+               "V-D", ("CYC-PREV",), ("results/counts/cycle_prevalence.json",), 2,
+               "built", "NEW -- two-sided certificates (absence/presence/undetermined)",
+               "how common is a disjoint-cycle set cheaper than the path (W_cyc<w_max+W*); "
+               "rigorous per-instance certificates, undetermined never imputed"),
 ]
 
 BY_ID = {e.id: e for e in EXPERIMENTS}
