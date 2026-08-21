@@ -1,0 +1,30 @@
+{
+  "ORD_CONTROL": {
+    "corollary_1iii_holds": true,
+    "disagreement_fraction": 0.0,
+    "disagreements": [],
+    "n_disagree": 0,
+    "note": "augmented ordering at lambda=0 must equal Dijkstra (Cor 1(iii)); a nonzero rate contradicts the central ordering theorem."
+  },
+  "VAR_RATE": {
+    "disagreement_fraction": 0.1686182669789227,
+    "n_disagree": 72,
+    "note": "variant E_N-min path vs Dijkstra; excess = (W_var - W*)/W*. The paper's constructed VAR-INV4 example is 0.24 (24% heavier).",
+    "weight_excess_over_disagreements": {
+      "frac_ge_0.24": 0.4583333333333333,
+      "max": 10.91542091368725,
+      "median": 0.22303107500403616,
+      "min": 0.004747289062507378,
+      "n": 72,
+      "q75": 0.4510627206800811,
+      "q90": 0.9596399918266795
+    }
+  },
+  "n_instances": 427,
+  "params": {
+    "D": 4.0,
+    "c": 4.0,
+    "lambda": 0.0,
+    "path_cap": 4000
+  }
+}
