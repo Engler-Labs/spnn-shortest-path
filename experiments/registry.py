@@ -117,6 +117,12 @@ EXPERIMENTS = [
                "built", "NEW -- removes the last [DERIVED] tag (Prop 2)",
                "L in {3,5,8}; compiled-network E_N argmin vs Dijkstra across lambda; "
                "measured inversion threshold / tau >= 1 confirms the bound"),
+    Experiment("17", "variant_rate", "variant-vs-Dijkstra rate + augmented control",
+               "IV-E", ("VAR-RATE", "ORD-CONTROL"),
+               ("results/variant/disagreement.json",), 2,
+               "built", "NEW -- population enumeration at lambda=0, c=4",
+               "variant E_N-min vs Dijkstra 16.9% disagree (excess median 22.3%); the "
+               "augmented control is 0/427 (Cor 1(iii)) -- a population-scale ordering check"),
 ]
 
 BY_ID = {e.id: e for e in EXPERIMENTS}
