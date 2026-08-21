@@ -1,0 +1,12 @@
+{
+  "instance": "random_graph(60, 0.05, seed=19)",
+  "n_edges": 142,
+  "optimum_hops": 8,
+  "opt_cost": 0.5487686158157885,
+  "weighted_girth": 0.7553227418102324,
+  "girth_witness_edge": [
+    3,
+    6
+  ],
+  "ok": true
+}

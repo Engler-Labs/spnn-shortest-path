@@ -149,6 +149,48 @@ def mountain_spatial_graph(n: int, seed: int = 0, n_peaks: int = 4, relief: floa
     return n, edges, np.maximum(w, 1e-3)
 
 
+def min_weight_cycle(n, edges, w):
+    """Weighted girth: the minimum total weight over all cycles of G, or inf if G is
+    acyclic (undirected, positive weights).
+
+    For each edge e = (u, v) with weight w_e, the lightest cycle through e is the
+    shortest u->v path in G with e removed, plus w_e; the girth is the minimum over
+    all edges.  With positive weights the shortest path is simple and avoids e, so
+    path + e is a simple cycle (>= 3 edges for a simple graph).  Returns
+    ``(weight, (u, v))`` -- the girth and one witness edge on the lightest cycle.
+    """
+    adj: dict[int, list] = {i: [] for i in range(n)}
+    for i, (a, b) in enumerate(edges):
+        a, b = int(a), int(b)
+        adj[a].append((b, float(w[i]), i))
+        adj[b].append((a, float(w[i]), i))
+
+    def _sp(src, dst, ban):
+        dist = {src: 0.0}
+        pq = [(0.0, src)]
+        while pq:
+            d, v = heapq.heappop(pq)
+            if v == dst:
+                return d
+            if d > dist.get(v, np.inf):
+                continue
+            for nb, ww, ei in adj[v]:
+                if ei == ban:
+                    continue
+                nd = d + ww
+                if nd < dist.get(nb, np.inf):
+                    dist[nb] = nd
+                    heapq.heappush(pq, (nd, nb))
+        return float(np.inf)
+
+    best, witness = float(np.inf), None
+    for i, (a, b) in enumerate(edges):
+        cyc = _sp(int(a), int(b), i) + float(w[i])
+        if cyc < best:
+            best, witness = cyc, (int(a), int(b))
+    return best, witness
+
+
 def dijkstra(n, edges, w, source, target):
     adj: dict[int, list] = {i: [] for i in range(n)}
     for (a, b), ww in zip(edges, w):
