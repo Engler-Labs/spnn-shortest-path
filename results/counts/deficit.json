@@ -91,5 +91,6 @@
   "micro_multiplicity": "config at deficit d covers L+d+1 real vertices; microstate weight 2^(L+d+1) (d=0 -> 2^(L+1), the path)",
   "n_stpaths_full": 1754,
   "order_max_frontier": 17,
+  "provisional_both_aux": "N_d and the (33) grading below FORCE both aux edges (both-aux subset); exhaustive ground truth (#226/#227) shows the full matched-activity scatter also includes N0/N1 -- these under-count by ~2^(L+1). scatter_counts reproduces the true microstate total; DEF-36 is unaffected. Pending the corrected section V-D deficit definition.",
   "published_term_d_m1_micro": 2.92680643935757
 }

@@ -3,6 +3,22 @@
 Claims: DEF-COUNTS, DEF-33, DEF-36 (CLAIMS.tsv, section V-D).
 Output: results/counts/deficit.json
 
+⚠️ PROVISIONAL (channel #226/#227).  count_degree2_by_deficit here FORCES both
+auxiliary edges (deg(s),deg(t) <= 1), following the #223 claim that matched activity
+forces S,T active.  Exhaustive microstate ground truth (a tiny instance) DISPROVED
+that: S,T-inactive matchings (the N0/N1 classes) have the SAME static energy and
+activity as N2, so they are valid scatter competitors -- and they dominate.  The
+consequences:
+  * DEF-COUNTS N_d and the DEF-33 grading are the BOTH-AUX SUBSET, not the full
+    matched-activity scatter; they UNDER-count the scatter by ~2^(L+1) and the
+    (33) argmax must be recomputed WITHOUT the aux-forcing (with an aux-dependent
+    microstate weight 2^(#real covered): 2^(2m) for N0, 2^(2m-2) for N2).  Held
+    pending the corrected section V-D deficit definition.
+  * ``spnn.counting.scatter_counts`` reproduces the exhaustive microstate total
+    EXACTLY, so the paper's c_req crossing is correct and unaffected.
+  * DEF-36 (the d=0 non-path sector) IS unaffected: N'0 and #path are both d=0
+    S-T-path structures with identical aux usage, so the weight cancels in the ratio.
+
 Closes the last unsigned direction in section V-D.  The admissible matched-activity
 configurations are the degree-<=2 subgraphs of the augmented graph with m = L+2 edges
 (vertex-disjoint paths + cycles), graded by the deficit d = k_p - 1 (k_p = number of
@@ -91,6 +107,12 @@ def run(argv=None) -> dict:
     d0_bound = (B / 2.0) * ln_np / girth
 
     result = {
+        "provisional_both_aux": (
+            "N_d and the (33) grading below FORCE both aux edges (both-aux subset); "
+            "exhaustive ground truth (#226/#227) shows the full matched-activity "
+            "scatter also includes N0/N1 -- these under-count by ~2^(L+1). "
+            "scatter_counts reproduces the true microstate total; DEF-36 is unaffected. "
+            "Pending the corrected section V-D deficit definition."),
         "instance": f"random_graph({REF['n']},{REF['p']},seed={REF['seed']})",
         "L": L, "m": m, "B": B, "abar": abar, "W_cyc_min": girth,
         "max_states": stats["max_states"], "order_max_frontier": stats["order_max_frontier"],
