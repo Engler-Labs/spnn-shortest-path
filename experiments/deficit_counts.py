@@ -159,6 +159,10 @@ def _d0_min_gap(n, edges, w, s, t, path, Wstar, wmax, B):
             dfs(st0, 0, 0.0, 0.0, [st0], {st0})
         return best
 
+    def real_edge_list(P):
+        return [[int(P[i]), int(P[i + 1]), round(wl[(P[i], P[i + 1])], 6)]
+                for i in range(len(P) - 1)]
+
     classes = {}
     for a in ("s", "t"):
         b = min_oneaux(a)
@@ -166,17 +170,24 @@ def _d0_min_gap(n, edges, w, s, t, path, Wstar, wmax, B):
         es = ([(S_, s)] + [(P[i], P[i + 1]) for i in range(m - 1)]) if a == "s" else \
              ([(P[i], P[i + 1]) for i in range(m - 1)] + [(t, T_)])
         E = float(sum(energy(net, st_edges(es))))
-        classes["one_aux_" + a] = dict(delta=b[0], energy=E,
-                                       delta_energy=(E - E_path) * B / (2 * C))
+        classes["one_aux_" + a] = dict(
+            delta=b[0], energy=E, delta_energy=(E - E_path) * B / (2 * C),
+            aug_walk=(["S", int(s)] + [int(v) for v in P[1:]]) if a == "s"
+                     else ([int(v) for v in P] + ["T"]),
+            real_edges=real_edge_list(P))
     bf = min_auxfree()
     P = bf[1]
     E = float(sum(energy(net, st_edges([(P[i], P[i + 1]) for i in range(m)]))))
-    classes["aux_free"] = dict(delta=bf[0], energy=E, delta_energy=(E - E_path) * B / (2 * C))
+    classes["aux_free"] = dict(delta=bf[0], energy=E, delta_energy=(E - E_path) * B / (2 * C),
+                               aug_walk=[int(v) for v in P], real_edges=real_edge_list(P))
     for k, v in classes.items():            # each formula delta must match the compiled net
         assert abs(v["delta"] - v["delta_energy"]) < 1e-4, (k, v)
     minkey = min(classes, key=lambda k: classes[k]["delta"])
     return dict(E_path=E_path, delta_min=classes[minkey]["delta"], minimiser=minkey,
                 min_energy=classes[minkey]["energy"], by_class=classes,
+                witness=dict(aug_walk=classes[minkey]["aug_walk"],
+                             real_edges=classes[minkey]["real_edges"],
+                             delta=classes[minkey]["delta"], energy=classes[minkey]["energy"]),
                 any_below_path=any(v["energy"] < E_path - 1e-9 for v in classes.values()))
 
 
@@ -267,6 +278,7 @@ def run(argv=None) -> dict:
             "girth_understates_by": d0_bound / girth_bound,
             "d0_min_energy": d0["min_energy"], "E_path": d0["E_path"],
             "any_d0_member_below_path": d0["any_below_path"],
+            "delta_min_witness": d0["witness"],
             "by_class": d0["by_class"],
             "girth_role": "rigorous proof that every CYCLE-bearing d=0 member is above the "
                           "path (any cycle >= girth W_cyc_min > W*); NOT the (36) denominator",
