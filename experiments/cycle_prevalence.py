@@ -152,15 +152,27 @@ def classify(n, edges, w, s, t, path):
     Wstar = sum(idx[(path[i], path[i + 1])] for i in range(L))
     wmax = float(np.max(w)); B = 2 * wmax; thr = wmax + Wstar
     m_lightest = float(np.sum(np.sort(w)[:m]))
+    # rho-law form (channel #233/#234): the absence certificate rewritten via
+    #   rho = mu/(2 w_max),  gamma = mean(m lightest)/mu,  mu = W*/L
+    # is  gamma >= (L + 1/(2 rho))/(L+2)  -- an algebraic identity, threshold crosses
+    # 1 exactly at rho = 1/4 (L cancels), so rho < 1/4 => absence needs gamma > 1
+    # (impossible) => the cheaper-cycle sector is unavoidable.
+    mu = Wstar / L
+    rho = mu / (2 * wmax)
+    gamma = (m_lightest / m) / mu
+    thr_gamma = (L + 1.0 / (2 * rho)) / (L + 2)
+    rho_law = dict(mu=mu, rho=rho, gamma=gamma, threshold_gamma=thr_gamma,
+                   predicted_absent=bool(gamma >= thr_gamma))
     if m_lightest >= thr:
-        return dict(cls="absent", L=L, m=m, threshold=thr, m_lightest=m_lightest)
+        return dict(cls="absent", L=L, m=m, threshold=thr, m_lightest=m_lightest,
+                    rho_law=rho_law)
     wcyc = _min_cycle_set(_light_cycles(n, adj, wl), m, thr)
     if math.isfinite(wcyc) and wcyc < thr:
         gap_c4 = -4.0 * (1 + 2 * (Wstar - wcyc) / B)
         return dict(cls="present", L=L, m=m, threshold=thr, W_cyc=wcyc,
-                    gap_below_path_c4=gap_c4)
+                    gap_below_path_c4=gap_c4, rho_law=rho_law)
     return dict(cls="undetermined", L=L, m=m, threshold=thr, m_lightest=m_lightest,
-                best_cycle_set=(wcyc if math.isfinite(wcyc) else None))
+                best_cycle_set=(wcyc if math.isfinite(wcyc) else None), rho_law=rho_law)
 
 
 def run(argv=None) -> dict:
@@ -173,6 +185,7 @@ def run(argv=None) -> dict:
     assert abs(ref["gap_below_path_c4"] - (-1.281)) < 0.02, ref["gap_below_path_c4"]
 
     by_family = {}
+    all_rows = []
     for fam in FAM_ORDER:
         rows = []
         for size, seed in SUBSAMPLE[fam]:
@@ -180,7 +193,10 @@ def run(argv=None) -> dict:
             s, t, path = _terminals(n, e, w)
             if path is None:
                 continue
-            rows.append(classify(n, e, w, s, t, path))
+            r = classify(n, e, w, s, t, path)
+            r["family"] = fam
+            rows.append(r)
+        all_rows.extend(rows)
         cnt = {"present": 0, "absent": 0, "undetermined": 0}
         gaps = []
         for r in rows:
@@ -196,12 +212,34 @@ def run(argv=None) -> dict:
 
     tot = {k: sum(by_family[f][k] for f in FAM_ORDER)
            for k in ("n", "present", "absent", "undetermined")}
+
+    # rho-law (#233/#234): the absence certificate rewritten as gamma >= threshold(rho)
+    identity_ok = all(r["rho_law"]["predicted_absent"] == (r["cls"] == "absent")
+                      for r in all_rows)
+    confusion = defaultdict(int)
+    for r in all_rows:
+        confusion[(r["rho_law"]["predicted_absent"], r["cls"])] += 1
+    n_gamma_gt1 = sum(1 for r in all_rows if r["rho_law"]["gamma"] > 1 + 1e-9)
+    rho_law = dict(
+        identity_predict_eq_certificate=identity_ok,
+        confusion={f"pred_absent={p}|{c}": n for (p, c), n in sorted(confusion.items())},
+        n_gamma_gt_1=n_gamma_gt1, n_total=len(all_rows),
+        rho_quarter_boundary=("threshold=[L+1/(2rho)]/(L+2)=1 iff rho=1/4 (L cancels); "
+                              "rho<1/4 -> absence needs gamma>1 (impossible) -> the "
+                              "cheaper-cycle sector is unavoidable; rho>=1/4 -> possible"),
+        by_family_gamma={f: [round(min(r["rho_law"]["gamma"] for r in all_rows if r["family"] == f), 3),
+                             round(max(r["rho_law"]["gamma"] for r in all_rows if r["family"] == f), 3)]
+                         for f in FAM_ORDER},
+        by_family_rho={f: [round(min(r["rho_law"]["rho"] for r in all_rows if r["family"] == f), 3),
+                           round(max(r["rho_law"]["rho"] for r in all_rows if r["family"] == f), 3)]
+                       for f in FAM_ORDER})
+
     result = dict(
         threshold_rule="a disjoint-cycle set on exactly m=L+2 edges with total weight < "
                        "w_max + W* is cheaper than the path (gap = -c[1+2(W*-W_cyc)/B] "
                        "grows linearly in c)",
         reference_sanity=ref,
-        by_family=by_family, pooled=tot,
+        by_family=by_family, pooled=tot, rho_law=rho_law,
         note="ABSENT/PRESENT are rigorous certificates; UNDETERMINED is neither (a "
              "heuristic miss is not a proof of absence) and is NOT imputed.")
     out = write_json("counts/cycle_prevalence.json", result)
@@ -217,6 +255,10 @@ def run(argv=None) -> dict:
               f"{b['undetermined']:>6} {100*b['present_frac']:>5.0f}% {gm:>10}")
     print(f"    POOLED  n={tot['n']}  present={tot['present']} absent={tot['absent']} "
           f"undetermined={tot['undetermined']}")
+    print(f"    rho-law: identity(pred==cert)={rho_law['identity_predict_eq_certificate']}; "
+          f"gamma>1 in {rho_law['n_gamma_gt_1']}/{rho_law['n_total']}; boundary rho=1/4 (L-independent)")
+    for k, v in rho_law["confusion"].items():
+        print(f"      {k}: {v}")
     return result
 
 
