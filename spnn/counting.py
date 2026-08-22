@@ -386,34 +386,43 @@ def brute_matchings(n, edges, kmax):
 
 # ----------------------------------------------------------------------
 def count_degree2_by_deficit(n, edges, s, t, L, order=None):
-    """EXACT N_d for the section V-D deficit grading, on the AUGMENTED graph.
+    """EXACT microstate-weighted N_d for the section V-D deficit grading.
 
-    Counts the admissible matched-activity configurations: degree-<=2 subgraphs of
-    the augmented graph (original graph + terminals S,T + the forced zero-weight
-    auxiliary edges (S,s),(t,T)) with exactly m = L+2 edges -- vertex-disjoint unions
-    of paths and cycles.  Matched activity forces both auxiliary edges in and
-    deg(S)=deg(T)=1 (see section V-D), so this reduces to choosing L real edges with
-    deg(s)<=1, deg(t)<=1, deg(other)<=2.
+    Counts the admissible matched-activity configurations on the AUGMENTED graph
+    (original graph + terminals S,T + the two zero-weight auxiliary edges (S,s),(t,T)):
+    the degree-<=2 subgraphs with exactly m = L+2 edges -- vertex-disjoint unions of
+    paths and cycles.  The auxiliary edges are NOT forced: S and T
+    may be inactive, because the S/T drive is a beta coupling in ``sim.energy``, not a
+    static activation reward, so the S,T-inactive configurations have the SAME static
+    energy and matched activity as the S,T-active ones and compete on equal footing.
+    (An earlier version forced both aux edges and deg(s)=deg(t)<=1; that both-aux
+    subset UNDER-counts the true scatter by ~2^(L+1) and is superseded here.)
+
+    Each configuration carries its microstate multiplicity: a config covering r REAL
+    vertices has 2^r equal-energy slot assignments, so it is weighted by
+    ``2^(#real vertices covered)`` (an aux edge covers one real vertex, a real edge
+    two).  ``Nd[d]`` is the summed weight, not a raw config count.
 
     Partitions by the DEFICIT ``d = k_p - 1``, where ``k_p`` = number of PATH
-    components (cycles excluded).  Because a max-degree-<=2 graph has exactly
-    ``(#degree-1 vertices)/2`` path components, d is fixed by the degree sequence:
-
-        k_p = (#real degree-1 vertices)/2 + [deg(s)==0] + [deg(t)==0]
-
-    (the two terminal bracket terms account for an isolated s or t, which the aux
-    edge turns into its own S-s / T-t path).  So NO connectivity tracking is needed --
-    a frontier DP over vertex degrees (0/1/2), pruned by the L-edge budget, suffices.
+    components.  A max-degree-<=2 graph has exactly ``(#degree-1 vertices)/2`` path
+    components; the degree-1 count INCLUDES the terminals S,T, so the full
+    S-s-...-t-T path (S,T at degree 1) is d=0 and a pure disjoint-cycle set (no
+    degree-1 vertices) is d=-1 -- the sector strictly below the path.  So d ranges
+    over -1 .. m-1 and no connectivity tracking is needed: a frontier DP over vertex
+    degrees (0/1/2), pruned by the m-edge budget, suffices.
 
     Counts accumulate in Python arbitrary-precision integers, so there is no packed
-    field to overflow -- the fixed-width masking failure mode of ``count_matchings``
-    (A7/CNT-BITS) cannot occur here.  The d=m-1 (all-disjoint) term equals
-    ``scatter_counts``' N2, a cross-check against the independent matching counter.
+    field to overflow.  The d=m-1 (all-disjoint = a matching) term equals
+    ``scatter_counts``' ``micro_aux`` -- a cross-check against the independent
+    matching counter over all auxiliary-edge usages.
 
-    Returns ``(Nd, stats)`` with ``Nd[d]`` an exact Python int for d = 0..m-1.
+    Returns ``(Nd, stats)`` with ``Nd[d]`` an exact Python int for d = -1 .. m-1.
     """
     from itertools import combinations
-    adj = [[] for _ in range(n)]
+    S, T = n, n + 1
+    naug = n + 2
+    m = L + 2
+    adj = [[] for _ in range(naug)]
     seen = set()
     for a, b in edges:
         a, b = int(a), int(b)
@@ -422,33 +431,42 @@ def count_degree2_by_deficit(n, edges, s, t, L, order=None):
         seen.add((a, b))
         adj[a].append(b)
         adj[b].append(a)
-    cap = [2] * n
-    cap[s] = 1
-    cap[t] = 1
+    adj[S].append(s)                       # aux edge (S,s), optional
+    adj[s].append(S)
+    adj[t].append(T)                       # aux edge (t,T), optional
+    adj[T].append(t)
+    cap = [2] * naug                       # aux NOT forced: S,T free to be inactive
     if order is None:
-        order, _ = _boundary_order(n, [[(u, 1.0) for u in adj[v]] for v in range(n)])
-    pos = [0] * n
+        order, _ = _boundary_order(naug, [[(u, 1.0) for u in adj[v]]
+                                          for v in range(naug)])
+    pos = [0] * naug
     for i, v in enumerate(order):
         pos[v] = i
-    for v in range(n):
+    for v in range(naug):
         adj[v].sort(key=lambda u: pos[u])
 
     # state: frontier-degree profile (tuple of (vertex,deg)) -> polynomial
-    #        {(edges, deg1_nonst, deg_s, deg_t): count}
-    states = {(): {(0, 0, 0, 0): 1}}
+    #        {(edges, #degree-1 vertices): weighted count}.  The microstate weight
+    #        2^(#real covered) is folded in via `fac` as each real vertex finalises
+    #        at degree >= 1; the degree-1 tally (incl. S,T) fixes the deficit.
+    states = {(): {(0, 0): 1}}
     max_states = 1
     for v in order:
         nv = pos[v]
         later = [u for u in adj[v] if pos[u] > nv]
+        isreal = v < n
         new = defaultdict(dict)
         for st, poly in states.items():
             std = dict(st)
             dv0 = std.pop(v, 0)
             room = cap[v] - dv0
-            min_e = min(e for (e, _, _, _) in poly)
+            min_e = min(e for (e, _) in poly)
             for k in range(0, room + 1):
-                if min_e + k > L:              # cheapest surviving edge count exceeds L
+                if min_e + k > m:             # cheapest surviving edge count exceeds m
                     break
+                dvf = dv0 + k                  # v's FINAL degree
+                fac = 2 if (isreal and dvf >= 1) else 1     # microstate weight
+                is1 = 1 if dvf == 1 else 0                  # degree-1 vertex (incl S,T)
                 for chosen in combinations(later, k):
                     add = {}
                     ok = True
@@ -459,56 +477,53 @@ def count_degree2_by_deficit(n, edges, s, t, L, order=None):
                         add[u] = add.get(u, 0) + 1
                     if not ok:
                         continue
-                    dvf = dv0 + k                # v's FINAL degree
                     nd = dict(std)
                     for u, c in add.items():
                         nd[u] = nd.get(u, 0) + c
                     tgt = new[tuple(sorted(nd.items()))]
-                    for (e, d1, ds, dt), cnt in poly.items():
+                    for (e, d1), cnt in poly.items():
                         e2 = e + k
-                        if e2 > L:
+                        if e2 > m:
                             continue
-                        if v == s:
-                            key = (e2, d1, dvf, dt)
-                        elif v == t:
-                            key = (e2, d1, ds, dvf)
-                        else:
-                            key = (e2, d1 + (1 if dvf == 1 else 0), ds, dt)
-                        tgt[key] = tgt.get(key, 0) + cnt
+                        key = (e2, d1 + is1)
+                        tgt[key] = tgt.get(key, 0) + cnt * fac
         states = new
         max_states = max(max_states, len(states))
 
     Nd = defaultdict(int)
     for st, poly in states.items():
-        for (e, d1, ds, dt), cnt in poly.items():
-            if e != L:
-                continue
-            deg1 = d1 + (1 if ds == 1 else 0) + (1 if dt == 1 else 0)
-            if deg1 % 2:                        # #degree-1 vertices must be even
-                continue
-            k_p = deg1 // 2 + (1 if ds == 0 else 0) + (1 if dt == 0 else 0)
-            Nd[k_p - 1] += cnt
-    m = L + 2
+        for (e, d1), cnt in poly.items():
+            if e == m and d1 % 2 == 0:        # #degree-1 vertices must be even
+                Nd[d1 // 2 - 1] += cnt
     stats = dict(m=m, L=L, max_states=max_states,
                  order_max_frontier=_max_frontier(
-                     n, [[(u, 1.0) for u in adj[v]] for v in range(n)], order),
-                 micro_multiplicity="config at deficit d covers L+d+1 real vertices, "
-                                    "so its microstate weight is 2^(L+d+1)")
+                     naug, [[(u, 1.0) for u in adj[v]] for v in range(naug)], order),
+                 micro_weight="per-config microstate weight 2^(#real vertices covered); "
+                              "aux edges NOT forced -- S,T may be inactive")
     return dict(Nd), stats
 
 
 def brute_degree2_by_deficit(n, edges, s, t, L):
-    """O(C(|E|,L)) reference for tiny graphs -- validates count_degree2_by_deficit."""
+    """O(C(|E|+2, m)) full-space reference for tiny graphs.
+
+    Enumerates every m = L+2 edge, degree-<=2 subgraph of the AUGMENTED graph
+    (real edges + the two OPTIONAL zero-weight aux edges (S,s),(t,T) -- aux NOT
+    forced), weights each by its microstate multiplicity 2^(#real vertices covered),
+    and grades it by deficit d = (#degree-1 vertices)/2 - 1 (degree-1 count includes
+    the terminals S,T, so the full S-s-...-t-T path is d=0 and a pure disjoint-cycle
+    set is d=-1).  Validates ``count_degree2_by_deficit``.
+    """
     from itertools import combinations as _comb
     E = [(int(a), int(b)) for a, b in edges]
     S, T = n, n + 1
-    aux = [(S, s), (t, T)]
+    cand = E + [(S, s), (t, T)]           # aux edges are optional candidates
+    m = L + 2
     Nd = defaultdict(int)
-    for cb in _comb(range(len(E)), L):
-        allE = [E[i] for i in cb] + aux
+    for cb in _comb(range(len(cand)), m):
         deg = defaultdict(int)
         ok = True
-        for u, v in allE:
+        for i in cb:
+            u, v = cand[i]
             deg[u] += 1
             deg[v] += 1
             if deg[u] > 2 or deg[v] > 2:
@@ -516,26 +531,9 @@ def brute_degree2_by_deficit(n, edges, s, t, L):
                 break
         if not ok:
             continue
-        adj = defaultdict(list)
-        for u, v in allE:
-            adj[u].append(v)
-            adj[v].append(u)
-        seen = set()
-        n_path = 0
-        for start in list(adj):
-            if start in seen:
-                continue
-            comp = [start]
-            seen.add(start)
-            i = 0
-            while i < len(comp):
-                x = comp[i]
-                i += 1
-                for y in adj[x]:
-                    if y not in seen:
-                        seen.add(y)
-                        comp.append(y)
-            if not all(deg[x] == 2 for x in comp):
-                n_path += 1
-        Nd[n_path - 1] += 1
+        deg1 = sum(1 for d in deg.values() if d == 1)
+        if deg1 % 2:                          # #degree-1 vertices must be even
+            continue
+        real_covered = sum(1 for x, d in deg.items() if d >= 1 and x < n)
+        Nd[deg1 // 2 - 1] += 1 << real_covered
     return dict(Nd)

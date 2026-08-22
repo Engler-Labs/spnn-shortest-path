@@ -3,7 +3,7 @@
 Claims: CYC-PREV (CLAIMS.tsv, section V-D).
 Output: results/counts/cycle_prevalence.json
 
-The d=-1 sector (Exp 18 / channel #229): a set of vertex-disjoint cycles on exactly
+The d=-1 sector (Exp 18): a set of vertex-disjoint cycles on exactly
 m = L+2 edges whose total weight is below w_max + W* is CHEAPER than the optimal path,
 and the energy gap grows linearly in c.  This measures how common that is, TWO-SIDED
 and bounded, never imputing the undetermined cases:
@@ -152,7 +152,7 @@ def classify(n, edges, w, s, t, path):
     Wstar = sum(idx[(path[i], path[i + 1])] for i in range(L))
     wmax = float(np.max(w)); B = 2 * wmax; thr = wmax + Wstar
     m_lightest = float(np.sum(np.sort(w)[:m]))
-    # rho-law form (channel #233/#234): the absence certificate rewritten via
+    # rho-law form: the absence certificate rewritten via
     #   rho = mu/(2 w_max),  gamma = mean(m lightest)/mu,  mu = W*/L
     # is  gamma >= (L + 1/(2 rho))/(L+2)  -- an algebraic identity, threshold crosses
     # 1 exactly at rho = 1/4 (L cancels), so rho < 1/4 => absence needs gamma > 1
@@ -213,7 +213,7 @@ def run(argv=None) -> dict:
     tot = {k: sum(by_family[f][k] for f in FAM_ORDER)
            for k in ("n", "present", "absent", "undetermined")}
 
-    # rho-law (#233/#234): the absence certificate rewritten as gamma >= threshold(rho)
+    # rho-law: the absence certificate rewritten as gamma >= threshold(rho)
     identity_ok = all(r["rho_law"]["predicted_absent"] == (r["cls"] == "absent")
                       for r in all_rows)
     confusion = defaultdict(int)
