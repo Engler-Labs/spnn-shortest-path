@@ -131,11 +131,13 @@ EXPERIMENTS = [
                "corrected full-space object: aux-free, weight 2^(#real covered); "
                "validated vs full-space brute (tiny) + scatter_counts micro_aux; "
                "(33) argmax d=1 (5.50), (36) binds c>15.56, d=-1 sector non-empty"),
-    Experiment("19", "cycle_prevalence", "d=-1 disjoint-cycle sector prevalence",
-               "V-D", ("CYC-PREV",), ("results/counts/cycle_prevalence.json",), 2,
+    Experiment("19", "cycle_prevalence", "d=-1 disjoint-cycle sector prevalence + energies",
+               "V-D", ("CYC-PREV", "CYC-RHO", "CYC-ENERGY"),
+               ("results/counts/cycle_prevalence.json",), 2,
                "built", "NEW -- two-sided certificates (absence/presence/undetermined)",
                "how common is a disjoint-cycle set cheaper than the path (W_cyc<w_max+W*); "
-               "rigorous per-instance certificates, undetermined never imputed"),
+               "rigorous per-instance certificates, undetermined never imputed; + the rho-law "
+               "(CYC-RHO) and the reference path/cycle energy anchors (CYC-ENERGY)"),
 ]
 
 BY_ID = {e.id: e for e in EXPERIMENTS}

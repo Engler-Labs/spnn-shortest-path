@@ -44,6 +44,19 @@
     "present": 96,
     "undetermined": 23
   },
+  "reference_energies": {
+    "W_cyc": 1.2239303020760417,
+    "cross_check_path_eq_analytic": true,
+    "cycle_energy_c4": 4.929310129891002,
+    "cycle_lengths": [
+      10
+    ],
+    "energy_gap_c4": -1.2808244605498906,
+    "note": "path E_N = c(1+2*Etilde) (Prop 2 at b_S=b_k, lambda=0); cycle E_N via the lightest disjoint-cycle-set state; print as 6.210 / 4.929, gap -1.281",
+    "operating_point": "c=4, D=4, b_k=-(D+c)/2=-4 (lambda=0), b_st=b_k, augment_st, drive on",
+    "path_energy_analytic": 6.210134590440893,
+    "path_energy_c4": 6.210134590440893
+  },
   "reference_sanity": {
     "L": 8,
     "W_cyc": 1.2239303020760417,
