@@ -50,7 +50,61 @@
     "cls": "present",
     "gap_below_path_c4": -1.2808244605498902,
     "m": 10,
+    "rho_law": {
+      "gamma": 0.30481460152317336,
+      "mu": 0.06859607697697356,
+      "predicted_absent": false,
+      "rho": 0.03453335297563894,
+      "threshold_gamma": 2.247875624335459
+    },
     "threshold": 1.5419544936157763
+  },
+  "rho_law": {
+    "by_family_gamma": {
+      "dense": [
+        0.035,
+        0.571
+      ],
+      "grid": [
+        0.929,
+        0.981
+      ],
+      "mtn_knn": [
+        0.035,
+        0.706
+      ],
+      "sparse": [
+        0.024,
+        0.655
+      ]
+    },
+    "by_family_rho": {
+      "dense": [
+        0.038,
+        0.195
+      ],
+      "grid": [
+        0.422,
+        0.444
+      ],
+      "mtn_knn": [
+        0.023,
+        0.335
+      ],
+      "sparse": [
+        0.043,
+        0.35
+      ]
+    },
+    "confusion": {
+      "pred_absent=False|present": 96,
+      "pred_absent=False|undetermined": 23,
+      "pred_absent=True|absent": 25
+    },
+    "identity_predict_eq_certificate": true,
+    "n_gamma_gt_1": 0,
+    "n_total": 144,
+    "rho_quarter_boundary": "threshold=[L+1/(2rho)]/(L+2)=1 iff rho=1/4 (L cancels); rho<1/4 -> absence needs gamma>1 (impossible) -> the cheaper-cycle sector is unavoidable; rho>=1/4 -> possible"
   },
   "threshold_rule": "a disjoint-cycle set on exactly m=L+2 edges with total weight < w_max + W* is cheaper than the path (gap = -c[1+2(W*-W_cyc)/B] grows linearly in c)"
 }
