@@ -123,14 +123,14 @@ EXPERIMENTS = [
                "built", "NEW -- population enumeration at lambda=0, c=4",
                "variant E_N-min vs Dijkstra 16.9% disagree (excess median 22.3%); the "
                "augmented control is 0/427 (Cor 1(iii)) -- a population-scale ordering check"),
-    Experiment("18", "deficit_counts", "N_d / N'0 / d=-1 via full-space deficit DP",
-               "V-D", ("DEF-COUNTS", "DEF-33", "DEF-36", "DEF-DMINUS1"),
+    Experiment("18", "deficit_counts", "N_d / N'0 / d=-1 / d=0 gaps via full-space deficit DP",
+               "V-D", ("DEF-COUNTS", "DEF-33", "DEF-36", "DEF-DMINUS1", "DEF-D0ABOVE"),
                ("results/counts/deficit.json",), 2,
                "built", "NEW -- full augmented-space microstate-weighted frontier DP "
-               "(aux NOT forced); reference instance (~5min, max_states 1.6M)",
+               "(aux NOT forced) + compiled-network d=0 gap search; reference (~5min)",
                "corrected full-space object: aux-free, weight 2^(#real covered); "
-               "validated vs full-space brute (tiny) + scatter_counts micro_aux; "
-               "(33) argmax d=1 (5.50), (36) binds c>15.56, d=-1 sector non-empty"),
+               "(33) argmax d=1 (18.11, #path denom), (36) c>273.5 via delta_min (light "
+               "one-aux path; girth understates 17.6x), no d=0 member below path, d=-1 non-empty"),
     Experiment("19", "cycle_prevalence", "d=-1 disjoint-cycle sector prevalence + energies",
                "V-D", ("CYC-PREV", "CYC-RHO", "CYC-ENERGY", "CYC-ABSPOP"),
                ("results/counts/cycle_prevalence.json",), 2,

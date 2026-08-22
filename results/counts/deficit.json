@@ -24,12 +24,36 @@
   "binding_bound": 18.110046854584542,
   "crosscheck_Nm1_eq_scatter_micro_aux": true,
   "d0_sector_36": {
+    "E_path": 6.210134590440893,
     "N_prime_0": 123910519296,
-    "bound_c": 15.561828054495763,
+    "any_d0_member_below_path": false,
+    "bound_c": 273.5331195947451,
+    "by_class": {
+      "aux_free": {
+        "delta": 0.06334213493391871,
+        "delta_energy": 0.0633421349339186,
+        "energy": 6.465241459556785
+      },
+      "one_aux_s": {
+        "delta": 0.04297177121043205,
+        "delta_energy": 0.04297177121043201,
+        "energy": 6.3832009707467385
+      },
+      "one_aux_t": {
+        "delta": 0.0658949613571167,
+        "delta_energy": 0.06589496135711646,
+        "energy": 6.475522823721377
+      }
+    },
+    "d0_min_energy": 6.3832009707467385,
+    "delta_min": 0.04297177121043205,
+    "delta_min_minimiser": "one_aux_s",
+    "girth_bound_c": 15.561828054495763,
+    "girth_role": "rigorous proof that every CYCLE-bearing d=0 member is above the path (any cycle >= girth W_cyc_min > W*); NOT the (36) denominator",
+    "girth_understates_by": 17.57718428945899,
     "ln_ratio": 11.834846725507154,
     "path_micro": 898048,
-    "reading": "binds at c > 15.5618",
-    "vacuous": false
+    "reading": "binds at c > 273.5 (delta_min=0.04297, a light one-aux PATH); the girth-based 15.6 understates it 17.6x"
   },
   "d_m1_eq_vb_crossing": 3.699428677298893,
   "dminus1_sector": {
