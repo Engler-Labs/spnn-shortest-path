@@ -21,7 +21,7 @@
   "argmax_d": 1,
   "argmax_is_m_minus_1": false,
   "aux_forced": false,
-  "binding_bound": 5.501096275317849,
+  "binding_bound": 18.110046854584542,
   "crosscheck_Nm1_eq_scatter_micro_aux": true,
   "d0_sector_36": {
     "N_prime_0": 123910519296,
@@ -31,6 +31,7 @@
     "reading": "binds at c > 15.5618",
     "vacuous": false
   },
+  "d_m1_eq_vb_crossing": 3.699428677298893,
   "dminus1_sector": {
     "N_minus_1": 104039424,
     "exists": true,
@@ -39,41 +40,42 @@
   "grade_33": {
     "1": {
       "N_d": 21653804702720,
-      "bound": 5.501096275317849
+      "bound": 18.110046854584542
     },
     "2": {
       "N_d": 1320177088811008,
-      "bound": 4.940143121354315
+      "bound": 11.244618410987663
     },
     "3": {
       "N_d": 36977802906316800,
-      "bound": 4.476938140691534
+      "bound": 8.679921667113764
     },
     "4": {
       "N_d": 540732464598040576,
-      "bound": 4.072221439024726
+      "bound": 7.224459083841399
     },
     "5": {
       "N_d": 4391311439896444928,
-      "bound": 3.7040678196998273
+      "bound": 6.225857935553166
     },
     "6": {
       "N_d": 20188992664527470592,
-      "bound": 3.3576049289311025
+      "bound": 5.459096692142218
     },
     "7": {
       "N_d": 51399977098888282112,
-      "bound": 3.0201791065975954
+      "bound": 4.821457760778551
     },
     "8": {
       "N_d": 66462086984710881280,
-      "bound": 2.676882149636622
+      "bound": 4.253000972044958
     },
     "9": {
       "N_d": 33523490385112072192,
-      "bound": 2.2984341684914824
+      "bound": 3.699428677298893
     }
   },
+  "grade_33_denominator": "#path (s-t path microstates the decoder accepts), not N_0",
   "instance": "random_graph(60,0.05,seed=19)",
   "m": 10,
   "max_states": 1598478,
@@ -81,5 +83,5 @@
   "n_stpaths": 1754,
   "order_max_frontier": 17,
   "path_micro": 898048,
-  "published_term_d_m1_bound": 2.2984341684914824
+  "published_term_d_m1_bound": 3.699428677298893
 }

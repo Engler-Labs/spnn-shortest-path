@@ -1,7 +1,13 @@
 """Experiment 19 -- prevalence of the d=-1 (disjoint-cycle) sector (section V-D).
 
-Claims: CYC-PREV, CYC-RHO, CYC-ENERGY (CLAIMS.tsv, section V-D).
+Claims: CYC-PREV, CYC-RHO, CYC-ENERGY, CYC-ABSPOP (CLAIMS.tsv, section V-D).
 Output: results/counts/cycle_prevalence.json
+
+Presence (the bounded search) runs on a stratified 144-instance subsample (3 sizes per
+family x seeds 1..12); the absence certificate is cheap (an edge-weight sort, no search)
+so it also runs population-wide over all creq instances (CYC-ABSPOP).  The subsample
+presence rate is reported as an INTERVAL [present/n, (present+undetermined)/n] because a
+heuristic miss (undetermined) is never imputed.
 
 The d=-1 sector (Exp 18): a set of vertex-disjoint cycles on exactly
 m = L+2 edges whose total weight is below w_max + W* is CHEAPER than the optimal path,
@@ -226,6 +232,56 @@ def _reference_energies(n, edges, w, s, t, path):
              "lightest disjoint-cycle-set state; print as 6.210 / 4.929, gap -1.281")
 
 
+def _population_absence():
+    """The absence certificate over the FULL creq population (all instances in
+    results/creq/population.csv), not the 144 subsample.
+
+    Absence needs only an edge-weight sort -- sum(m lightest edges) >= w_max + W* -- with
+    no search, so it is cheap to run population-wide.  It is ONE-DIRECTIONAL: failing the
+    certificate does NOT establish presence (a graph whose light edges form a forest
+    carries no light cycle at any rho), so this reports only the provably-absent count.
+    Presence still needs the bounded search and stays on the subsample.
+    """
+    import csv
+    from pathlib import Path
+    pop = Path(__file__).resolve().parent.parent / "results" / "creq" / "population.csv"
+    by_family = {f: dict(n=0, absent=0) for f in FAM_ORDER}
+    total = dict(n=0, absent=0, skipped=0)
+    for row in csv.DictReader(pop.open(encoding="utf-8")):
+        fam = row["family"]
+        if fam not in by_family:
+            continue
+        n, e, w = _build(fam, int(row["size"]), int(row["seed"]))
+        s, t, path = _terminals(n, e, w)
+        if path is None:
+            total["skipped"] += 1
+            continue
+        L = len(path) - 1
+        m = L + 2
+        wl = {}
+        for i in range(len(e)):
+            a, b = int(e[i][0]), int(e[i][1])
+            wl[(a, b)] = wl[(b, a)] = float(w[i])
+        Wstar = sum(wl[(path[i], path[i + 1])] for i in range(L))
+        wmax = float(np.max(w))
+        m_lightest = float(np.sum(np.sort(w)[:m]))
+        absent = m_lightest >= wmax + Wstar
+        by_family[fam]["n"] += 1
+        by_family[fam]["absent"] += int(absent)
+        total["n"] += 1
+        total["absent"] += int(absent)
+    for f in FAM_ORDER:
+        b = by_family[f]
+        b["absent_frac"] = (b["absent"] / b["n"]) if b["n"] else None
+    total["absent_frac"] = (total["absent"] / total["n"]) if total["n"] else None
+    return dict(
+        total=total, by_family=by_family,
+        certificate="provably-absent iff sum(m lightest edges) >= w_max + W* (one-directional: "
+                    "failing it is NOT a proof of presence)",
+        note="population-wide (all creq instances); presence needs the bounded search and "
+             "stays on the subsample")
+
+
 def classify(n, edges, w, s, t, path):
     L = len(path) - 1; m = L + 2
     idx = {}
@@ -325,6 +381,22 @@ def run(argv=None) -> dict:
                            round(max(r["rho_law"]["rho"] for r in all_rows if r["family"] == f), 3)]
                        for f in FAM_ORDER})
 
+    # subsample presence rate as an INTERVAL: undetermined could go either way, so the
+    # true present fraction is bounded below by present/n and above by (present+undet)/n.
+    presence_interval = dict(
+        lower=tot["present"] / tot["n"], upper=(tot["present"] + tot["undetermined"]) / tot["n"],
+        note="[present/n, (present+undetermined)/n]; undetermined is never imputed")
+
+    # RUN 2: the absence certificate over the WHOLE population (all creq instances)
+    population_absence = _population_absence()
+
+    selection_scheme = dict(
+        subsample_n=tot["n"], population_n=population_absence["total"]["n"],
+        scheme="stratified: per family, 3 sizes spanning the population's range x seeds 1..12 "
+               "(sparse/dense/mtn_knn sizes 20/40/60; grid sizes 5/7/9) = 36 per family, 144 total",
+        sizes={"sparse": [20, 40, 60], "dense": [20, 40, 60], "grid": [5, 7, 9],
+               "mtn_knn": [20, 40, 60]}, seeds="1..12")
+
     result = dict(
         threshold_rule="a disjoint-cycle set on exactly m=L+2 edges with total weight < "
                        "w_max + W* is cheaper than the path (gap = -c[1+2(W*-W_cyc)/B] "
@@ -332,6 +404,9 @@ def run(argv=None) -> dict:
         reference_sanity=ref,
         reference_energies=ref_energy,
         by_family=by_family, pooled=tot, rho_law=rho_law,
+        presence_rate_interval=presence_interval,
+        selection_scheme=selection_scheme,
+        population_absence=population_absence,
         note="ABSENT/PRESENT are rigorous certificates; UNDETERMINED is neither (a "
              "heuristic miss is not a proof of absence) and is NOT imputed.")
     out = write_json("counts/cycle_prevalence.json", result)
@@ -350,6 +425,13 @@ def run(argv=None) -> dict:
               f"{b['undetermined']:>6} {100*b['present_frac']:>5.0f}% {gm:>10}")
     print(f"    POOLED  n={tot['n']}  present={tot['present']} absent={tot['absent']} "
           f"undetermined={tot['undetermined']}")
+    print(f"    presence rate interval (undet either way): "
+          f"[{presence_interval['lower']*100:.0f}%, {presence_interval['upper']*100:.0f}%]")
+    pa = population_absence["total"]
+    print(f"    POPULATION absence (all {pa['n']}): {pa['absent']} provably-absent "
+          f"({pa['absent_frac']*100:.1f}%); "
+          + ", ".join(f"{f} {population_absence['by_family'][f]['absent']}/"
+                      f"{population_absence['by_family'][f]['n']}" for f in FAM_ORDER))
     print(f"    rho-law: identity(pred==cert)={rho_law['identity_predict_eq_certificate']}; "
           f"gamma>1 in {rho_law['n_gamma_gt_1']}/{rho_law['n_total']}; boundary rho=1/4 (L-independent)")
     for k, v in rho_law["confusion"].items():

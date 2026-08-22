@@ -44,6 +44,43 @@
     "present": 96,
     "undetermined": 23
   },
+  "population_absence": {
+    "by_family": {
+      "dense": {
+        "absent": 0,
+        "absent_frac": 0.0,
+        "n": 200
+      },
+      "grid": {
+        "absent": 198,
+        "absent_frac": 0.55,
+        "n": 360
+      },
+      "mtn_knn": {
+        "absent": 0,
+        "absent_frac": 0.0,
+        "n": 280
+      },
+      "sparse": {
+        "absent": 0,
+        "absent_frac": 0.0,
+        "n": 240
+      }
+    },
+    "certificate": "provably-absent iff sum(m lightest edges) >= w_max + W* (one-directional: failing it is NOT a proof of presence)",
+    "note": "population-wide (all creq instances); presence needs the bounded search and stays on the subsample",
+    "total": {
+      "absent": 198,
+      "absent_frac": 0.18333333333333332,
+      "n": 1080,
+      "skipped": 0
+    }
+  },
+  "presence_rate_interval": {
+    "lower": 0.6666666666666666,
+    "note": "[present/n, (present+undetermined)/n]; undetermined is never imputed",
+    "upper": 0.8263888888888888
+  },
   "reference_energies": {
     "W_cyc": 1.2239303020760417,
     "cross_check_path_eq_analytic": true,
@@ -118,6 +155,34 @@
     "n_gamma_gt_1": 0,
     "n_total": 144,
     "rho_quarter_boundary": "threshold=[L+1/(2rho)]/(L+2)=1 iff rho=1/4 (L cancels); rho<1/4 -> absence needs gamma>1 (impossible) -> the cheaper-cycle sector is unavoidable; rho>=1/4 -> possible"
+  },
+  "selection_scheme": {
+    "population_n": 1080,
+    "scheme": "stratified: per family, 3 sizes spanning the population's range x seeds 1..12 (sparse/dense/mtn_knn sizes 20/40/60; grid sizes 5/7/9) = 36 per family, 144 total",
+    "seeds": "1..12",
+    "sizes": {
+      "dense": [
+        20,
+        40,
+        60
+      ],
+      "grid": [
+        5,
+        7,
+        9
+      ],
+      "mtn_knn": [
+        20,
+        40,
+        60
+      ],
+      "sparse": [
+        20,
+        40,
+        60
+      ]
+    },
+    "subsample_n": 144
   },
   "threshold_rule": "a disjoint-cycle set on exactly m=L+2 edges with total weight < w_max + W* is cheaper than the path (gap = -c[1+2(W*-W_cyc)/B] grows linearly in c)"
 }
