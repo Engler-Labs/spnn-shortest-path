@@ -25,9 +25,12 @@ On the pinned reference instance ``random_graph(60,0.05,seed=19)`` (L=8, m=10):
 
   * DEF-COUNTS -- N_0 (weighted, d=0) = #path microstates + N'0.  #path microstates =
     (#L-hop s-t paths) * 2^(L+1); N'0 = N_0 - #path.
-  * DEF-33 -- (33): c > max_{d>=1} ln(N_d/N_0)/(d*abar).  The microstate weight is
-    already IN N_d, so no convention addend.  Reports whether d = m-1 (the published
-    term (29)) is the argmax -- it is NOT; d=1 binds.
+  * DEF-33 -- (33): c > max_{d>=1} ln(N_d/#path)/(d*abar).  The denominator is #path
+    (the s-t path microstates the decoder accepts), NOT N_0: the d=0 class is
+    overwhelmingly non-paths (N'0 ~ N_0), so N_0 would divide by a set ~10^5x larger
+    than the accepted answers.  With #path the d=m-1 term equals the section V-B
+    reference crossing (3.699), i.e. the published condition (29) IS that term; the
+    argmax (the binding requirement) is d=1 (~18.11).
   * DEF-36 -- (36): the d=0 non-path sector, c > (B/2)*ln(N'0/#path)/W_cyc^min, using
     the reference girth W_cyc^min = 0.755323 as the conservative denominator.  Binds
     (N'0 >> #path once the microstate weight is counted).
@@ -88,12 +91,18 @@ def run(argv=None) -> dict:
     micro_aux = scatter_counts(n, edges, s, t, m)["micro_aux"]
     assert Nd[m - 1] == micro_aux, f"N_{m-1}={Nd[m-1]} != scatter micro_aux={micro_aux}"
 
-    # (33): c > max_{d>=1} ln(N_d/N_0)/(d*abar) -- microstate weight already in N_d
+    # (33): c > max_{d>=1} ln(N_d/#path)/(d*abar).  The denominator is #path (the s-t
+    # PATH microstates the decoder accepts), NOT N_0: the d=0 class is overwhelmingly
+    # non-paths (N'0 ~ N_0), so dividing by N_0 would compare against a set ~10^5x larger
+    # than the accepted answers.  With #path the d=m-1 term equals the section V-B
+    # reference crossing exactly, i.e. the published condition (29) IS that term.
     grade = {}
     for d in range(1, m):
-        val = math.log(Nd[d] / N0) / (d * abar)
+        val = (math.log(Nd[d]) - math.log(path_micro)) / (d * abar)
         grade[d] = dict(N_d=Nd[d], bound=val)
     argmax_d = max(grade, key=lambda d: grade[d]["bound"])
+    vb_crossing = grade[m - 1]["bound"]           # the d=m-1 term == section V-B's 3.699
+    assert abs(vb_crossing - 3.699) < 2e-3, f"d=m-1 term {vb_crossing} != V-B crossing 3.699"
 
     # (36): d=0 non-path sector, c > (B/2)*ln(N'0/#path)/W_cyc^min
     ln_np = math.log(Nprime0 / path_micro)
@@ -111,10 +120,12 @@ def run(argv=None) -> dict:
         "N_d": {str(d): Nd[d] for d in sorted(Nd)},
         "N_0": N0, "n_stpaths": npath, "path_micro": path_micro, "N_prime_0": Nprime0,
         "crosscheck_Nm1_eq_scatter_micro_aux": True,
+        "grade_33_denominator": "#path (s-t path microstates the decoder accepts), not N_0",
         "grade_33": {str(d): grade[d] for d in grade},
         "argmax_d": argmax_d, "argmax_is_m_minus_1": argmax_d == m - 1,
         "binding_bound": grade[argmax_d]["bound"],
         "published_term_d_m1_bound": grade[m - 1]["bound"],
+        "d_m1_eq_vb_crossing": vb_crossing,
         "d0_sector_36": {
             "N_prime_0": Nprime0, "path_micro": path_micro,
             "ln_ratio": ln_np, "bound_c": d0_bound,
@@ -134,12 +145,12 @@ def run(argv=None) -> dict:
     print(f"    max_states={stats['max_states']:,}; N_{m-1} == scatter micro_aux  OK")
     print(f"    N_0={N0}  = #path_micro({path_micro}) + N'0({Nprime0:.4e})  [#paths={npath}]")
     print(f"    N_-1={Nminus1} (d=-1 disjoint-cycle sector exists: {Nminus1>0})")
-    print(f"    (33) c > max_d ln(N_d/N_0)/(d*abar), abar={abar:.4f}:")
+    print(f"    (33) c > max_d ln(N_d/#path)/(d*abar), abar={abar:.4f}:")
     for d in range(1, m):
         mark = "  <-- argmax" if d == argmax_d else ""
         print(f"      d={d}: {grade[d]['bound']:.3f}{mark}")
-    print(f"    --> argmax d={argmax_d}; d=m-1={m-1} is argmax? {result['argmax_is_m_minus_1']} "
-          f"(published (29) term = {grade[m-1]['bound']:.3f})")
+    print(f"    --> argmax d={argmax_d} ({grade[argmax_d]['bound']:.3f}); "
+          f"d=m-1={m-1} term = {vb_crossing:.4f} == V-B crossing (so (29) IS the d=m-1 term)")
     print(f"    (36) d=0 sector: N'0={Nprime0:.4e} {'<' if Nprime0<path_micro else '>='} "
           f"#path_micro={path_micro}; bound c > {d0_bound:.4f}  "
           f"-> {'VACUOUS (favorable)' if d0_bound<0 else 'BINDS'}")
