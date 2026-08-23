@@ -1,0 +1,88 @@
+{
+  "anchored_witnesses": 639,
+  "certificate_recheck": {
+    "failures": 0,
+    "sampled": 14
+  },
+  "n_rows": 1027,
+  "population_anchor_disagreements": 0,
+  "reference_anchor": {
+    "all_agree": true,
+    "argmin": "one_aux_S",
+    "delta_min": 0.04297177121043205,
+    "n_checks": 21
+  },
+  "rho_rider": {
+    "form39_fires": 198,
+    "form39_fires_below_quarter": 0,
+    "form39_identity_errors": 0,
+    "form39_only": 0,
+    "gamma_max": 0.9943020917822936,
+    "gamma_violations": 0,
+    "sharp_fires": 256,
+    "sharp_only": 58
+  },
+  "sparse_N60_cell": {
+    "WITNESS": 40,
+    "n": 40
+  },
+  "split": {
+    "POOLED": {
+      "CERTIFIED": 276,
+      "TIE": 0,
+      "UNDETERMINED": 100,
+      "WITNESS": 651,
+      "n": 1027
+    },
+    "dense": {
+      "CERTIFIED": 10,
+      "TIE": 0,
+      "UNDETERMINED": 2,
+      "WITNESS": 170,
+      "n": 182
+    },
+    "grid": {
+      "CERTIFIED": 252,
+      "TIE": 0,
+      "UNDETERMINED": 93,
+      "WITNESS": 15,
+      "n": 360
+    },
+    "mtn_knn": {
+      "CERTIFIED": 1,
+      "TIE": 0,
+      "UNDETERMINED": 0,
+      "WITNESS": 261,
+      "n": 262
+    },
+    "sparse": {
+      "CERTIFIED": 13,
+      "TIE": 0,
+      "UNDETERMINED": 5,
+      "WITNESS": 205,
+      "n": 223
+    }
+  },
+  "witness_gap_at_c4_pooled": {
+    "max": -7.917395975184811e-05,
+    "med": -0.8680670273809918,
+    "min": -12.54275496815714,
+    "n": 651
+  },
+  "witness_gap_at_c4_terrain": {
+    "max": -0.0032556985069497205,
+    "med": -2.9596839664669568,
+    "min": -12.54275496815714,
+    "n": 261
+  },
+  "witness_subcases": {
+    "aux_free": 9,
+    "cycle_carrying": 3,
+    "one_aux_S": 584,
+    "one_aux_T": 55
+  },
+  "witness_verification": {
+    "failures": 0,
+    "n": 651
+  }
+}

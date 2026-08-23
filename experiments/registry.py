@@ -139,6 +139,17 @@ EXPERIMENTS = [
                "rigorous per-instance certificates, undetermined never imputed; + the rho-law "
                "(CYC-RHO), the reference path/cycle energy anchors (CYC-ENERGY), and the "
                "population-wide absence certificate over all 1,080 instances (CYC-ABSPOP)"),
+    Experiment("20", "dzero_population", "d=0 below-path sector, population-wide delta>0 certificate",
+               "V-E", ("DZ-SPLIT", "DZ-FAM-SPARSE", "DZ-FAM-DENSE", "DZ-FAM-GRID",
+                       "DZ-FAM-MTN", "DZ-MECH-639", "DZ-CELL-4040", "DZ-GAP-MED",
+                       "DZ-RHO-0ERR", "DZ-SHARP-58", "DZ-ANCHOR", "DZ-VERIFY-651"),
+               ("results/dzero/verdicts.csv", "results/dzero/summary.json",
+                "results/dzero/witnesses.json", "results/dzero/anchor.json"), 2,
+               "built", "NEW -- population-wide d=0 delta<=0 witness/certificate sweep; "
+               "run()=verify (re-verify 651 witnesses natively + assert split), --regenerate=sweep",
+               "651 WITNESS / 276 CERTIFIED / 100 UNDETERMINED over 1,027; every witness "
+               "re-verifies from a regenerated instance; rho>=1/4 reproduced (2nd time), "
+               "sharper Lsum(m-1)>W* certificate closes +58"),
 ]
 
 BY_ID = {e.id: e for e in EXPERIMENTS}

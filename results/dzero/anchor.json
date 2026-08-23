@@ -1,0 +1,177 @@
+{
+  "all_agree": true,
+  "argmin_subcase": "one_aux_S",
+  "checks": [
+    {
+      "agree": true,
+      "got": 142,
+      "name": "|E|",
+      "want": 142
+    },
+    {
+      "agree": true,
+      "got": 8,
+      "name": "L",
+      "want": 8
+    },
+    {
+      "agree": true,
+      "got": 0.5487686158157885,
+      "name": "W*",
+      "want": 0.548769
+    },
+    {
+      "agree": true,
+      "got": 0.055901944637298584,
+      "name": "witness edge (0,28)",
+      "want": 0.0559
+    },
+    {
+      "agree": true,
+      "got": 0.04430201277136803,
+      "name": "witness edge (28,33)",
+      "want": 0.0443
+    },
+    {
+      "agree": true,
+      "got": 0.08553861826658249,
+      "name": "witness edge (33,39)",
+      "want": 0.0855
+    },
+    {
+      "agree": true,
+      "got": 0.27178406715393066,
+      "name": "witness edge (39,57)",
+      "want": 0.2718
+    },
+    {
+      "agree": true,
+      "got": 0.0066179633140563965,
+      "name": "witness edge (57,52)",
+      "want": 0.0066
+    },
+    {
+      "agree": true,
+      "got": 0.04954138025641441,
+      "name": "witness edge (52,25)",
+      "want": 0.0495
+    },
+    {
+      "agree": true,
+      "got": 0.007719617802649736,
+      "name": "witness edge (25,36)",
+      "want": 0.0077
+    },
+    {
+      "agree": true,
+      "got": 0.027363011613488197,
+      "name": "witness edge (36,59)",
+      "want": 0.0274
+    },
+    {
+      "agree": true,
+      "got": 0.0859435424208641,
+      "name": "witness edge (59,54)",
+      "want": 0.0859
+    },
+    {
+      "agree": true,
+      "got": 0.6347121582366526,
+      "name": "W_real",
+      "want": 0.634712
+    },
+    {
+      "agree": true,
+      "got": 0.0859435424208641,
+      "name": "w_end",
+      "want": 0.085944
+    },
+    {
+      "agree": true,
+      "got": 0.04297177121043205,
+      "name": "delta(witness)",
+      "want": 0.0429718
+    },
+    {
+      "agree": true,
+      "got": 0.7553227418102324,
+      "name": "weighted girth",
+      "want": 0.755323
+    },
+    {
+      "agree": true,
+      "got": 0.04297177121043205,
+      "name": "delta_min (exhaustive)",
+      "want": 0.0429718
+    },
+    {
+      "agree": true,
+      "got": 0.04297177121043205,
+      "name": "delta_min[one_aux_S]",
+      "want": 0.042972
+    },
+    {
+      "agree": true,
+      "got": 0.06334213493391871,
+      "name": "delta_min[aux_free]",
+      "want": 0.063342
+    },
+    {
+      "agree": true,
+      "got": 0.0658949613571167,
+      "name": "delta_min[one_aux_T]",
+      "want": 0.065895
+    },
+    {
+      "agree": true,
+      "got": 1,
+      "name": "argmin is one_aux_S",
+      "want": 1
+    }
+  ],
+  "deposit": {
+    "E": 142,
+    "L": 8,
+    "delta_min": 0.0429718,
+    "girth": 0.755323,
+    "subcase_minima": {
+      "aux_free": 0.063342,
+      "one_aux_S": 0.042972,
+      "one_aux_T": 0.065895
+    },
+    "w_end": 0.085944,
+    "w_real": 0.634712,
+    "walk": [
+      0,
+      28,
+      33,
+      39,
+      57,
+      52,
+      25,
+      36,
+      59,
+      54
+    ],
+    "weights": [
+      0.0559,
+      0.0443,
+      0.0855,
+      0.2718,
+      0.0066,
+      0.0495,
+      0.0077,
+      0.0274,
+      0.0859
+    ],
+    "wstar": 0.548769
+  },
+  "instance": "random_graph(60, 0.05, seed=19)",
+  "n_checks": 21,
+  "per_subcase": {
+    "aux_free": 0.06334213493391871,
+    "both_aux": 0.3881136295385659,
+    "one_aux_S": 0.04297177121043205,
+    "one_aux_T": 0.0658949613571167
+  }
+}
