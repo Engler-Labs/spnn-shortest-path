@@ -107,9 +107,17 @@ under `b_S=0` only when `Ẽ(P) > D/2c`). This repo computes the augmented colum
 ## Disclosures
 
 - **Censoring.** Of 1,080 population instances, 1,027 completed and **53 (4.9%)
-  were censored** at the counting memory cap. Censoring is depth-correlated and
-  biases the summary *low* (toward understating required `c`); censored rows are
-  flagged in `results/creq/population.csv`, not dropped (`POP-N`).
+  were censored** — **52 of the 53 hit the 120 s per-count wall** (the `#scatter`
+  count on sparse/dense, the `#path` count on terrain), and **1 hit the memory
+  cap**; not "at the memory cap". They fall in `sparse_100` (16), `dense_80` (17),
+  `mtn_knn_140` (18), `sparse_80` (1), `dense_60` (1) — **zero lattice/grid**.
+  The bias direction **cannot be assumed favourable**: within every affected cell,
+  required `c` *falls* with optimum depth among the completed instances (Spearman
+  −0.48…−0.90 across the irregular cells), so the censored (deepest) instances would,
+  on that trend, require *less* — making the reported quantiles if anything too high
+  and the clear-fractions too low. Nothing is imputed; censored rows are flagged in
+  `results/creq/population.csv`, not dropped (`POP-N`). (The separate
+  competitor-count *lower bound* keeps its own favourable-direction bias.)
 - **Counting overflow is in the data.** The matching-polynomial counter is
   auto-sized and records `max_coeff_bits` per instance in the population CSV, so
   the overflow condition is visible in the released data rather than only in an
