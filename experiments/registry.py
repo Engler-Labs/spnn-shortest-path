@@ -150,6 +150,30 @@ EXPERIMENTS = [
                "651 WITNESS / 276 CERTIFIED / 100 UNDETERMINED over 1,027; every witness "
                "re-verifies from a regenerated instance; rho>=1/4 reproduced (2nd time), "
                "sharper Lsum(m-1)>W* certificate closes +58"),
+    Experiment("21", "deficit_profile", "deficit PROFILE on a 12-instance stratified subsample",
+               "V-D", ("DP-ANCHOR", "DP-SUBSAMPLE-BIND", "DP-RATIO-RANGE", "DP-COST"),
+               ("results/deficit_profile/s30_instances.jsonl",
+                "results/deficit_profile/s30_ladders.csv",
+                "results/deficit_profile/s30_anchor.json",
+                "results/deficit_profile/s30_verify.json",
+                "results/deficit_profile/s30_meta.json",
+                "results/deficit_profile/verify.json"), 2,
+               "built", "PORT of the stage-30 subsample sweep; the DP is REUSED from this "
+               "repo's own spnn.counting.count_degree2_by_deficit (exp 18's counter). "
+               "run()=verify (re-anchor vs the campaign CSV, recount natively, brute-force "
+               "the two smallest), --regenerate=the 12-instance sweep at 240 s / 4.0 GB",
+               "does the reference's SHAPE generalise -- 11/11 completed instances bind at "
+               "d=1 with strictly monotone ladders over L=3..19; 1 CENSORED (grid k=12, "
+               "MEMCAP, the deepest cell, reported not dropped); ratio 2.70-8.42 median 4.66 "
+               "vs reference 4.90, one-sided everywhere. Records the d=2 printed-digit "
+               "history (draft 11.25 -> 11.24), settled from results/counts/deficit.json"),
+    Experiment("22", "witness_crosstab", "clears-at-c=4 x below-path-sector cross-tab",
+               "V-B", ("XT-C4-DZERO",), ("results/crosstab/witness_clears.json",), 1,
+               "built", "NEW -- pure arithmetic over results/creq/population.csv (exp 8) and "
+               "results/dzero/verdicts.csv (exp 20); neither input written",
+               "138 of 1,027 clear at c=4; 126 of them carry a d=0 member at or below the "
+               "path, 7 are CERTIFIED free of it, 5 UNDETERMINED (never imputed) -- so only "
+               "7 of 1,027 pass both"),
 ]
 
 BY_ID = {e.id: e for e in EXPERIMENTS}

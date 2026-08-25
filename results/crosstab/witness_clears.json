@@ -1,0 +1,40 @@
+{
+  "by_family": {
+    "dense": {
+      "below_path": 16,
+      "certified_free": 2,
+      "undetermined": 2
+    },
+    "grid": {},
+    "mtn_knn": {
+      "below_path": 91,
+      "certified_free": 1
+    },
+    "sparse": {
+      "below_path": 19,
+      "certified_free": 4,
+      "undetermined": 3
+    }
+  },
+  "clear_and_below_path": 126,
+  "clear_and_certified_free": 7,
+  "clear_and_undetermined": 5,
+  "convention": {
+    "below_path": "verdict in {WITNESS, TIE} in results/dzero/verdicts.csv -- a concrete d = 0 member AT or BELOW the optimal path",
+    "c4": 4.0,
+    "certified_free": "verdict == CERTIFIED -- both legs closed, nothing at or below",
+    "clears_at_c4": "c_req_micro <= 4 in results/creq/population.csv (the microstate convention, the one section V-B's operating point uses)",
+    "undetermined": "verdict == UNDETERMINED -- a leg open; never imputed either way"
+  },
+  "dzero_rows": 1027,
+  "fraction_of_clearing_with_witness": 0.9130434782608695,
+  "missing_from_dzero": [],
+  "n_clear_at_c4": 138,
+  "note": "pure arithmetic over two committed deposits; neither is written. The UNDETERMINED cell is reported in its own right -- at most 12 of 1,027 could pass both, and exactly 7 are established to.",
+  "population": {
+    "censored": 53,
+    "completed": 1027,
+    "rows": 1080
+  },
+  "upper_bound_if_all_undetermined_resolve_free": 12
+}

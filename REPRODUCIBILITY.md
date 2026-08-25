@@ -132,6 +132,82 @@ under `b_S=0` only when `Ẽ(P) > D/2c`). This repo computes the augmented colum
   analysed off a partially written output; the corrected 119-of-120-instance data
   are the published ones (`WT-MEAS`).
 
+## The deficit profile subsample (experiment 21)
+
+Experiment 18 established the deficit ladder's shape **on the reference instance
+only**, and experiments 19–20 both found that instance to be the *minority* case on
+its own cell — so the shape needed testing off it. Experiment 21 does that on a
+declared 12-instance stratified subsample. What is disclosed here is the budget, the
+censor, and the validation chain.
+
+- **Budgets declared in advance, not after the fact.** Per-instance wall **240 s**
+  and memory **4.0 GB** (`RLIMIT_AS` in a child process), concurrency ≤ 4. Both are
+  recorded in `results/deficit_profile/s30_meta.json` alongside the declared
+  subsample, and `s30_meta.json` is written **last** so a cut leaves no analysable
+  chunk (`n_instances` is asserted against the row count before anything reads it).
+- **One censored instance, and which resource.** `grid` **k = 12** (N = 144,
+  L = 22, m = 24) breached the **memory** cap — `RLIMIT_AS 4.0 GB` — at 66.7 s. It
+  was **not retried, the budget was not raised mid-run, and nothing was substituted
+  for it**; its row is kept with `status = MEMCAP`, its censor note, its wall and its
+  peak RSS. It is also the **deepest cell in the plan**, so the single coverage gap
+  sits at the top of the depth range — exactly where a shape change would most
+  plausibly hide, which is why 11/11 is reported qualified rather than bare. Note the
+  asymmetry with experiment 8, which finished that same instance in 0.59 s at 38 MiB:
+  this DP is `3^frontier` where the required-`c` count is `2^frontier` (`DP-COST`).
+  Like-for-like against experiment 8 on the completed instances, the profile costs
+  **1.3× – 637×** the required-`c` count. The originating report quoted the top ratio as
+  **641×**; recomputed here from the `scatter_wall_s` committed in
+  `results/creq/population.csv` it is **636.9×** — 641 came from dividing by that wall
+  rounded to 0.33 s. Both figures are on the record rather than one being quietly
+  preferred.
+- **The validation chain, in the order it was run.** (1) The DP was validated
+  against **exhaustive brute-force enumeration** before any instance was measured —
+  **156/156** over six tiny graphs × all four auxiliary sub-cases × every *K*, plus
+  **27/27** on the identity `N_(m−1) == scatter_counts.micro_aux`. (2) On the sweep
+  itself that identity holds **exactly, as integers, on 11/11** completed instances,
+  and this repository re-checks it against the `scatter_micro_aux` column already
+  committed in `results/creq/population.csv` — i.e. against *independent* code, with
+  no recount required. (3) The **full profile** is re-derived by **exhaustive
+  enumeration of every edge subset, at every d**, on **two real subsample instances**
+  (`grid_k4_N16_seed1`, 1,562,275 subsets; `sparse_N20_seed1`, 7,059,052) — ground
+  truth on real instances, not toys, covering the d = −1 cycle sector and the d = 2
+  rung as well. (4) `python -m experiments 21` additionally **recounts** the
+  committed profiles with this repository's own `count_degree2_by_deficit`
+  (`--recount-all` for all 11; the default is a declared cheap subset).
+  **Named rather than skipped:** the nine larger instances are *not* exhaustively
+  verified — enumeration is `C(|E|, m)` and out of reach (the reference alone is
+  `C(142,10) ≈ 1.3e15`). They rest on the independent identity plus the DP's
+  pre-validation.
+- **Wall and RSS do not reproduce.** `DP-COST` is labelled **pinned** for the same
+  reason `T-SCALE` is: the state counts, frontier and coefficient widths are
+  structural and exact, but the timing and memory columns are hardware-local to the
+  originating box.
+- **A printed digit, corrected — and where it was settled.** An earlier manuscript
+  draft printed the d = 2 rung of the reference ladder as **11.25**. The computed
+  rung is **11.244618410987663**, i.e. **11.24** at two places under any rounding
+  convention. The originating run could not distinguish a transcription slip from a
+  0.7 % difference in `N_2` and **said so rather than resolving it**; it was settled
+  **from the deposit side**, with this repository's own `results/counts/deficit.json`
+  — `N_2 = 1,320,177,088,811,008` and `#path = 898,048` reproduce all nine rungs at
+  two places *with* the corrected digit. The rung is **non-binding** (the argmax is
+  d = 1 at 18.11), so nothing the paper concludes depended on it. The manuscript now
+  prints 11.24, and prints the crossing margin as **8.4475** — `CNT-CROSS` deposits it
+  exactly, `8.447466352389776`; the claim's own value string quotes it at four
+  significant figures as 8.447, the same number at lower precision — so that a reader
+  reconstructing the ladder from the paper's printed inputs lands on 11.24 rather
+  than on 11.2452 → 11.25. **`results/counts/deficit.json` was correct throughout and
+  is untouched.** `results/deficit_profile/s30_anchor.json` is the originating lane's
+  record, committed **unmodified**, so its `verdict` field still reads
+  `DOES_NOT_REPRODUCE` against the superseded 11.25; against the corrected printed
+  ladder experiment 21 reports all 23 anchor checks agreeing.
+- **Section labels.** `CLAIMS.tsv`'s `where` column uses the section numbering the
+  claim register was built on. In the submitted render the discrimination
+  condition/ladder is **§V-C**, the below-path sector is **§V-D** and the
+  measurements are **§V-E**; the register's `V-D` (ladder, `DEF-*`/`CYC-*`/`DP-*`)
+  and `V-E` (below-path, `DZ-*`) predate that renumbering. `V-B` is unaffected. The
+  register is left as it stands rather than renumbered, since the manuscript itself
+  is `\ref`-based and was never wrong.
+
 ## The acceptance test
 
 `check_claims` (run by `python -m verify`) walks `CLAIMS.tsv` and requires that

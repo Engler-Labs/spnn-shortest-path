@@ -1,0 +1,261 @@
+{
+  "selftest": {
+    "dp_vs_brute_pass": 156,
+    "dp_vs_brute_total": 156,
+    "weight_pass": 27,
+    "weight_total": 27,
+    "all_pass": true,
+    "failures": []
+  },
+  "checks": [
+    {
+      "name": "|E|",
+      "got": "142",
+      "want": "142",
+      "tol": null,
+      "ok": true
+    },
+    {
+      "name": "L",
+      "got": "8",
+      "want": "8",
+      "tol": null,
+      "ok": true
+    },
+    {
+      "name": "W*",
+      "got": "0.5487686158157885",
+      "want": "0.5487686158157885",
+      "tol": 1e-12,
+      "ok": true
+    },
+    {
+      "name": "#path (edge sets)",
+      "got": "1754",
+      "want": "1754",
+      "tol": null,
+      "ok": true
+    },
+    {
+      "name": "#path (microstates)",
+      "got": "898048",
+      "want": "898048",
+      "tol": null,
+      "ok": true
+    },
+    {
+      "name": "N_(m-1) == scatter_counts.micro_aux (EXACT)",
+      "got": "33523490385112072192",
+      "want": "33523490385112072192",
+      "tol": null,
+      "ok": true
+    },
+    {
+      "name": "N_-1 vs #230 (1.04e+08)",
+      "got": "18.460280 (ln)",
+      "want": "18.459901 (ln)",
+      "tol": "5e-4 in ln",
+      "ok": true
+    },
+    {
+      "name": "N_0 vs #230 (1.239e+11)",
+      "got": "25.542833 (ln)",
+      "want": "25.542741 (ln)",
+      "tol": "5e-4 in ln",
+      "ok": true
+    },
+    {
+      "name": "N_1 vs #230 (2.165e+13)",
+      "got": "30.706202 (ln)",
+      "want": "30.706027 (ln)",
+      "tol": "5e-4 in ln",
+      "ok": true
+    },
+    {
+      "name": "N_8 vs #230 (6.646e+19)",
+      "got": "45.643163 (ln)",
+      "want": "45.643132 (ln)",
+      "tol": "5e-4 in ln",
+      "ok": true
+    },
+    {
+      "name": "N_9 vs #230 (3.352e+19)",
+      "got": "44.958778 (ln)",
+      "want": "44.958674 (ln)",
+      "tol": "5e-4 in ln",
+      "ok": true
+    },
+    {
+      "name": "ladder d=1 (printed 18.11)",
+      "got": "18.11",
+      "want": "18.11",
+      "tol": 0.005,
+      "ok": true
+    },
+    {
+      "name": "ladder d=2 (printed 11.25)",
+      "got": "11.24",
+      "want": "11.25",
+      "tol": 0.005,
+      "ok": false
+    },
+    {
+      "name": "ladder d=3 (printed 8.68)",
+      "got": "8.68",
+      "want": "8.68",
+      "tol": 0.005,
+      "ok": true
+    },
+    {
+      "name": "ladder d=4 (printed 7.22)",
+      "got": "7.22",
+      "want": "7.22",
+      "tol": 0.005,
+      "ok": true
+    },
+    {
+      "name": "ladder d=5 (printed 6.23)",
+      "got": "6.23",
+      "want": "6.23",
+      "tol": 0.005,
+      "ok": true
+    },
+    {
+      "name": "ladder d=6 (printed 5.46)",
+      "got": "5.46",
+      "want": "5.46",
+      "tol": 0.005,
+      "ok": true
+    },
+    {
+      "name": "ladder d=7 (printed 4.82)",
+      "got": "4.82",
+      "want": "4.82",
+      "tol": 0.005,
+      "ok": true
+    },
+    {
+      "name": "ladder d=8 (printed 4.25)",
+      "got": "4.25",
+      "want": "4.25",
+      "tol": 0.005,
+      "ok": true
+    },
+    {
+      "name": "ladder d=9 (printed 3.7)",
+      "got": "3.7",
+      "want": "3.7",
+      "tol": 0.005,
+      "ok": true
+    },
+    {
+      "name": "ladder d=m-1 == required c 3.699428677298893",
+      "got": "3.699428677298893",
+      "want": "3.699428677298893",
+      "tol": 1e-09,
+      "ok": true
+    }
+  ],
+  "anchor_wall_s": 116.40415386948735,
+  "peak_rss_mib": 3784.19921875,
+  "dp_detail": {
+    "none": {
+      "max_states": 1882728,
+      "dig": 51,
+      "coeff_bound_bits": 50,
+      "max_coeff_bits": 48,
+      "n_distinct_edges": 142,
+      "order_max_frontier": 17,
+      "wall_s": 58.534483755007386,
+      "K": 10,
+      "top_rung_edge_count": "29029487361552"
+    },
+    "one_aux_S": {
+      "max_states": 962237,
+      "dig": 47,
+      "coeff_bound_bits": 46,
+      "max_coeff_bits": 44,
+      "n_distinct_edges": 142,
+      "order_max_frontier": 17,
+      "wall_s": 26.155253316275775,
+      "K": 9,
+      "top_rung_edge_count": "3099591998578"
+    },
+    "one_aux_T": {
+      "max_states": 842476,
+      "dig": 47,
+      "coeff_bound_bits": 46,
+      "max_coeff_bits": 44,
+      "n_distinct_edges": 142,
+      "order_max_frontier": 17,
+      "wall_s": 22.375817332416773,
+      "K": 9,
+      "top_rung_edge_count": "2655252938409"
+    },
+    "both_aux": {
+      "max_states": 396173,
+      "dig": 43,
+      "coeff_bound_bits": 42,
+      "max_coeff_bits": 40,
+      "n_distinct_edges": 142,
+      "order_max_frontier": 17,
+      "wall_s": 9.338551190681756,
+      "K": 8,
+      "top_rung_edge_count": "254327786111"
+    }
+  },
+  "N_d": {
+    "-1": "104039424",
+    "0": "123911417344",
+    "1": "21653804702720",
+    "2": "1320177088811008",
+    "3": "36977802906316800",
+    "4": "540732464598040576",
+    "5": "4391311439896444928",
+    "6": "20188992664527470592",
+    "7": "51399977098888282112",
+    "8": "66462086984710881280",
+    "9": "33523490385112072192"
+  },
+  "scatter_counts": {
+    "N0": "29029487361552",
+    "N1": "5754844936987",
+    "N2": "254327786111",
+    "edge_noaux": "29029487361552",
+    "edge_aux": "35038660084650",
+    "micro_noaux": "30439623739626749952",
+    "micro_aux": "33523490385112072192",
+    "dp_states": "109294",
+    "frontier": "17",
+    "dig": "51",
+    "max_coeff_bits": "45",
+    "coeff_bound_bits": "50",
+    "legacy_dig96_exact": "True",
+    "n_matching_calls": "4"
+  },
+  "ladder": {
+    "1": 18.110046854584542,
+    "2": 11.244618410987663,
+    "3": 8.679921667113764,
+    "4": 7.224459083841399,
+    "5": 6.225857935553166,
+    "6": 5.459096692142218,
+    "7": 4.821457760778551,
+    "8": 4.253000972044958,
+    "9": 3.699428677298893
+  },
+  "alphabar": 0.938607372487753,
+  "argmax_d": 1,
+  "ladder_max": 18.110046854584542,
+  "ratio_d1_scatter": 4.895363158564106,
+  "monotone_decreasing": true,
+  "inputs_unchanged": true,
+  "input_hashes": {
+    "research/spnn/graphs.py": "c67ab877530c3d41eb49afae16a4d648af4f20785719a1ab7f5bec9cb8b858ca",
+    "research/spnn/compile.py": "08f4e4957f42faa7cd242240ce0bafddaab18901fdb9a2076a49ef6129fd7bbd",
+    "research/spnn/sim.py": "d1d32c002bbe5fd739de60b32c83da896b33c3f3ae8e057c8cdba5494f16019a",
+    "research/spnn/experiments/spnn_threshold_and_margin_counts.py": "56af411b44d63d726c0551677136b4df3f258465500dbe3391d04b1290de6f81",
+    "research/spnn/experiments/spnn_stage28_required_c_population_sweep.py": "3cb575b6bc8725d12f271f09276336b9d7b3298c51bf66a8b30b81ae11788248"
+  },
+  "verdict": "DOES_NOT_REPRODUCE"
+}

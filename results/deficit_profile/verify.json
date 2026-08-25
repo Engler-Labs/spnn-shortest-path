@@ -1,0 +1,1613 @@
+{
+  "binds_at_d1": "11/11",
+  "by_family": {
+    "dense": {
+      "binds_at_d1": 2,
+      "censored": 0,
+      "completed": 2,
+      "monotone": 2,
+      "n": 2
+    },
+    "grid": {
+      "binds_at_d1": 2,
+      "censored": 1,
+      "completed": 2,
+      "monotone": 2,
+      "n": 3
+    },
+    "mtn_knn": {
+      "binds_at_d1": 3,
+      "censored": 0,
+      "completed": 3,
+      "monotone": 3,
+      "n": 3
+    },
+    "sparse": {
+      "binds_at_d1": 4,
+      "censored": 0,
+      "completed": 4,
+      "monotone": 4,
+      "n": 4
+    }
+  },
+  "censored": [
+    {
+      "L": 22,
+      "deepest_in_plan": true,
+      "label": "grid_k12_N144_seed1",
+      "m": 24,
+      "note": "RLIMIT_AS 4.0 GB breached",
+      "peak_rss_mib": 4016.0078125,
+      "resource": "memory",
+      "wall_s": 66.65078892465681
+    }
+  ],
+  "checks": [
+    {
+      "got": "8",
+      "label": "reference",
+      "name": "L",
+      "ok": true,
+      "want": "8"
+    },
+    {
+      "got": "10",
+      "label": "reference",
+      "name": "m = L+2",
+      "ok": true,
+      "want": "10"
+    },
+    {
+      "got": "898048",
+      "label": "reference",
+      "name": "#path microstates",
+      "ok": true,
+      "want": "898048"
+    },
+    {
+      "got": "1",
+      "label": "reference",
+      "name": "N_(m-1) == scatter_counts micro_aux",
+      "ok": true,
+      "want": "1"
+    },
+    {
+      "got": "1",
+      "label": "reference",
+      "name": "N_d identical to the originating lane, all 11 (EXACT)",
+      "ok": true,
+      "want": "1"
+    },
+    {
+      "got": "18.46028046219722",
+      "label": "reference",
+      "name": "N_-1 vs the transcribed 1.04e+08 (ln)",
+      "ok": true,
+      "want": "18.459901457105648"
+    },
+    {
+      "got": "25.542832771005077",
+      "label": "reference",
+      "name": "N_0 vs the transcribed 1.239e+11 (ln)",
+      "ok": true,
+      "want": "25.54274062558151"
+    },
+    {
+      "got": "30.706202291783327",
+      "label": "reference",
+      "name": "N_1 vs the transcribed 2.165e+13 (ln)",
+      "ok": true,
+      "want": "30.70602657037705"
+    },
+    {
+      "got": "45.64316333844346",
+      "label": "reference",
+      "name": "N_8 vs the transcribed 6.646e+19 (ln)",
+      "ok": true,
+      "want": "45.64313193681927"
+    },
+    {
+      "got": "44.95877807251985",
+      "label": "reference",
+      "name": "N_9 vs the transcribed 3.352e+19 (ln)",
+      "ok": true,
+      "want": "44.958673949506704"
+    },
+    {
+      "got": "18.11",
+      "label": "reference",
+      "name": "ladder d=1 (printed 18.11)",
+      "ok": true,
+      "want": "18.11"
+    },
+    {
+      "got": "11.24",
+      "label": "reference",
+      "name": "ladder d=2 (printed 11.24)",
+      "ok": true,
+      "want": "11.24"
+    },
+    {
+      "got": "8.68",
+      "label": "reference",
+      "name": "ladder d=3 (printed 8.68)",
+      "ok": true,
+      "want": "8.68"
+    },
+    {
+      "got": "7.22",
+      "label": "reference",
+      "name": "ladder d=4 (printed 7.22)",
+      "ok": true,
+      "want": "7.22"
+    },
+    {
+      "got": "6.23",
+      "label": "reference",
+      "name": "ladder d=5 (printed 6.23)",
+      "ok": true,
+      "want": "6.23"
+    },
+    {
+      "got": "5.46",
+      "label": "reference",
+      "name": "ladder d=6 (printed 5.46)",
+      "ok": true,
+      "want": "5.46"
+    },
+    {
+      "got": "4.82",
+      "label": "reference",
+      "name": "ladder d=7 (printed 4.82)",
+      "ok": true,
+      "want": "4.82"
+    },
+    {
+      "got": "4.25",
+      "label": "reference",
+      "name": "ladder d=8 (printed 4.25)",
+      "ok": true,
+      "want": "4.25"
+    },
+    {
+      "got": "3.7",
+      "label": "reference",
+      "name": "ladder d=9 (printed 3.7)",
+      "ok": true,
+      "want": "3.7"
+    },
+    {
+      "got": "3.699428677298893",
+      "label": "reference",
+      "name": "ladder d=m-1 == the section V-B crossing c",
+      "ok": true,
+      "want": "3.699428677298893"
+    },
+    {
+      "got": "1",
+      "label": "reference",
+      "name": "argmax d",
+      "ok": true,
+      "want": "1"
+    },
+    {
+      "got": "1",
+      "label": "reference",
+      "name": "ladder strictly monotone decreasing",
+      "ok": true,
+      "want": "1"
+    },
+    {
+      "got": "4.895363158564106",
+      "label": "reference",
+      "name": "d=1/scatter ratio",
+      "ok": true,
+      "want": "4.895363158564106"
+    },
+    {
+      "got": "(20, 42)",
+      "label": "sparse_N20_seed1",
+      "name": "N/|E| vs campaign",
+      "ok": true,
+      "want": "('20', '42')"
+    },
+    {
+      "got": "(0, 19)",
+      "label": "sparse_N20_seed1",
+      "name": "(s,t) vs campaign",
+      "ok": true,
+      "want": "('0', '19')"
+    },
+    {
+      "got": "4",
+      "label": "sparse_N20_seed1",
+      "name": "L vs campaign",
+      "ok": true,
+      "want": "4"
+    },
+    {
+      "got": "1.1047071162611246",
+      "label": "sparse_N20_seed1",
+      "name": "W* vs campaign",
+      "ok": true,
+      "want": "1.1047071162611246"
+    },
+    {
+      "got": "0.7705373856790193",
+      "label": "sparse_N20_seed1",
+      "name": "abar vs campaign",
+      "ok": true,
+      "want": "0.7705373856790193"
+    },
+    {
+      "got": "6",
+      "label": "sparse_N20_seed1",
+      "name": "m == L+2",
+      "ok": true,
+      "want": "6"
+    },
+    {
+      "got": "(60, 144)",
+      "label": "sparse_N60_seed1",
+      "name": "N/|E| vs campaign",
+      "ok": true,
+      "want": "('60', '144')"
+    },
+    {
+      "got": "(0, 59)",
+      "label": "sparse_N60_seed1",
+      "name": "(s,t) vs campaign",
+      "ok": true,
+      "want": "('0', '59')"
+    },
+    {
+      "got": "5",
+      "label": "sparse_N60_seed1",
+      "name": "L vs campaign",
+      "ok": true,
+      "want": "5"
+    },
+    {
+      "got": "1.089878786355257",
+      "label": "sparse_N60_seed1",
+      "name": "W* vs campaign",
+      "ok": true,
+      "want": "1.089878786355257"
+    },
+    {
+      "got": "0.8166613824967658",
+      "label": "sparse_N60_seed1",
+      "name": "abar vs campaign",
+      "ok": true,
+      "want": "0.8166613824967658"
+    },
+    {
+      "got": "7",
+      "label": "sparse_N60_seed1",
+      "name": "m == L+2",
+      "ok": true,
+      "want": "7"
+    },
+    {
+      "got": "(60, 137)",
+      "label": "sparse_N60_seed2",
+      "name": "N/|E| vs campaign",
+      "ok": true,
+      "want": "('60', '137')"
+    },
+    {
+      "got": "(0, 59)",
+      "label": "sparse_N60_seed2",
+      "name": "(s,t) vs campaign",
+      "ok": true,
+      "want": "('0', '59')"
+    },
+    {
+      "got": "7",
+      "label": "sparse_N60_seed2",
+      "name": "L vs campaign",
+      "ok": true,
+      "want": "7"
+    },
+    {
+      "got": "0.8589282976463437",
+      "label": "sparse_N60_seed2",
+      "name": "W* vs campaign",
+      "ok": true,
+      "want": "0.8589282976463437"
+    },
+    {
+      "got": "0.8921669450478852",
+      "label": "sparse_N60_seed2",
+      "name": "abar vs campaign",
+      "ok": true,
+      "want": "0.8921669450478852"
+    },
+    {
+      "got": "9",
+      "label": "sparse_N60_seed2",
+      "name": "m == L+2",
+      "ok": true,
+      "want": "9"
+    },
+    {
+      "got": "(100, 236)",
+      "label": "sparse_N100_seed1",
+      "name": "N/|E| vs campaign",
+      "ok": true,
+      "want": "('100', '236')"
+    },
+    {
+      "got": "(0, 99)",
+      "label": "sparse_N100_seed1",
+      "name": "(s,t) vs campaign",
+      "ok": true,
+      "want": "('0', '99')"
+    },
+    {
+      "got": "3",
+      "label": "sparse_N100_seed1",
+      "name": "L vs campaign",
+      "ok": true,
+      "want": "3"
+    },
+    {
+      "got": "0.42881952971220016",
+      "label": "sparse_N100_seed1",
+      "name": "W* vs campaign",
+      "ok": true,
+      "want": "0.42881952971220016"
+    },
+    {
+      "got": "0.8923762840755928",
+      "label": "sparse_N100_seed1",
+      "name": "abar vs campaign",
+      "ok": true,
+      "want": "0.8923762840755928"
+    },
+    {
+      "got": "5",
+      "label": "sparse_N100_seed1",
+      "name": "m == L+2",
+      "ok": true,
+      "want": "5"
+    },
+    {
+      "got": "(20, 76)",
+      "label": "dense_N20_seed1",
+      "name": "N/|E| vs campaign",
+      "ok": true,
+      "want": "('20', '76')"
+    },
+    {
+      "got": "(0, 3)",
+      "label": "dense_N20_seed1",
+      "name": "(s,t) vs campaign",
+      "ok": true,
+      "want": "('0', '3')"
+    },
+    {
+      "got": "3",
+      "label": "dense_N20_seed1",
+      "name": "L vs campaign",
+      "ok": true,
+      "want": "3"
+    },
+    {
+      "got": "0.3792997673153877",
+      "label": "dense_N20_seed1",
+      "name": "W* vs campaign",
+      "ok": true,
+      "want": "0.3792997673153877"
+    },
+    {
+      "got": "0.9015503113553952",
+      "label": "dense_N20_seed1",
+      "name": "abar vs campaign",
+      "ok": true,
+      "want": "0.9015503113553952"
+    },
+    {
+      "got": "5",
+      "label": "dense_N20_seed1",
+      "name": "m == L+2",
+      "ok": true,
+      "want": "5"
+    },
+    {
+      "got": "(60, 223)",
+      "label": "dense_N60_seed1",
+      "name": "N/|E| vs campaign",
+      "ok": true,
+      "want": "('60', '223')"
+    },
+    {
+      "got": "(0, 59)",
+      "label": "dense_N60_seed1",
+      "name": "(s,t) vs campaign",
+      "ok": true,
+      "want": "('0', '59')"
+    },
+    {
+      "got": "4",
+      "label": "dense_N60_seed1",
+      "name": "L vs campaign",
+      "ok": true,
+      "want": "4"
+    },
+    {
+      "got": "1.006757266819477",
+      "label": "dense_N60_seed1",
+      "name": "W* vs campaign",
+      "ok": true,
+      "want": "1.006757266819477"
+    },
+    {
+      "got": "0.7967728289374896",
+      "label": "dense_N60_seed1",
+      "name": "abar vs campaign",
+      "ok": true,
+      "want": "0.7967728289374896"
+    },
+    {
+      "got": "6",
+      "label": "dense_N60_seed1",
+      "name": "m == L+2",
+      "ok": true,
+      "want": "6"
+    },
+    {
+      "got": "(16, 24)",
+      "label": "grid_k4_N16_seed1",
+      "name": "N/|E| vs campaign",
+      "ok": true,
+      "want": "('16', '24')"
+    },
+    {
+      "got": "(0, 15)",
+      "label": "grid_k4_N16_seed1",
+      "name": "(s,t) vs campaign",
+      "ok": true,
+      "want": "('0', '15')"
+    },
+    {
+      "got": "6",
+      "label": "grid_k4_N16_seed1",
+      "name": "L vs campaign",
+      "ok": true,
+      "want": "6"
+    },
+    {
+      "got": "6.590715050697327",
+      "label": "grid_k4_N16_seed1",
+      "name": "W* vs campaign",
+      "ok": true,
+      "want": "6.590715050697327"
+    },
+    {
+      "got": "0.24386235855497385",
+      "label": "grid_k4_N16_seed1",
+      "name": "abar vs campaign",
+      "ok": true,
+      "want": "0.24386235855497385"
+    },
+    {
+      "got": "8",
+      "label": "grid_k4_N16_seed1",
+      "name": "m == L+2",
+      "ok": true,
+      "want": "8"
+    },
+    {
+      "got": "(64, 112)",
+      "label": "grid_k8_N64_seed1",
+      "name": "N/|E| vs campaign",
+      "ok": true,
+      "want": "('64', '112')"
+    },
+    {
+      "got": "(0, 63)",
+      "label": "grid_k8_N64_seed1",
+      "name": "(s,t) vs campaign",
+      "ok": true,
+      "want": "('0', '63')"
+    },
+    {
+      "got": "14",
+      "label": "grid_k8_N64_seed1",
+      "name": "L vs campaign",
+      "ok": true,
+      "want": "14"
+    },
+    {
+      "got": "15.10965347290039",
+      "label": "grid_k8_N64_seed1",
+      "name": "W* vs campaign",
+      "ok": true,
+      "want": "15.10965347290039"
+    },
+    {
+      "got": "0.1935293737941216",
+      "label": "grid_k8_N64_seed1",
+      "name": "abar vs campaign",
+      "ok": true,
+      "want": "0.1935293737941216"
+    },
+    {
+      "got": "16",
+      "label": "grid_k8_N64_seed1",
+      "name": "m == L+2",
+      "ok": true,
+      "want": "16"
+    },
+    {
+      "got": "(144, 264)",
+      "label": "grid_k12_N144_seed1",
+      "name": "N/|E| vs campaign",
+      "ok": true,
+      "want": "('144', '264')"
+    },
+    {
+      "got": "(0, 143)",
+      "label": "grid_k12_N144_seed1",
+      "name": "(s,t) vs campaign",
+      "ok": true,
+      "want": "('0', '143')"
+    },
+    {
+      "got": "22",
+      "label": "grid_k12_N144_seed1",
+      "name": "L vs campaign",
+      "ok": true,
+      "want": "22"
+    },
+    {
+      "got": "23.626693964004517",
+      "label": "grid_k12_N144_seed1",
+      "name": "W* vs campaign",
+      "ok": true,
+      "want": "23.626693964004517"
+    },
+    {
+      "got": "0.1780418023078283",
+      "label": "grid_k12_N144_seed1",
+      "name": "abar vs campaign",
+      "ok": true,
+      "want": "0.1780418023078283"
+    },
+    {
+      "got": "24",
+      "label": "grid_k12_N144_seed1",
+      "name": "m == L+2",
+      "ok": true,
+      "want": "24"
+    },
+    {
+      "got": "(20, 50)",
+      "label": "mtnknn_N20_seed1",
+      "name": "N/|E| vs campaign",
+      "ok": true,
+      "want": "('20', '50')"
+    },
+    {
+      "got": "(0, 19)",
+      "label": "mtnknn_N20_seed1",
+      "name": "(s,t) vs campaign",
+      "ok": true,
+      "want": "('0', '19')"
+    },
+    {
+      "got": "5",
+      "label": "mtnknn_N20_seed1",
+      "name": "L vs campaign",
+      "ok": true,
+      "want": "5"
+    },
+    {
+      "got": "7.47469174861908",
+      "label": "mtnknn_N20_seed1",
+      "name": "W* vs campaign",
+      "ok": true,
+      "want": "7.47469174861908"
+    },
+    {
+      "got": "0.7224751325432259",
+      "label": "mtnknn_N20_seed1",
+      "name": "abar vs campaign",
+      "ok": true,
+      "want": "0.7224751325432259"
+    },
+    {
+      "got": "7",
+      "label": "mtnknn_N20_seed1",
+      "name": "m == L+2",
+      "ok": true,
+      "want": "7"
+    },
+    {
+      "got": "(60, 149)",
+      "label": "mtnknn_N60_seed1",
+      "name": "N/|E| vs campaign",
+      "ok": true,
+      "want": "('60', '149')"
+    },
+    {
+      "got": "(0, 59)",
+      "label": "mtnknn_N60_seed1",
+      "name": "(s,t) vs campaign",
+      "ok": true,
+      "want": "('0', '59')"
+    },
+    {
+      "got": "11",
+      "label": "mtnknn_N60_seed1",
+      "name": "L vs campaign",
+      "ok": true,
+      "want": "11"
+    },
+    {
+      "got": "6.848244681954384",
+      "label": "mtnknn_N60_seed1",
+      "name": "W* vs campaign",
+      "ok": true,
+      "want": "6.848244681954384"
+    },
+    {
+      "got": "0.8500881692881438",
+      "label": "mtnknn_N60_seed1",
+      "name": "abar vs campaign",
+      "ok": true,
+      "want": "0.8500881692881438"
+    },
+    {
+      "got": "13",
+      "label": "mtnknn_N60_seed1",
+      "name": "m == L+2",
+      "ok": true,
+      "want": "13"
+    },
+    {
+      "got": "(140, 334)",
+      "label": "mtnknn_N140_seed1",
+      "name": "N/|E| vs campaign",
+      "ok": true,
+      "want": "('140', '334')"
+    },
+    {
+      "got": "(0, 139)",
+      "label": "mtnknn_N140_seed1",
+      "name": "(s,t) vs campaign",
+      "ok": true,
+      "want": "('0', '139')"
+    },
+    {
+      "got": "19",
+      "label": "mtnknn_N140_seed1",
+      "name": "L vs campaign",
+      "ok": true,
+      "want": "19"
+    },
+    {
+      "got": "8.945791268721223",
+      "label": "mtnknn_N140_seed1",
+      "name": "W* vs campaign",
+      "ok": true,
+      "want": "8.945791268721223"
+    },
+    {
+      "got": "0.8458636897196288",
+      "label": "mtnknn_N140_seed1",
+      "name": "abar vs campaign",
+      "ok": true,
+      "want": "0.8458636897196288"
+    },
+    {
+      "got": "21",
+      "label": "mtnknn_N140_seed1",
+      "name": "m == L+2",
+      "ok": true,
+      "want": "21"
+    },
+    {
+      "got": "837504000",
+      "label": "sparse_N20_seed1",
+      "name": "N_(m-1) == scatter_counts micro_aux (EXACT)",
+      "ok": true,
+      "want": "837504000"
+    },
+    {
+      "got": "965101947813888",
+      "label": "sparse_N60_seed1",
+      "name": "N_(m-1) == scatter_counts micro_aux (EXACT)",
+      "ok": true,
+      "want": "965101947813888"
+    },
+    {
+      "got": "816271018033676288",
+      "label": "sparse_N60_seed2",
+      "name": "N_(m-1) == scatter_counts micro_aux (EXACT)",
+      "ok": true,
+      "want": "816271018033676288"
+    },
+    {
+      "got": "4208005994496",
+      "label": "sparse_N100_seed1",
+      "name": "N_(m-1) == scatter_counts micro_aux (EXACT)",
+      "ok": true,
+      "want": "4208005994496"
+    },
+    {
+      "got": "1848170240",
+      "label": "dense_N20_seed1",
+      "name": "N_(m-1) == scatter_counts micro_aux (EXACT)",
+      "ok": true,
+      "want": "1848170240"
+    },
+    {
+      "got": "238109576310784",
+      "label": "dense_N60_seed1",
+      "name": "N_(m-1) == scatter_counts micro_aux (EXACT)",
+      "ok": true,
+      "want": "238109576310784"
+    },
+    {
+      "got": "10649600",
+      "label": "grid_k4_N16_seed1",
+      "name": "N_(m-1) == scatter_counts micro_aux (EXACT)",
+      "ok": true,
+      "want": "10649600"
+    },
+    {
+      "got": "42563670092830275916529664",
+      "label": "grid_k8_N64_seed1",
+      "name": "N_(m-1) == scatter_counts micro_aux (EXACT)",
+      "ok": true,
+      "want": "42563670092830275916529664"
+    },
+    {
+      "got": "11888799744",
+      "label": "mtnknn_N20_seed1",
+      "name": "N_(m-1) == scatter_counts micro_aux (EXACT)",
+      "ok": true,
+      "want": "11888799744"
+    },
+    {
+      "got": "541721880922464601505792",
+      "label": "mtnknn_N60_seed1",
+      "name": "N_(m-1) == scatter_counts micro_aux (EXACT)",
+      "ok": true,
+      "want": "541721880922464601505792"
+    },
+    {
+      "got": "16294330618897066247245838598225600419201024",
+      "label": "mtnknn_N140_seed1",
+      "name": "N_(m-1) == scatter_counts micro_aux (EXACT)",
+      "ok": true,
+      "want": "16294330618897066247245838598225600419201024"
+    },
+    {
+      "got": "7",
+      "label": "sparse_N20_seed1",
+      "name": "N_d covers d = -1 .. m-1, every entry a positive integer",
+      "ok": true,
+      "want": "7"
+    },
+    {
+      "got": "2300384",
+      "label": "sparse_N20_seed1",
+      "name": "N_0 >= #path (the path is a d = 0 member)",
+      "ok": true,
+      "want": "416"
+    },
+    {
+      "got": "None",
+      "label": "sparse_N20_seed1",
+      "name": "ladder recomputes from N_d",
+      "ok": true,
+      "want": "None"
+    },
+    {
+      "got": "1",
+      "label": "sparse_N20_seed1",
+      "name": "argmax d == committed",
+      "ok": true,
+      "want": "1"
+    },
+    {
+      "got": "None",
+      "label": "sparse_N20_seed1",
+      "name": "monotone flag == committed",
+      "ok": true,
+      "want": "None"
+    },
+    {
+      "got": "4.142846517325481",
+      "label": "sparse_N20_seed1",
+      "name": "ratio == committed",
+      "ok": true,
+      "want": "4.142846517325481"
+    },
+    {
+      "got": "8",
+      "label": "sparse_N60_seed1",
+      "name": "N_d covers d = -1 .. m-1, every entry a positive integer",
+      "ok": true,
+      "want": "8"
+    },
+    {
+      "got": "261126016",
+      "label": "sparse_N60_seed1",
+      "name": "N_0 >= #path (the path is a d = 0 member)",
+      "ok": true,
+      "want": "896"
+    },
+    {
+      "got": "None",
+      "label": "sparse_N60_seed1",
+      "name": "ladder recomputes from N_d",
+      "ok": true,
+      "want": "None"
+    },
+    {
+      "got": "1",
+      "label": "sparse_N60_seed1",
+      "name": "argmax d == committed",
+      "ok": true,
+      "want": "1"
+    },
+    {
+      "got": "None",
+      "label": "sparse_N60_seed1",
+      "name": "monotone flag == committed",
+      "ok": true,
+      "want": "None"
+    },
+    {
+      "got": "3.7824579596330157",
+      "label": "sparse_N60_seed1",
+      "name": "ratio == committed",
+      "ok": true,
+      "want": "3.7824579596330157"
+    },
+    {
+      "got": "10",
+      "label": "sparse_N60_seed2",
+      "name": "N_d covers d = -1 .. m-1, every entry a positive integer",
+      "ok": true,
+      "want": "10"
+    },
+    {
+      "got": "14901499648",
+      "label": "sparse_N60_seed2",
+      "name": "N_0 >= #path (the path is a d = 0 member)",
+      "ok": true,
+      "want": "40960"
+    },
+    {
+      "got": "None",
+      "label": "sparse_N60_seed2",
+      "name": "ladder recomputes from N_d",
+      "ok": true,
+      "want": "None"
+    },
+    {
+      "got": "1",
+      "label": "sparse_N60_seed2",
+      "name": "argmax d == committed",
+      "ok": true,
+      "want": "1"
+    },
+    {
+      "got": "None",
+      "label": "sparse_N60_seed2",
+      "name": "monotone flag == committed",
+      "ok": true,
+      "want": "None"
+    },
+    {
+      "got": "4.659715873759823",
+      "label": "sparse_N60_seed2",
+      "name": "ratio == committed",
+      "ok": true,
+      "want": "4.659715873759823"
+    },
+    {
+      "got": "6",
+      "label": "sparse_N100_seed1",
+      "name": "N_d covers d = -1 .. m-1, every entry a positive integer",
+      "ok": true,
+      "want": "6"
+    },
+    {
+      "got": "5872480",
+      "label": "sparse_N100_seed1",
+      "name": "N_0 >= #path (the path is a d = 0 member)",
+      "ok": true,
+      "want": "32"
+    },
+    {
+      "got": "None",
+      "label": "sparse_N100_seed1",
+      "name": "ladder recomputes from N_d",
+      "ok": true,
+      "want": "None"
+    },
+    {
+      "got": "1",
+      "label": "sparse_N100_seed1",
+      "name": "argmax d == committed",
+      "ok": true,
+      "want": "1"
+    },
+    {
+      "got": "None",
+      "label": "sparse_N100_seed1",
+      "name": "monotone flag == committed",
+      "ok": true,
+      "want": "None"
+    },
+    {
+      "got": "2.696622169637003",
+      "label": "sparse_N100_seed1",
+      "name": "ratio == committed",
+      "ok": true,
+      "want": "2.696622169637003"
+    },
+    {
+      "got": "6",
+      "label": "dense_N20_seed1",
+      "name": "N_d covers d = -1 .. m-1, every entry a positive integer",
+      "ok": true,
+      "want": "6"
+    },
+    {
+      "got": "11267248",
+      "label": "dense_N20_seed1",
+      "name": "N_0 >= #path (the path is a d = 0 member)",
+      "ok": true,
+      "want": "336"
+    },
+    {
+      "got": "None",
+      "label": "dense_N20_seed1",
+      "name": "ladder recomputes from N_d",
+      "ok": true,
+      "want": "None"
+    },
+    {
+      "got": "1",
+      "label": "dense_N20_seed1",
+      "name": "argmax d == committed",
+      "ok": true,
+      "want": "1"
+    },
+    {
+      "got": "None",
+      "label": "dense_N20_seed1",
+      "name": "monotone flag == committed",
+      "ok": true,
+      "want": "None"
+    },
+    {
+      "got": "3.4930486505095804",
+      "label": "dense_N20_seed1",
+      "name": "ratio == committed",
+      "ok": true,
+      "want": "3.4930486505095804"
+    },
+    {
+      "got": "7",
+      "label": "dense_N60_seed1",
+      "name": "N_d covers d = -1 .. m-1, every entry a positive integer",
+      "ok": true,
+      "want": "7"
+    },
+    {
+      "got": "588617952",
+      "label": "dense_N60_seed1",
+      "name": "N_0 >= #path (the path is a d = 0 member)",
+      "ok": true,
+      "want": "672"
+    },
+    {
+      "got": "None",
+      "label": "dense_N60_seed1",
+      "name": "ladder recomputes from N_d",
+      "ok": true,
+      "want": "None"
+    },
+    {
+      "got": "1",
+      "label": "dense_N60_seed1",
+      "name": "argmax d == committed",
+      "ok": true,
+      "want": "1"
+    },
+    {
+      "got": "None",
+      "label": "dense_N60_seed1",
+      "name": "monotone flag == committed",
+      "ok": true,
+      "want": "None"
+    },
+    {
+      "got": "3.4517416445981235",
+      "label": "dense_N60_seed1",
+      "name": "ratio == committed",
+      "ok": true,
+      "want": "3.4517416445981235"
+    },
+    {
+      "got": "9",
+      "label": "grid_k4_N16_seed1",
+      "name": "N_d covers d = -1 .. m-1, every entry a positive integer",
+      "ok": true,
+      "want": "9"
+    },
+    {
+      "got": "1122816",
+      "label": "grid_k4_N16_seed1",
+      "name": "N_0 >= #path (the path is a d = 0 member)",
+      "ok": true,
+      "want": "2560"
+    },
+    {
+      "got": "None",
+      "label": "grid_k4_N16_seed1",
+      "name": "ladder recomputes from N_d",
+      "ok": true,
+      "want": "None"
+    },
+    {
+      "got": "1",
+      "label": "grid_k4_N16_seed1",
+      "name": "argmax d == committed",
+      "ok": true,
+      "want": "1"
+    },
+    {
+      "got": "None",
+      "label": "grid_k4_N16_seed1",
+      "name": "monotone flag == committed",
+      "ok": true,
+      "want": "None"
+    },
+    {
+      "got": "7.996563864946623",
+      "label": "grid_k4_N16_seed1",
+      "name": "ratio == committed",
+      "ok": true,
+      "want": "7.996563864946623"
+    },
+    {
+      "got": "17",
+      "label": "grid_k8_N64_seed1",
+      "name": "N_d covers d = -1 .. m-1, every entry a positive integer",
+      "ok": true,
+      "want": "17"
+    },
+    {
+      "got": "26456219713536",
+      "label": "grid_k8_N64_seed1",
+      "name": "N_0 >= #path (the path is a d = 0 member)",
+      "ok": true,
+      "want": "112459776"
+    },
+    {
+      "got": "None",
+      "label": "grid_k8_N64_seed1",
+      "name": "ladder recomputes from N_d",
+      "ok": true,
+      "want": "None"
+    },
+    {
+      "got": "1",
+      "label": "grid_k8_N64_seed1",
+      "name": "argmax d == committed",
+      "ok": true,
+      "want": "1"
+    },
+    {
+      "got": "None",
+      "label": "grid_k8_N64_seed1",
+      "name": "monotone flag == committed",
+      "ok": true,
+      "want": "None"
+    },
+    {
+      "got": "6.700946709253081",
+      "label": "grid_k8_N64_seed1",
+      "name": "ratio == committed",
+      "ok": true,
+      "want": "6.700946709253081"
+    },
+    {
+      "got": "RLIMIT_AS 4.0 GB breached",
+      "label": "grid_k12_N144_seed1",
+      "name": "censored row carries its resource + note",
+      "ok": true,
+      "want": "a censor note"
+    },
+    {
+      "got": "8",
+      "label": "mtnknn_N20_seed1",
+      "name": "N_d covers d = -1 .. m-1, every entry a positive integer",
+      "ok": true,
+      "want": "8"
+    },
+    {
+      "got": "47173056",
+      "label": "mtnknn_N20_seed1",
+      "name": "N_0 >= #path (the path is a d = 0 member)",
+      "ok": true,
+      "want": "832"
+    },
+    {
+      "got": "None",
+      "label": "mtnknn_N20_seed1",
+      "name": "ladder recomputes from N_d",
+      "ok": true,
+      "want": "None"
+    },
+    {
+      "got": "1",
+      "label": "mtnknn_N20_seed1",
+      "name": "argmax d == committed",
+      "ok": true,
+      "want": "1"
+    },
+    {
+      "got": "None",
+      "label": "mtnknn_N20_seed1",
+      "name": "monotone flag == committed",
+      "ok": true,
+      "want": "None"
+    },
+    {
+      "got": "5.248632259021624",
+      "label": "mtnknn_N20_seed1",
+      "name": "ratio == committed",
+      "ok": true,
+      "want": "5.248632259021624"
+    },
+    {
+      "got": "14",
+      "label": "mtnknn_N60_seed1",
+      "name": "N_d covers d = -1 .. m-1, every entry a positive integer",
+      "ok": true,
+      "want": "14"
+    },
+    {
+      "got": "146070497284096",
+      "label": "mtnknn_N60_seed1",
+      "name": "N_0 >= #path (the path is a d = 0 member)",
+      "ok": true,
+      "want": "569344"
+    },
+    {
+      "got": "None",
+      "label": "mtnknn_N60_seed1",
+      "name": "ladder recomputes from N_d",
+      "ok": true,
+      "want": "None"
+    },
+    {
+      "got": "1",
+      "label": "mtnknn_N60_seed1",
+      "name": "argmax d == committed",
+      "ok": true,
+      "want": "1"
+    },
+    {
+      "got": "None",
+      "label": "mtnknn_N60_seed1",
+      "name": "monotone flag == committed",
+      "ok": true,
+      "want": "None"
+    },
+    {
+      "got": "7.045550086096026",
+      "label": "mtnknn_N60_seed1",
+      "name": "ratio == committed",
+      "ok": true,
+      "want": "7.045550086096026"
+    },
+    {
+      "got": "22",
+      "label": "mtnknn_N140_seed1",
+      "name": "N_d covers d = -1 .. m-1, every entry a positive integer",
+      "ok": true,
+      "want": "22"
+    },
+    {
+      "got": "36917832627150909341696",
+      "label": "mtnknn_N140_seed1",
+      "name": "N_0 >= #path (the path is a d = 0 member)",
+      "ok": true,
+      "want": "834453635072"
+    },
+    {
+      "got": "None",
+      "label": "mtnknn_N140_seed1",
+      "name": "ladder recomputes from N_d",
+      "ok": true,
+      "want": "None"
+    },
+    {
+      "got": "1",
+      "label": "mtnknn_N140_seed1",
+      "name": "argmax d == committed",
+      "ok": true,
+      "want": "1"
+    },
+    {
+      "got": "None",
+      "label": "mtnknn_N140_seed1",
+      "name": "monotone flag == committed",
+      "ok": true,
+      "want": "None"
+    },
+    {
+      "got": "8.417291994682692",
+      "label": "mtnknn_N140_seed1",
+      "name": "ratio == committed",
+      "ok": true,
+      "want": "8.417291994682692"
+    },
+    {
+      "got": "114",
+      "label": "deposit",
+      "name": "s30_ladders.csv re-derives row for row",
+      "ok": true,
+      "want": "114"
+    },
+    {
+      "got": "match",
+      "label": "sparse_N20_seed1",
+      "name": "N_d RECOUNTED natively with spnn.counting (EXACT, all d)",
+      "ok": true,
+      "want": "match"
+    },
+    {
+      "got": "match",
+      "label": "dense_N20_seed1",
+      "name": "N_d RECOUNTED natively with spnn.counting (EXACT, all d)",
+      "ok": true,
+      "want": "match"
+    },
+    {
+      "got": "match",
+      "label": "grid_k4_N16_seed1",
+      "name": "N_d RECOUNTED natively with spnn.counting (EXACT, all d)",
+      "ok": true,
+      "want": "match"
+    },
+    {
+      "got": "match",
+      "label": "grid_k8_N64_seed1",
+      "name": "N_d RECOUNTED natively with spnn.counting (EXACT, all d)",
+      "ok": true,
+      "want": "match"
+    },
+    {
+      "got": "match",
+      "label": "mtnknn_N20_seed1",
+      "name": "N_d RECOUNTED natively with spnn.counting (EXACT, all d)",
+      "ok": true,
+      "want": "match"
+    },
+    {
+      "got": "match",
+      "label": "mtnknn_N60_seed1",
+      "name": "N_d RECOUNTED natively with spnn.counting (EXACT, all d)",
+      "ok": true,
+      "want": "match"
+    },
+    {
+      "got": "match",
+      "label": "grid_k4_N16_seed1",
+      "name": "full profile vs EXHAUSTIVE ENUMERATION of every edge subset, at every d",
+      "ok": true,
+      "want": "match"
+    },
+    {
+      "got": "match",
+      "label": "sparse_N20_seed1",
+      "name": "full profile vs EXHAUSTIVE ENUMERATION of every edge subset, at every d",
+      "ok": true,
+      "want": "match"
+    }
+  ],
+  "cost": {
+    "field_bound": {
+      "note": "the deep, low-frontier families: each state carries an (m+1)(m+3)-field polynomial, so it walls before it MEMCAPs",
+      "worst": [
+        "mtnknn_N140_seed1",
+        11556,
+        211.53462753724307
+      ]
+    },
+    "per_instance": {
+      "dense_N20_seed1": {
+        "L": 3,
+        "coeff_bits": 23,
+        "frontier": 10,
+        "m": 5,
+        "peak_rss_mib": 36.88671875,
+        "states": 2131,
+        "wall_s": 0.040394460782408714
+      },
+      "dense_N60_seed1": {
+        "L": 4,
+        "coeff_bits": 36,
+        "frontier": 24,
+        "m": 6,
+        "peak_rss_mib": 473.3515625,
+        "states": 473684,
+        "wall_s": 17.029675318859518
+      },
+      "grid_k4_N16_seed1": {
+        "L": 6,
+        "coeff_bits": 18,
+        "frontier": 4,
+        "m": 8,
+        "peak_rss_mib": 33.69921875,
+        "states": 36,
+        "wall_s": 0.0029571549966931343
+      },
+      "grid_k8_N64_seed1": {
+        "L": 14,
+        "coeff_bits": 61,
+        "frontier": 8,
+        "m": 16,
+        "peak_rss_mib": 50.48046875,
+        "states": 2916,
+        "wall_s": 0.5750223137438297
+      },
+      "mtnknn_N140_seed1": {
+        "L": 19,
+        "coeff_bits": 108,
+        "frontier": 10,
+        "m": 21,
+        "peak_rss_mib": 220.640625,
+        "states": 11556,
+        "wall_s": 211.53462753724307
+      },
+      "mtnknn_N20_seed1": {
+        "L": 5,
+        "coeff_bits": 25,
+        "frontier": 5,
+        "m": 7,
+        "peak_rss_mib": 56.859375,
+        "states": 149,
+        "wall_s": 0.007079725153744221
+      },
+      "mtnknn_N60_seed1": {
+        "L": 11,
+        "coeff_bits": 59,
+        "frontier": 6,
+        "m": 13,
+        "peak_rss_mib": 57.57421875,
+        "states": 261,
+        "wall_s": 0.11623240076005459
+      },
+      "sparse_N100_seed1": {
+        "L": 3,
+        "coeff_bits": 32,
+        "frontier": 27,
+        "m": 5,
+        "peak_rss_mib": 148.1640625,
+        "states": 165564,
+        "wall_s": 8.809710131958127
+      },
+      "sparse_N20_seed1": {
+        "L": 4,
+        "coeff_bits": 21,
+        "frontier": 7,
+        "m": 6,
+        "peak_rss_mib": 36.04296875,
+        "states": 582,
+        "wall_s": 0.014433966018259525
+      },
+      "sparse_N60_seed1": {
+        "L": 5,
+        "coeff_bits": 37,
+        "frontier": 17,
+        "m": 7,
+        "peak_rss_mib": 197.27734375,
+        "states": 151116,
+        "wall_s": 7.162641942501068
+      },
+      "sparse_N60_seed2": {
+        "L": 7,
+        "coeff_bits": 44,
+        "frontier": 16,
+        "m": 9,
+        "peak_rss_mib": 894.828125,
+        "states": 488542,
+        "wall_s": 30.465625652112067
+      }
+    },
+    "state_bound": {
+      "note": "the random families: cost is 3^frontier and MEMCAPs before it walls",
+      "worst": [
+        "sparse_N60_seed2",
+        488542,
+        894.828125
+      ]
+    },
+    "vs_stage28": {
+      "dense_N20_seed1": {
+        "s28_scatter_wall_s": 0.01416261401027441,
+        "s28_states": 637,
+        "s30_states": 2131,
+        "s30_wall_s": 0.040394460782408714
+      },
+      "dense_N60_seed1": {
+        "s28_scatter_wall_s": 5.751529751345515,
+        "s28_states": 180942,
+        "s30_states": 473684,
+        "s30_wall_s": 17.029675318859518
+      },
+      "grid_k4_N16_seed1": {
+        "s28_scatter_wall_s": 0.002805238589644432,
+        "s28_states": 16,
+        "s30_states": 36,
+        "s30_wall_s": 0.0029571549966931343
+      },
+      "grid_k8_N64_seed1": {
+        "s28_scatter_wall_s": 0.06700610555708408,
+        "s28_states": 256,
+        "s30_states": 2916,
+        "s30_wall_s": 0.5750223137438297
+      },
+      "mtnknn_N140_seed1": {
+        "s28_scatter_wall_s": 0.3321427060291171,
+        "s28_states": 1024,
+        "s30_states": 11556,
+        "s30_wall_s": 211.53462753724307
+      },
+      "mtnknn_N20_seed1": {
+        "s28_scatter_wall_s": 0.0037246253341436386,
+        "s28_states": 30,
+        "s30_states": 149,
+        "s30_wall_s": 0.007079725153744221
+      },
+      "mtnknn_N60_seed1": {
+        "s28_scatter_wall_s": 0.03615849930793047,
+        "s28_states": 40,
+        "s30_states": 261,
+        "s30_wall_s": 0.11623240076005459
+      },
+      "sparse_N100_seed1": {
+        "s28_scatter_wall_s": 6.673290724866092,
+        "s28_states": 98958,
+        "s30_states": 165564,
+        "s30_wall_s": 8.809710131958127
+      },
+      "sparse_N20_seed1": {
+        "s28_scatter_wall_s": 0.006051680073142052,
+        "s28_states": 127,
+        "s30_states": 582,
+        "s30_wall_s": 0.014433966018259525
+      },
+      "sparse_N60_seed1": {
+        "s28_scatter_wall_s": 1.4495332930237055,
+        "s28_states": 40848,
+        "s30_states": 151116,
+        "s30_wall_s": 7.162641942501068
+      },
+      "sparse_N60_seed2": {
+        "s28_scatter_wall_s": 1.3827597768977284,
+        "s28_states": 50643,
+        "s30_states": 488542,
+        "s30_wall_s": 30.465625652112067
+      }
+    }
+  },
+  "d2_rung": {
+    "N_2": "1320177088811008",
+    "computed": 11.244618410987663,
+    "note": "an earlier manuscript draft printed 11.25; the computed rung is 11.244618410987663 -> 11.24 at two places under any rounding convention. Settled from the deposit side with this repository's own results/counts/deficit.json: N_2 = 1,320,177,088,811,008 and #path = 898,048 reproduce all nine rungs at 2 dp with the corrected digit. The rung is NON-BINDING (the argmax is d = 1), so nothing the paper concludes depended on it. The manuscript now prints 11.24, and prints the crossing margin as 8.4475 (CNT-CROSS deposits 8.447466352389776) so the ladder reconstructs from the paper's own printed inputs.",
+    "path_micro": "898048",
+    "printed_now": 11.24,
+    "printed_superseded": 11.25
+  },
+  "declared_budgets": {
+    "max_concurrent": 4,
+    "mem_cap_gb": 4.0,
+    "wall_instance_s": 240.0
+  },
+  "depth_range": [
+    3,
+    19
+  ],
+  "exact_identity": "11/11",
+  "exhaustive_enumeration": [
+    {
+      "label": "grid_k4_N16_seed1",
+      "ok": true,
+      "subsets": 1562275
+    },
+    {
+      "label": "sparse_N20_seed1",
+      "ok": true,
+      "subsets": 7059052
+    }
+  ],
+  "failures": [],
+  "monotone_decreasing": "11/11",
+  "n_censored": 1,
+  "n_checks": 182,
+  "n_completed": 11,
+  "n_fail": 0,
+  "n_pass": 182,
+  "n_rows": 12,
+  "native_recount": [
+    {
+      "label": "sparse_N20_seed1",
+      "max_states": 582,
+      "ok": true
+    },
+    {
+      "label": "dense_N20_seed1",
+      "max_states": 2131,
+      "ok": true
+    },
+    {
+      "label": "grid_k4_N16_seed1",
+      "max_states": 36,
+      "ok": true
+    },
+    {
+      "label": "grid_k8_N64_seed1",
+      "max_states": 2916,
+      "ok": true
+    },
+    {
+      "label": "mtnknn_N20_seed1",
+      "max_states": 149,
+      "ok": true
+    },
+    {
+      "label": "mtnknn_N60_seed1",
+      "max_states": 261,
+      "ok": true
+    }
+  ],
+  "ratio": {
+    "max": 8.417291994682692,
+    "median": 4.659715873759823,
+    "min": 2.696622169637003,
+    "one_sided_all_above_1": true,
+    "per_instance": {
+      "dense_N20_seed1": 3.4930486505095804,
+      "dense_N60_seed1": 3.4517416445981235,
+      "grid_k4_N16_seed1": 7.996563864946623,
+      "grid_k8_N64_seed1": 6.700946709253081,
+      "mtnknn_N140_seed1": 8.417291994682692,
+      "mtnknn_N20_seed1": 5.248632259021624,
+      "mtnknn_N60_seed1": 7.045550086096026,
+      "sparse_N100_seed1": 2.696622169637003,
+      "sparse_N20_seed1": 4.142846517325481,
+      "sparse_N60_seed1": 3.7824579596330157,
+      "sparse_N60_seed2": 4.659715873759823
+    },
+    "reference": 4.895363158564106
+  },
+  "reference_anchor": {
+    "all_agree": true,
+    "argmax_d": 1,
+    "n_checks": 23,
+    "originating_lane": {
+      "file": "results/deficit_profile/s30_anchor.json",
+      "n_agree": 20,
+      "n_checks": 21,
+      "note": "committed UNMODIFIED. Its single disagreement, and hence its verdict=DOES_NOT_REPRODUCE, is the SUPERSEDED printed 11.25; against the corrected printed ladder the anchor agrees on all 22 checks (below).",
+      "selftest_dp_vs_brute": "156/156",
+      "selftest_weight": "27/27",
+      "verdict": "DOES_NOT_REPRODUCE"
+    },
+    "ratio": 4.895363158564106
+  }
+}

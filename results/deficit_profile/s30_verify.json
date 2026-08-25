@@ -1,0 +1,1200 @@
+{
+  "n_rows": 12,
+  "n_checks": 170,
+  "n_pass": 170,
+  "n_fail": 0,
+  "inputs_unchanged": true,
+  "failures": [],
+  "checks": [
+    {
+      "label": "sparse_N20_seed1",
+      "name": "label regenerates",
+      "ok": true,
+      "got": "sparse_N20_seed1",
+      "want": "sparse_N20_seed1"
+    },
+    {
+      "label": "sparse_N20_seed1",
+      "name": "|E| regenerates",
+      "ok": true,
+      "got": "42",
+      "want": "42"
+    },
+    {
+      "label": "sparse_N20_seed1",
+      "name": "(s,t) regenerates",
+      "ok": true,
+      "got": "(0, 19)",
+      "want": "(0, 19)"
+    },
+    {
+      "label": "sparse_N20_seed1",
+      "name": "L regenerates",
+      "ok": true,
+      "got": "4",
+      "want": "4"
+    },
+    {
+      "label": "sparse_N20_seed1",
+      "name": "m == L+2",
+      "ok": true,
+      "got": "6",
+      "want": "6"
+    },
+    {
+      "label": "sparse_N20_seed1",
+      "name": "alphabar regenerates",
+      "ok": true,
+      "got": "0.7705373856790193",
+      "want": "0.7705373856790193"
+    },
+    {
+      "label": "sparse_N20_seed1",
+      "name": "#path regenerates",
+      "ok": true,
+      "got": "13",
+      "want": "13"
+    },
+    {
+      "label": "sparse_N20_seed1",
+      "name": "N_(m-1) == scatter_counts.micro_aux (EXACT, independent code)",
+      "ok": true,
+      "got": "837504000",
+      "want": "837504000"
+    },
+    {
+      "label": "sparse_N20_seed1",
+      "name": "d range is -1..m-1",
+      "ok": true,
+      "got": "(-1, 5)",
+      "want": "(-1, 5)"
+    },
+    {
+      "label": "sparse_N20_seed1",
+      "name": "N_0 >= #path (the path is a d=0 member)",
+      "ok": true,
+      "got": "2300384",
+      "want": "416"
+    },
+    {
+      "label": "sparse_N20_seed1",
+      "name": "every N_d is a positive integer",
+      "ok": true,
+      "got": "",
+      "want": ""
+    },
+    {
+      "label": "sparse_N20_seed1",
+      "name": "ladder recomputes",
+      "ok": true,
+      "got": "",
+      "want": ""
+    },
+    {
+      "label": "sparse_N20_seed1",
+      "name": "argmax recomputes",
+      "ok": true,
+      "got": "1",
+      "want": "1"
+    },
+    {
+      "label": "sparse_N20_seed1",
+      "name": "monotonicity recomputes",
+      "ok": true,
+      "got": "True",
+      "want": "True"
+    },
+    {
+      "label": "sparse_N20_seed1",
+      "name": "ratio recomputes",
+      "ok": true,
+      "got": "4.142846517325481",
+      "want": "4.142846517325481"
+    },
+    {
+      "label": "sparse_N20_seed1",
+      "name": "\u2b50 FULL PROFILE vs EXHAUSTIVE ENUMERATION (4s)",
+      "ok": true,
+      "got": "[(-1, 9344), (0, 2300384), (1, 69551424), (2, 616998912), (3, 1993369600), (4, 2373658112), (5, 837504000)]",
+      "want": "[(-1, 9344), (0, 2300384), (1, 69551424), (2, 616998912), (3, 1993369600), (4, 2373658112), (5, 837504000)]"
+    },
+    {
+      "label": "sparse_N60_seed1",
+      "name": "label regenerates",
+      "ok": true,
+      "got": "sparse_N60_seed1",
+      "want": "sparse_N60_seed1"
+    },
+    {
+      "label": "sparse_N60_seed1",
+      "name": "|E| regenerates",
+      "ok": true,
+      "got": "144",
+      "want": "144"
+    },
+    {
+      "label": "sparse_N60_seed1",
+      "name": "(s,t) regenerates",
+      "ok": true,
+      "got": "(0, 59)",
+      "want": "(0, 59)"
+    },
+    {
+      "label": "sparse_N60_seed1",
+      "name": "L regenerates",
+      "ok": true,
+      "got": "5",
+      "want": "5"
+    },
+    {
+      "label": "sparse_N60_seed1",
+      "name": "m == L+2",
+      "ok": true,
+      "got": "7",
+      "want": "7"
+    },
+    {
+      "label": "sparse_N60_seed1",
+      "name": "alphabar regenerates",
+      "ok": true,
+      "got": "0.8166613824967658",
+      "want": "0.8166613824967658"
+    },
+    {
+      "label": "sparse_N60_seed1",
+      "name": "#path regenerates",
+      "ok": true,
+      "got": "14",
+      "want": "14"
+    },
+    {
+      "label": "sparse_N60_seed1",
+      "name": "N_(m-1) == scatter_counts.micro_aux (EXACT, independent code)",
+      "ok": true,
+      "got": "965101947813888",
+      "want": "965101947813888"
+    },
+    {
+      "label": "sparse_N60_seed1",
+      "name": "d range is -1..m-1",
+      "ok": true,
+      "got": "(-1, 6)",
+      "want": "(-1, 6)"
+    },
+    {
+      "label": "sparse_N60_seed1",
+      "name": "N_0 >= #path (the path is a d=0 member)",
+      "ok": true,
+      "got": "261126016",
+      "want": "896"
+    },
+    {
+      "label": "sparse_N60_seed1",
+      "name": "every N_d is a positive integer",
+      "ok": true,
+      "got": "",
+      "want": ""
+    },
+    {
+      "label": "sparse_N60_seed1",
+      "name": "ladder recomputes",
+      "ok": true,
+      "got": "",
+      "want": ""
+    },
+    {
+      "label": "sparse_N60_seed1",
+      "name": "argmax recomputes",
+      "ok": true,
+      "got": "1",
+      "want": "1"
+    },
+    {
+      "label": "sparse_N60_seed1",
+      "name": "monotonicity recomputes",
+      "ok": true,
+      "got": "True",
+      "want": "True"
+    },
+    {
+      "label": "sparse_N60_seed1",
+      "name": "ratio recomputes",
+      "ok": true,
+      "got": "3.7824579596330157",
+      "want": "3.7824579596330157"
+    },
+    {
+      "label": "sparse_N60_seed2",
+      "name": "label regenerates",
+      "ok": true,
+      "got": "sparse_N60_seed2",
+      "want": "sparse_N60_seed2"
+    },
+    {
+      "label": "sparse_N60_seed2",
+      "name": "|E| regenerates",
+      "ok": true,
+      "got": "137",
+      "want": "137"
+    },
+    {
+      "label": "sparse_N60_seed2",
+      "name": "(s,t) regenerates",
+      "ok": true,
+      "got": "(0, 59)",
+      "want": "(0, 59)"
+    },
+    {
+      "label": "sparse_N60_seed2",
+      "name": "L regenerates",
+      "ok": true,
+      "got": "7",
+      "want": "7"
+    },
+    {
+      "label": "sparse_N60_seed2",
+      "name": "m == L+2",
+      "ok": true,
+      "got": "9",
+      "want": "9"
+    },
+    {
+      "label": "sparse_N60_seed2",
+      "name": "alphabar regenerates",
+      "ok": true,
+      "got": "0.8921669450478852",
+      "want": "0.8921669450478852"
+    },
+    {
+      "label": "sparse_N60_seed2",
+      "name": "#path regenerates",
+      "ok": true,
+      "got": "160",
+      "want": "160"
+    },
+    {
+      "label": "sparse_N60_seed2",
+      "name": "N_(m-1) == scatter_counts.micro_aux (EXACT, independent code)",
+      "ok": true,
+      "got": "816271018033676288",
+      "want": "816271018033676288"
+    },
+    {
+      "label": "sparse_N60_seed2",
+      "name": "d range is -1..m-1",
+      "ok": true,
+      "got": "(-1, 8)",
+      "want": "(-1, 8)"
+    },
+    {
+      "label": "sparse_N60_seed2",
+      "name": "N_0 >= #path (the path is a d=0 member)",
+      "ok": true,
+      "got": "14901499648",
+      "want": "40960"
+    },
+    {
+      "label": "sparse_N60_seed2",
+      "name": "every N_d is a positive integer",
+      "ok": true,
+      "got": "",
+      "want": ""
+    },
+    {
+      "label": "sparse_N60_seed2",
+      "name": "ladder recomputes",
+      "ok": true,
+      "got": "",
+      "want": ""
+    },
+    {
+      "label": "sparse_N60_seed2",
+      "name": "argmax recomputes",
+      "ok": true,
+      "got": "1",
+      "want": "1"
+    },
+    {
+      "label": "sparse_N60_seed2",
+      "name": "monotonicity recomputes",
+      "ok": true,
+      "got": "True",
+      "want": "True"
+    },
+    {
+      "label": "sparse_N60_seed2",
+      "name": "ratio recomputes",
+      "ok": true,
+      "got": "4.659715873759823",
+      "want": "4.659715873759823"
+    },
+    {
+      "label": "sparse_N100_seed1",
+      "name": "label regenerates",
+      "ok": true,
+      "got": "sparse_N100_seed1",
+      "want": "sparse_N100_seed1"
+    },
+    {
+      "label": "sparse_N100_seed1",
+      "name": "|E| regenerates",
+      "ok": true,
+      "got": "236",
+      "want": "236"
+    },
+    {
+      "label": "sparse_N100_seed1",
+      "name": "(s,t) regenerates",
+      "ok": true,
+      "got": "(0, 99)",
+      "want": "(0, 99)"
+    },
+    {
+      "label": "sparse_N100_seed1",
+      "name": "L regenerates",
+      "ok": true,
+      "got": "3",
+      "want": "3"
+    },
+    {
+      "label": "sparse_N100_seed1",
+      "name": "m == L+2",
+      "ok": true,
+      "got": "5",
+      "want": "5"
+    },
+    {
+      "label": "sparse_N100_seed1",
+      "name": "alphabar regenerates",
+      "ok": true,
+      "got": "0.8923762840755928",
+      "want": "0.8923762840755928"
+    },
+    {
+      "label": "sparse_N100_seed1",
+      "name": "#path regenerates",
+      "ok": true,
+      "got": "2",
+      "want": "2"
+    },
+    {
+      "label": "sparse_N100_seed1",
+      "name": "N_(m-1) == scatter_counts.micro_aux (EXACT, independent code)",
+      "ok": true,
+      "got": "4208005994496",
+      "want": "4208005994496"
+    },
+    {
+      "label": "sparse_N100_seed1",
+      "name": "d range is -1..m-1",
+      "ok": true,
+      "got": "(-1, 4)",
+      "want": "(-1, 4)"
+    },
+    {
+      "label": "sparse_N100_seed1",
+      "name": "N_0 >= #path (the path is a d=0 member)",
+      "ok": true,
+      "got": "5872480",
+      "want": "32"
+    },
+    {
+      "label": "sparse_N100_seed1",
+      "name": "every N_d is a positive integer",
+      "ok": true,
+      "got": "",
+      "want": ""
+    },
+    {
+      "label": "sparse_N100_seed1",
+      "name": "ladder recomputes",
+      "ok": true,
+      "got": "",
+      "want": ""
+    },
+    {
+      "label": "sparse_N100_seed1",
+      "name": "argmax recomputes",
+      "ok": true,
+      "got": "1",
+      "want": "1"
+    },
+    {
+      "label": "sparse_N100_seed1",
+      "name": "monotonicity recomputes",
+      "ok": true,
+      "got": "True",
+      "want": "True"
+    },
+    {
+      "label": "sparse_N100_seed1",
+      "name": "ratio recomputes",
+      "ok": true,
+      "got": "2.696622169637003",
+      "want": "2.696622169637003"
+    },
+    {
+      "label": "dense_N20_seed1",
+      "name": "label regenerates",
+      "ok": true,
+      "got": "dense_N20_seed1",
+      "want": "dense_N20_seed1"
+    },
+    {
+      "label": "dense_N20_seed1",
+      "name": "|E| regenerates",
+      "ok": true,
+      "got": "76",
+      "want": "76"
+    },
+    {
+      "label": "dense_N20_seed1",
+      "name": "(s,t) regenerates",
+      "ok": true,
+      "got": "(0, 3)",
+      "want": "(0, 3)"
+    },
+    {
+      "label": "dense_N20_seed1",
+      "name": "L regenerates",
+      "ok": true,
+      "got": "3",
+      "want": "3"
+    },
+    {
+      "label": "dense_N20_seed1",
+      "name": "m == L+2",
+      "ok": true,
+      "got": "5",
+      "want": "5"
+    },
+    {
+      "label": "dense_N20_seed1",
+      "name": "alphabar regenerates",
+      "ok": true,
+      "got": "0.9015503113553952",
+      "want": "0.9015503113553952"
+    },
+    {
+      "label": "dense_N20_seed1",
+      "name": "#path regenerates",
+      "ok": true,
+      "got": "21",
+      "want": "21"
+    },
+    {
+      "label": "dense_N20_seed1",
+      "name": "N_(m-1) == scatter_counts.micro_aux (EXACT, independent code)",
+      "ok": true,
+      "got": "1848170240",
+      "want": "1848170240"
+    },
+    {
+      "label": "dense_N20_seed1",
+      "name": "d range is -1..m-1",
+      "ok": true,
+      "got": "(-1, 4)",
+      "want": "(-1, 4)"
+    },
+    {
+      "label": "dense_N20_seed1",
+      "name": "N_0 >= #path (the path is a d=0 member)",
+      "ok": true,
+      "got": "11267248",
+      "want": "336"
+    },
+    {
+      "label": "dense_N20_seed1",
+      "name": "every N_d is a positive integer",
+      "ok": true,
+      "got": "",
+      "want": ""
+    },
+    {
+      "label": "dense_N20_seed1",
+      "name": "ladder recomputes",
+      "ok": true,
+      "got": "",
+      "want": ""
+    },
+    {
+      "label": "dense_N20_seed1",
+      "name": "argmax recomputes",
+      "ok": true,
+      "got": "1",
+      "want": "1"
+    },
+    {
+      "label": "dense_N20_seed1",
+      "name": "monotonicity recomputes",
+      "ok": true,
+      "got": "True",
+      "want": "True"
+    },
+    {
+      "label": "dense_N20_seed1",
+      "name": "ratio recomputes",
+      "ok": true,
+      "got": "3.4930486505095804",
+      "want": "3.4930486505095804"
+    },
+    {
+      "label": "dense_N60_seed1",
+      "name": "label regenerates",
+      "ok": true,
+      "got": "dense_N60_seed1",
+      "want": "dense_N60_seed1"
+    },
+    {
+      "label": "dense_N60_seed1",
+      "name": "|E| regenerates",
+      "ok": true,
+      "got": "223",
+      "want": "223"
+    },
+    {
+      "label": "dense_N60_seed1",
+      "name": "(s,t) regenerates",
+      "ok": true,
+      "got": "(0, 59)",
+      "want": "(0, 59)"
+    },
+    {
+      "label": "dense_N60_seed1",
+      "name": "L regenerates",
+      "ok": true,
+      "got": "4",
+      "want": "4"
+    },
+    {
+      "label": "dense_N60_seed1",
+      "name": "m == L+2",
+      "ok": true,
+      "got": "6",
+      "want": "6"
+    },
+    {
+      "label": "dense_N60_seed1",
+      "name": "alphabar regenerates",
+      "ok": true,
+      "got": "0.7967728289374896",
+      "want": "0.7967728289374896"
+    },
+    {
+      "label": "dense_N60_seed1",
+      "name": "#path regenerates",
+      "ok": true,
+      "got": "21",
+      "want": "21"
+    },
+    {
+      "label": "dense_N60_seed1",
+      "name": "N_(m-1) == scatter_counts.micro_aux (EXACT, independent code)",
+      "ok": true,
+      "got": "238109576310784",
+      "want": "238109576310784"
+    },
+    {
+      "label": "dense_N60_seed1",
+      "name": "d range is -1..m-1",
+      "ok": true,
+      "got": "(-1, 5)",
+      "want": "(-1, 5)"
+    },
+    {
+      "label": "dense_N60_seed1",
+      "name": "N_0 >= #path (the path is a d=0 member)",
+      "ok": true,
+      "got": "588617952",
+      "want": "672"
+    },
+    {
+      "label": "dense_N60_seed1",
+      "name": "every N_d is a positive integer",
+      "ok": true,
+      "got": "",
+      "want": ""
+    },
+    {
+      "label": "dense_N60_seed1",
+      "name": "ladder recomputes",
+      "ok": true,
+      "got": "",
+      "want": ""
+    },
+    {
+      "label": "dense_N60_seed1",
+      "name": "argmax recomputes",
+      "ok": true,
+      "got": "1",
+      "want": "1"
+    },
+    {
+      "label": "dense_N60_seed1",
+      "name": "monotonicity recomputes",
+      "ok": true,
+      "got": "True",
+      "want": "True"
+    },
+    {
+      "label": "dense_N60_seed1",
+      "name": "ratio recomputes",
+      "ok": true,
+      "got": "3.4517416445981235",
+      "want": "3.4517416445981235"
+    },
+    {
+      "label": "grid_k4_N16_seed1",
+      "name": "label regenerates",
+      "ok": true,
+      "got": "grid_k4_N16_seed1",
+      "want": "grid_k4_N16_seed1"
+    },
+    {
+      "label": "grid_k4_N16_seed1",
+      "name": "|E| regenerates",
+      "ok": true,
+      "got": "24",
+      "want": "24"
+    },
+    {
+      "label": "grid_k4_N16_seed1",
+      "name": "(s,t) regenerates",
+      "ok": true,
+      "got": "(0, 15)",
+      "want": "(0, 15)"
+    },
+    {
+      "label": "grid_k4_N16_seed1",
+      "name": "L regenerates",
+      "ok": true,
+      "got": "6",
+      "want": "6"
+    },
+    {
+      "label": "grid_k4_N16_seed1",
+      "name": "m == L+2",
+      "ok": true,
+      "got": "8",
+      "want": "8"
+    },
+    {
+      "label": "grid_k4_N16_seed1",
+      "name": "alphabar regenerates",
+      "ok": true,
+      "got": "0.24386235855497385",
+      "want": "0.24386235855497385"
+    },
+    {
+      "label": "grid_k4_N16_seed1",
+      "name": "#path regenerates",
+      "ok": true,
+      "got": "20",
+      "want": "20"
+    },
+    {
+      "label": "grid_k4_N16_seed1",
+      "name": "N_(m-1) == scatter_counts.micro_aux (EXACT, independent code)",
+      "ok": true,
+      "got": "10649600",
+      "want": "10649600"
+    },
+    {
+      "label": "grid_k4_N16_seed1",
+      "name": "d range is -1..m-1",
+      "ok": true,
+      "got": "(-1, 7)",
+      "want": "(-1, 7)"
+    },
+    {
+      "label": "grid_k4_N16_seed1",
+      "name": "N_0 >= #path (the path is a d=0 member)",
+      "ok": true,
+      "got": "1122816",
+      "want": "2560"
+    },
+    {
+      "label": "grid_k4_N16_seed1",
+      "name": "every N_d is a positive integer",
+      "ok": true,
+      "got": "",
+      "want": ""
+    },
+    {
+      "label": "grid_k4_N16_seed1",
+      "name": "ladder recomputes",
+      "ok": true,
+      "got": "",
+      "want": ""
+    },
+    {
+      "label": "grid_k4_N16_seed1",
+      "name": "argmax recomputes",
+      "ok": true,
+      "got": "1",
+      "want": "1"
+    },
+    {
+      "label": "grid_k4_N16_seed1",
+      "name": "monotonicity recomputes",
+      "ok": true,
+      "got": "True",
+      "want": "True"
+    },
+    {
+      "label": "grid_k4_N16_seed1",
+      "name": "ratio recomputes",
+      "ok": true,
+      "got": "7.996563864946623",
+      "want": "7.996563864946623"
+    },
+    {
+      "label": "grid_k4_N16_seed1",
+      "name": "\u2b50 FULL PROFILE vs EXHAUSTIVE ENUMERATION (1s)",
+      "ok": true,
+      "got": "[(-1, 10752), (0, 1122816), (1, 34879488), (2, 288978944), (3, 933705728), (4, 1251803136), (5, 718364672), (6, 15738470",
+      "want": "[(-1, 10752), (0, 1122816), (1, 34879488), (2, 288978944), (3, 933705728), (4, 1251803136), (5, 718364672), (6, 15738470"
+    },
+    {
+      "label": "grid_k8_N64_seed1",
+      "name": "label regenerates",
+      "ok": true,
+      "got": "grid_k8_N64_seed1",
+      "want": "grid_k8_N64_seed1"
+    },
+    {
+      "label": "grid_k8_N64_seed1",
+      "name": "|E| regenerates",
+      "ok": true,
+      "got": "112",
+      "want": "112"
+    },
+    {
+      "label": "grid_k8_N64_seed1",
+      "name": "(s,t) regenerates",
+      "ok": true,
+      "got": "(0, 63)",
+      "want": "(0, 63)"
+    },
+    {
+      "label": "grid_k8_N64_seed1",
+      "name": "L regenerates",
+      "ok": true,
+      "got": "14",
+      "want": "14"
+    },
+    {
+      "label": "grid_k8_N64_seed1",
+      "name": "m == L+2",
+      "ok": true,
+      "got": "16",
+      "want": "16"
+    },
+    {
+      "label": "grid_k8_N64_seed1",
+      "name": "alphabar regenerates",
+      "ok": true,
+      "got": "0.1935293737941216",
+      "want": "0.1935293737941216"
+    },
+    {
+      "label": "grid_k8_N64_seed1",
+      "name": "#path regenerates",
+      "ok": true,
+      "got": "3432",
+      "want": "3432"
+    },
+    {
+      "label": "grid_k8_N64_seed1",
+      "name": "N_(m-1) == scatter_counts.micro_aux (EXACT, independent code)",
+      "ok": true,
+      "got": "42563670092830275916529664",
+      "want": "42563670092830275916529664"
+    },
+    {
+      "label": "grid_k8_N64_seed1",
+      "name": "d range is -1..m-1",
+      "ok": true,
+      "got": "(-1, 15)",
+      "want": "(-1, 15)"
+    },
+    {
+      "label": "grid_k8_N64_seed1",
+      "name": "N_0 >= #path (the path is a d=0 member)",
+      "ok": true,
+      "got": "26456219713536",
+      "want": "112459776"
+    },
+    {
+      "label": "grid_k8_N64_seed1",
+      "name": "every N_d is a positive integer",
+      "ok": true,
+      "got": "",
+      "want": ""
+    },
+    {
+      "label": "grid_k8_N64_seed1",
+      "name": "ladder recomputes",
+      "ok": true,
+      "got": "",
+      "want": ""
+    },
+    {
+      "label": "grid_k8_N64_seed1",
+      "name": "argmax recomputes",
+      "ok": true,
+      "got": "1",
+      "want": "1"
+    },
+    {
+      "label": "grid_k8_N64_seed1",
+      "name": "monotonicity recomputes",
+      "ok": true,
+      "got": "True",
+      "want": "True"
+    },
+    {
+      "label": "grid_k8_N64_seed1",
+      "name": "ratio recomputes",
+      "ok": true,
+      "got": "6.700946709253081",
+      "want": "6.700946709253081"
+    },
+    {
+      "label": "grid_k12_N144_seed1",
+      "name": "label regenerates",
+      "ok": true,
+      "got": "grid_k12_N144_seed1",
+      "want": "grid_k12_N144_seed1"
+    },
+    {
+      "label": "grid_k12_N144_seed1",
+      "name": "|E| regenerates",
+      "ok": true,
+      "got": "264",
+      "want": "264"
+    },
+    {
+      "label": "grid_k12_N144_seed1",
+      "name": "(s,t) regenerates",
+      "ok": true,
+      "got": "(0, 143)",
+      "want": "(0, 143)"
+    },
+    {
+      "label": "mtnknn_N20_seed1",
+      "name": "label regenerates",
+      "ok": true,
+      "got": "mtnknn_N20_seed1",
+      "want": "mtnknn_N20_seed1"
+    },
+    {
+      "label": "mtnknn_N20_seed1",
+      "name": "|E| regenerates",
+      "ok": true,
+      "got": "50",
+      "want": "50"
+    },
+    {
+      "label": "mtnknn_N20_seed1",
+      "name": "(s,t) regenerates",
+      "ok": true,
+      "got": "(0, 19)",
+      "want": "(0, 19)"
+    },
+    {
+      "label": "mtnknn_N20_seed1",
+      "name": "L regenerates",
+      "ok": true,
+      "got": "5",
+      "want": "5"
+    },
+    {
+      "label": "mtnknn_N20_seed1",
+      "name": "m == L+2",
+      "ok": true,
+      "got": "7",
+      "want": "7"
+    },
+    {
+      "label": "mtnknn_N20_seed1",
+      "name": "alphabar regenerates",
+      "ok": true,
+      "got": "0.7224751325432259",
+      "want": "0.7224751325432259"
+    },
+    {
+      "label": "mtnknn_N20_seed1",
+      "name": "#path regenerates",
+      "ok": true,
+      "got": "13",
+      "want": "13"
+    },
+    {
+      "label": "mtnknn_N20_seed1",
+      "name": "N_(m-1) == scatter_counts.micro_aux (EXACT, independent code)",
+      "ok": true,
+      "got": "11888799744",
+      "want": "11888799744"
+    },
+    {
+      "label": "mtnknn_N20_seed1",
+      "name": "d range is -1..m-1",
+      "ok": true,
+      "got": "(-1, 6)",
+      "want": "(-1, 6)"
+    },
+    {
+      "label": "mtnknn_N20_seed1",
+      "name": "N_0 >= #path (the path is a d=0 member)",
+      "ok": true,
+      "got": "47173056",
+      "want": "832"
+    },
+    {
+      "label": "mtnknn_N20_seed1",
+      "name": "every N_d is a positive integer",
+      "ok": true,
+      "got": "",
+      "want": ""
+    },
+    {
+      "label": "mtnknn_N20_seed1",
+      "name": "ladder recomputes",
+      "ok": true,
+      "got": "",
+      "want": ""
+    },
+    {
+      "label": "mtnknn_N20_seed1",
+      "name": "argmax recomputes",
+      "ok": true,
+      "got": "1",
+      "want": "1"
+    },
+    {
+      "label": "mtnknn_N20_seed1",
+      "name": "monotonicity recomputes",
+      "ok": true,
+      "got": "True",
+      "want": "True"
+    },
+    {
+      "label": "mtnknn_N20_seed1",
+      "name": "ratio recomputes",
+      "ok": true,
+      "got": "5.248632259021624",
+      "want": "5.248632259021624"
+    },
+    {
+      "label": "mtnknn_N60_seed1",
+      "name": "label regenerates",
+      "ok": true,
+      "got": "mtnknn_N60_seed1",
+      "want": "mtnknn_N60_seed1"
+    },
+    {
+      "label": "mtnknn_N60_seed1",
+      "name": "|E| regenerates",
+      "ok": true,
+      "got": "149",
+      "want": "149"
+    },
+    {
+      "label": "mtnknn_N60_seed1",
+      "name": "(s,t) regenerates",
+      "ok": true,
+      "got": "(0, 59)",
+      "want": "(0, 59)"
+    },
+    {
+      "label": "mtnknn_N60_seed1",
+      "name": "L regenerates",
+      "ok": true,
+      "got": "11",
+      "want": "11"
+    },
+    {
+      "label": "mtnknn_N60_seed1",
+      "name": "m == L+2",
+      "ok": true,
+      "got": "13",
+      "want": "13"
+    },
+    {
+      "label": "mtnknn_N60_seed1",
+      "name": "alphabar regenerates",
+      "ok": true,
+      "got": "0.8500881692881438",
+      "want": "0.8500881692881438"
+    },
+    {
+      "label": "mtnknn_N60_seed1",
+      "name": "#path regenerates",
+      "ok": true,
+      "got": "139",
+      "want": "139"
+    },
+    {
+      "label": "mtnknn_N60_seed1",
+      "name": "N_(m-1) == scatter_counts.micro_aux (EXACT, independent code)",
+      "ok": true,
+      "got": "541721880922464601505792",
+      "want": "541721880922464601505792"
+    },
+    {
+      "label": "mtnknn_N60_seed1",
+      "name": "d range is -1..m-1",
+      "ok": true,
+      "got": "(-1, 12)",
+      "want": "(-1, 12)"
+    },
+    {
+      "label": "mtnknn_N60_seed1",
+      "name": "N_0 >= #path (the path is a d=0 member)",
+      "ok": true,
+      "got": "146070497284096",
+      "want": "569344"
+    },
+    {
+      "label": "mtnknn_N60_seed1",
+      "name": "every N_d is a positive integer",
+      "ok": true,
+      "got": "",
+      "want": ""
+    },
+    {
+      "label": "mtnknn_N60_seed1",
+      "name": "ladder recomputes",
+      "ok": true,
+      "got": "",
+      "want": ""
+    },
+    {
+      "label": "mtnknn_N60_seed1",
+      "name": "argmax recomputes",
+      "ok": true,
+      "got": "1",
+      "want": "1"
+    },
+    {
+      "label": "mtnknn_N60_seed1",
+      "name": "monotonicity recomputes",
+      "ok": true,
+      "got": "True",
+      "want": "True"
+    },
+    {
+      "label": "mtnknn_N60_seed1",
+      "name": "ratio recomputes",
+      "ok": true,
+      "got": "7.045550086096026",
+      "want": "7.045550086096026"
+    },
+    {
+      "label": "mtnknn_N140_seed1",
+      "name": "label regenerates",
+      "ok": true,
+      "got": "mtnknn_N140_seed1",
+      "want": "mtnknn_N140_seed1"
+    },
+    {
+      "label": "mtnknn_N140_seed1",
+      "name": "|E| regenerates",
+      "ok": true,
+      "got": "334",
+      "want": "334"
+    },
+    {
+      "label": "mtnknn_N140_seed1",
+      "name": "(s,t) regenerates",
+      "ok": true,
+      "got": "(0, 139)",
+      "want": "(0, 139)"
+    },
+    {
+      "label": "mtnknn_N140_seed1",
+      "name": "L regenerates",
+      "ok": true,
+      "got": "19",
+      "want": "19"
+    },
+    {
+      "label": "mtnknn_N140_seed1",
+      "name": "m == L+2",
+      "ok": true,
+      "got": "21",
+      "want": "21"
+    },
+    {
+      "label": "mtnknn_N140_seed1",
+      "name": "alphabar regenerates",
+      "ok": true,
+      "got": "0.8458636897196288",
+      "want": "0.8458636897196288"
+    },
+    {
+      "label": "mtnknn_N140_seed1",
+      "name": "#path regenerates",
+      "ok": true,
+      "got": "795797",
+      "want": "795797"
+    },
+    {
+      "label": "mtnknn_N140_seed1",
+      "name": "N_(m-1) == scatter_counts.micro_aux (EXACT, independent code)",
+      "ok": true,
+      "got": "16294330618897066247245838598225600419201024",
+      "want": "16294330618897066247245838598225600419201024"
+    },
+    {
+      "label": "mtnknn_N140_seed1",
+      "name": "d range is -1..m-1",
+      "ok": true,
+      "got": "(-1, 20)",
+      "want": "(-1, 20)"
+    },
+    {
+      "label": "mtnknn_N140_seed1",
+      "name": "N_0 >= #path (the path is a d=0 member)",
+      "ok": true,
+      "got": "36917832627150909341696",
+      "want": "834453635072"
+    },
+    {
+      "label": "mtnknn_N140_seed1",
+      "name": "every N_d is a positive integer",
+      "ok": true,
+      "got": "",
+      "want": ""
+    },
+    {
+      "label": "mtnknn_N140_seed1",
+      "name": "ladder recomputes",
+      "ok": true,
+      "got": "",
+      "want": ""
+    },
+    {
+      "label": "mtnknn_N140_seed1",
+      "name": "argmax recomputes",
+      "ok": true,
+      "got": "1",
+      "want": "1"
+    },
+    {
+      "label": "mtnknn_N140_seed1",
+      "name": "monotonicity recomputes",
+      "ok": true,
+      "got": "True",
+      "want": "True"
+    },
+    {
+      "label": "mtnknn_N140_seed1",
+      "name": "ratio recomputes",
+      "ok": true,
+      "got": "8.417291994682692",
+      "want": "8.417291994682692"
+    }
+  ]
+}

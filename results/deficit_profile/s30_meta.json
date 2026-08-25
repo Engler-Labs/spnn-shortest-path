@@ -1,0 +1,80 @@
+{
+  "slug": "spnn-stage30-deficit-profile-subsample",
+  "n_instances": 12,
+  "n_rows": 12,
+  "declared_subsample": [
+    [
+      "sparse",
+      20,
+      1
+    ],
+    [
+      "sparse",
+      60,
+      1
+    ],
+    [
+      "sparse",
+      60,
+      2
+    ],
+    [
+      "sparse",
+      100,
+      1
+    ],
+    [
+      "dense",
+      20,
+      1
+    ],
+    [
+      "dense",
+      60,
+      1
+    ],
+    [
+      "grid",
+      4,
+      1
+    ],
+    [
+      "grid",
+      8,
+      1
+    ],
+    [
+      "grid",
+      12,
+      1
+    ],
+    [
+      "mtn_knn",
+      20,
+      1
+    ],
+    [
+      "mtn_knn",
+      60,
+      1
+    ],
+    [
+      "mtn_knn",
+      140,
+      1
+    ]
+  ],
+  "wall_instance_s": 240.0,
+  "mem_cap_gb": 4.0,
+  "max_concurrent": 4,
+  "state_cap": 60000000,
+  "total_wall_s": 220.95765576511621,
+  "inputs_unchanged": true,
+  "input_hashes": {
+    "research/spnn/graphs.py": "c67ab877530c3d41eb49afae16a4d648af4f20785719a1ab7f5bec9cb8b858ca",
+    "research/spnn/compile.py": "08f4e4957f42faa7cd242240ce0bafddaab18901fdb9a2076a49ef6129fd7bbd",
+    "research/spnn/sim.py": "d1d32c002bbe5fd739de60b32c83da896b33c3f3ae8e057c8cdba5494f16019a",
+    "research/spnn/experiments/spnn_threshold_and_margin_counts.py": "56af411b44d63d726c0551677136b4df3f258465500dbe3391d04b1290de6f81",
+    "research/spnn/experiments/spnn_stage28_required_c_population_sweep.py": "3cb575b6bc8725d12f271f09276336b9d7b3298c51bf66a8b30b81ae11788248"
+  }
+}
